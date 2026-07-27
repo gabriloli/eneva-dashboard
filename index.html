@@ -362,7 +362,9 @@ footer p{max-width:62ch}
   .pr-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
   .pr-tbl th{text-align:left;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--taupe);padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
   .pr-tbl th.r,.pr-tbl td.r{text-align:right}
-  .pr-tbl td{padding:11px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .pr-tbl td{padding:11px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;text-align:left}
+  .pr-tbl tr.subrow td{text-align:left}
+  .sublist .subhead{text-align:left}
   .pr-tbl tr.me{background:rgba(0,159,169,.07)}
   .pr-tbl tr.me td:first-child{font-weight:700}
   .pr-nm{font-weight:600}.pr-sub{font-size:11px;color:var(--mut)}
@@ -397,6 +399,16 @@ footer p{max-width:62ch}
   .ntnb-tgl[disabled]{opacity:.4;cursor:not-allowed}
   .vsel{font:inherit;font-size:12px;font-weight:700;color:var(--mut);background:#EEF3F4;border:1px solid var(--line);border-radius:10px;padding:6px 10px;cursor:pointer}
   .vsel:hover{border-color:var(--teal)}
+  .pr-tbl tr.grp{cursor:pointer;transition:background .12s}
+  .pr-tbl tr.grp:hover{background:#F5FAFB}
+  .pr-tbl tr.grp .xp{display:inline-block;font-size:10px;color:var(--mut);transition:transform .15s;margin-left:3px}
+  .pr-tbl tr.grp.open .xp{transform:rotate(90deg);color:var(--teal-deep)}
+  .pr-tbl tr.subrow td{background:#F7FAFB;padding:12px 14px 14px}
+  .sublist .subhead{font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--taupe);margin-bottom:8px}
+  .sublist ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:2px 22px}
+  .sublist li{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:5px 0;border-bottom:1px dashed var(--line)}
+  .sublist li .v{font-variant-numeric:tabular-nums;font-weight:700;color:var(--teal-deep);white-space:nowrap}
+  .sublist li .f{font-size:10.5px;color:var(--mut);font-weight:400}
   </style>
 
   <section class="card">
@@ -404,34 +416,46 @@ footer p{max-width:62ch}
       <div class="sec-title">
         <div class="sec-num">07</div>
         <div>
-          <h2>Peers · Setor de Energia Elétrica</h2>
-          <p>Como o setor está e onde a Eneva se posiciona frente aos grandes emissores comparáveis.</p>
+          <h2>Peers · Grupos do setor de Energia Elétrica</h2>
+          <p>Onde a Eneva se posiciona frente aos grandes grupos do setor, com as distribuidoras regionais consolidadas em suas holdings.</p>
         </div>
       </div>
     </div>
-    <p class="pr-note">O setor de Energia Elétrica reúne <b>510 debêntures</b> na base ANBIMA. No fechamento de 24/07/2026, o spread mediano das incentivadas (IPCA) estava em <b>−10 bps</b> sobre a curva de referência e o das pós-fixadas (CDI) em <b>+67 bps</b>. As emissões IPCA da Eneva negociam entre −19 e +5 bps de spread — praticamente <b>em linha com a mediana do setor</b>, indicando que o mercado precifica o crédito da Eneva perto do "meio" do setor, apesar do risco de crédito MÉDIO e do ciclo intenso de capex.</p>
+    <p class="pr-note">Comparativo <b>consolidado por grupo econômico</b>: as distribuidoras regionais e demais subsidiárias entram somadas à sua holding. Isso muda materialmente o quadro — a Equatorial sai de R$ 1,8 bi (só a holding) para <b>R$ 33,5 bi</b> no grupo, e a Neoenergia de R$ 1,3 bi para <b>R$ 23,6 bi</b>. <b>Clique em uma linha</b> para ver as empresas que compõem cada grupo. No fechamento de 24/07/2026 o spread mediano do setor era de −10 bps nas incentivadas (IPCA) e +67 bps nas pós-fixadas (CDI).</p>
     <div class="pr-stats">
       <div class="pr-stat"><div class="v">510</div><div class="l">debêntures no setor</div></div>
-      <div class="pr-stat"><div class="v">−10 bps</div><div class="l">spread mediano · IPCA incentivada (344 papéis)</div></div>
-      <div class="pr-stat"><div class="v">+67 bps</div><div class="l">spread mediano · CDI (157 papéis)</div></div>
-      <div class="pr-stat"><div class="v">MÉDIO</div><div class="l">risco de crédito Eneva · 1T2026</div></div>
+      <div class="pr-stat"><div class="v">11</div><div class="l">grupos econômicos comparados</div></div>
+      <div class="pr-stat"><div class="v">63</div><div class="l">empresas emissoras nesses grupos</div></div>
+      <div class="pr-stat"><div class="v">8º</div><div class="l">posição da Eneva por dívida em debêntures</div></div>
     </div>
     <div class="pr-wrap">
     <table class="pr-tbl">
       <thead><tr>
-        <th>Empresa</th><th>Risco CG</th><th class="r">Dív.Líq/EBITDA</th><th class="r">Liq. Corrente</th><th class="r">Dívida em deb.</th><th class="r">Séries</th><th>Indexador (por volume)</th>
+        <th>Grupo econômico</th><th>Risco CG</th><th class="r">Dív.Líq/EBITDA</th><th class="r">Liq. Corrente</th><th class="r">Dívida em deb.</th><th class="r">Séries</th><th class="r">Emp.</th><th>Indexador (por volume)</th>
       </tr></thead>
       <tbody>
-        <tr class="me"><td><span class="pr-nm">Eneva</span><div class="pr-sub">Geração térmica + gás (R2W)</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">2,77x</td><td class="r">1,47</td><td class="r">R$ 20,3 bi</td><td class="r">22</td><td><span class="pr-ix" title="IPCA 57% · CDI 27% · Pré 17%"><i style="width:57%;background:#009FA9"></i><i style="width:27%;background:#E5562C"></i><i style="width:16%;background:#FAB400"></i></span></td></tr>
-        <tr><td><span class="pr-nm">Engie Brasil</span><div class="pr-sub">Geração (hidro, eólica, solar, térmica)</div></td><td><span class="pr-r b">BAIXO</span></td><td class="r">3,14x</td><td class="r">1,54</td><td class="r">R$ 13,7 bi</td><td class="r">19</td><td><span class="pr-ix" title="IPCA 55% · CDI 12% · Pré 32%"><i style="width:55%;background:#009FA9"></i><i style="width:12%;background:#E5562C"></i><i style="width:32%;background:#FAB400"></i></span></td></tr>
-        <tr><td><span class="pr-nm">Eletrobras (Axia)</span><div class="pr-sub">Geração + transmissão</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">3,89x</td><td class="r">2,11</td><td class="r">R$ 19,8 bi</td><td class="r">14</td><td><span class="pr-ix" title="IPCA 55% · CDI 45%"><i style="width:55%;background:#009FA9"></i><i style="width:45%;background:#E5562C"></i></span></td></tr>
-        <tr><td><span class="pr-nm">Auren (CESP)</span><div class="pr-sub">Geração hidro + comercialização</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">4,14x</td><td class="r">2,17</td><td class="r">R$ 4,7 bi</td><td class="r">3</td><td><span class="pr-ix" title="IPCA 55% · CDI 45%"><i style="width:55%;background:#009FA9"></i><i style="width:45%;background:#E5562C"></i></span></td></tr>
-        <tr><td><span class="pr-nm">Energisa</span><div class="pr-sub">Distribuição (holding)*</div></td><td><span class="pr-r a">ALTO</span></td><td class="r">3,77x</td><td class="r">1,75</td><td class="r">R$ 13,2 bi</td><td class="r">22</td><td><span class="pr-ix" title="IPCA 37% · CDI 63%"><i style="width:37%;background:#009FA9"></i><i style="width:63%;background:#E5562C"></i></span></td></tr>
-        <tr><td><span class="pr-nm">Serena</span><div class="pr-sub">Geração renovável (eólica/solar)</div></td><td><span class="pr-r a">ALTO</span></td><td class="r">4,52x</td><td class="r">1,77</td><td class="r">R$ 4,0 bi</td><td class="r">12</td><td><span class="pr-ix" title="IPCA 11% · CDI 89%"><i style="width:11%;background:#009FA9"></i><i style="width:89%;background:#E5562C"></i></span></td></tr>
-        <tr><td><span class="pr-nm">Cemig GT</span><div class="pr-sub">Geração e transmissão (Cemig)</div></td><td><span class="pr-r b">MUITO BAIXO</span></td><td class="r">1,05x</td><td class="r">1,24</td><td class="r">R$ 5,1 bi</td><td class="r">6</td><td><span class="pr-ix" title="IPCA 35% · CDI 65%"><i style="width:35%;background:#009FA9"></i><i style="width:65%;background:#E5562C"></i></span></td></tr>
-        <tr><td><span class="pr-nm">Copel GeT</span><div class="pr-sub">Geração e transmissão (Copel)</div></td><td><span class="pr-r b">MUITO BAIXO</span></td><td class="r">2,16x</td><td class="r">1,85</td><td class="r">R$ 7,6 bi</td><td class="r">11</td><td><span class="pr-ix" title="IPCA 36% · CDI 64%"><i style="width:36%;background:#009FA9"></i><i style="width:64%;background:#E5562C"></i></span></td></tr>
-        <tr><td><span class="pr-nm">Equatorial</span><div class="pr-sub">Distribuição (holding)*</div></td><td><span class="pr-r a">ALTO</span></td><td class="r">4,04x</td><td class="r">1,55</td><td class="r">R$ 1,8 bi</td><td class="r">2</td><td><span class="pr-ix" title="CDI 100%"><i style="width:100%;background:#E5562C"></i></span></td></tr>
-        <tr><td><span class="pr-nm">Neoenergia</span><div class="pr-sub">Distribuição (holding)*</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">3,36x</td><td class="r">1,30</td><td class="r">R$ 1,3 bi</td><td class="r">2</td><td><span class="pr-ix" title="IPCA 100%"><i style="width:100%;background:#009FA9"></i></span></td></tr>
+        <tr class="grp" data-k="equatorial" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Equatorial <span class="xp">▸</span></span><div class="pr-sub">Distribuição · 6 distribuidoras regionais</div></td><td><span class="pr-r a">ALTO</span></td><td class="r">4,04x</td><td class="r">1,55</td><td class="r"><b>R$ 33,5 bi</b></td><td class="r">50</td><td class="r">11</td><td><span class="pr-ix" title="IPCA 50.8% · CDI 49.2%"><i style="width:50.8%;background:#009FA9"></i><i style="width:49.2%;background:#E5562C"></i></span></td></tr>
+        <tr class="subrow" id="sub-equatorial" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Equatorial Goiás</span><span class="v">13.747,7 <span class="f">· 13 sér.</span></span></li><li><span>Equatorial Pará</span><span class="v">6.575,0 <span class="f">· 5 sér.</span></span></li><li><span>CEEE-D · Rio Grande do Sul</span><span class="v">5.950,0 <span class="f">· 10 sér.</span></span></li><li><span>Equatorial S.A. (holding)</span><span class="v">1.500,0 <span class="f">· 1 sér.</span></span></li><li><span>Equatorial Piauí</span><span class="v">1.400,0 <span class="f">· 4 sér.</span></span></li><li><span>Equatorial Maranhão</span><span class="v">1.350,0 <span class="f">· 3 sér.</span></span></li><li><span>CEA · Amapá</span><span class="v">1.340,0 <span class="f">· 6 sér.</span></span></li><li><span>Verene Transmissão</span><span class="v">800,0 <span class="f">· 1 sér.</span></span></li><li><span>Equatorial Alagoas</span><span class="v">350,0 <span class="f">· 2 sér.</span></span></li><li><span>Echoenergia Participações</span><span class="v">320,0 <span class="f">· 3 sér.</span></span></li><li><span>Tapajós Transmissora</span><span class="v">189,0 <span class="f">· 2 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp" data-k="eletrobras" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Eletrobras (Axia) <span class="xp">▸</span></span><div class="pr-sub">Geração + transmissão</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">3,89x</td><td class="r">2,11</td><td class="r"><b>R$ 33,4 bi</b></td><td class="r">27</td><td class="r">5</td><td><span class="pr-ix" title="IPCA 57.6% · CDI 41.4% · Pré 1.0%"><i style="width:57.6%;background:#009FA9"></i><i style="width:41.4%;background:#E5562C"></i><i style="width:1.0%;background:#FAB400"></i></span></td></tr>
+        <tr class="subrow" id="sub-eletrobras" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Centrais Elétricas Brasileiras</span><span class="v">16.840 <span class="f">· 11 sér.</span></span></li><li><span>Chesf · São Francisco</span><span class="v">7.970 <span class="f">· 5 sér.</span></span></li><li><span>Eletronorte</span><span class="v">6.900 <span class="f">· 7 sér.</span></span></li><li><span>CGTEE · Sul do Brasil</span><span class="v">985 <span class="f">· 3 sér.</span></span></li><li><span>Norte Energia</span><span class="v">700 <span class="f">· 1 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp" data-k="energisa" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Energisa <span class="xp">▸</span></span><div class="pr-sub">Distribuição · 8 distribuidoras regionais</div></td><td><span class="pr-r a">ALTO</span></td><td class="r">3,77x</td><td class="r">1,75</td><td class="r"><b>R$ 28,3 bi</b></td><td class="r">84</td><td class="r">10</td><td><span class="pr-ix" title="IPCA 51.3% · CDI 44.9% · Pré 3.7%"><i style="width:51.3%;background:#009FA9"></i><i style="width:44.9%;background:#E5562C"></i><i style="width:3.7%;background:#FAB400"></i></span></td></tr>
+        <tr class="subrow" id="sub-energisa" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Energisa S.A. (holding)</span><span class="v">13.164,7 <span class="f">· 22 sér.</span></span></li><li><span>Energisa Mato Grosso</span><span class="v">6.418,9 <span class="f">· 20 sér.</span></span></li><li><span>Energisa Mato Grosso do Sul</span><span class="v">2.740,5 <span class="f">· 8 sér.</span></span></li><li><span>Energisa Rondônia</span><span class="v">1.410,0 <span class="f">· 6 sér.</span></span></li><li><span>Energisa Paraíba</span><span class="v">1.109,1 <span class="f">· 7 sér.</span></span></li><li><span>Energisa Tocantins</span><span class="v">1.002,9 <span class="f">· 3 sér.</span></span></li><li><span>Energisa Sergipe</span><span class="v">858,0 <span class="f">· 5 sér.</span></span></li><li><span>Energisa Sul-Sudeste</span><span class="v">806,0 <span class="f">· 6 sér.</span></span></li><li><span>Energisa Minas Rio</span><span class="v">621,0 <span class="f">· 4 sér.</span></span></li><li><span>Energisa Transmissão</span><span class="v">191,5 <span class="f">· 3 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp" data-k="cemig" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Cemig <span class="xp">▸</span></span><div class="pr-sub">Distribuição + geração/transmissão</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">3,11x</td><td class="r">0,87</td><td class="r"><b>R$ 27,0 bi</b></td><td class="r">40</td><td class="r">4</td><td><span class="pr-ix" title="IPCA 54.8% · CDI 45.2%"><i style="width:54.8%;background:#009FA9"></i><i style="width:45.2%;background:#E5562C"></i></span></td></tr>
+        <tr class="subrow" id="sub-cemig" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Cemig Distribuição</span><span class="v">12.395,0 <span class="f">· 12 sér.</span></span></li><li><span>TAESA · transmissão</span><span class="v">8.648,4 <span class="f">· 20 sér.</span></span></li><li><span>Cemig Geração e Transmissão</span><span class="v">5.125,0 <span class="f">· 6 sér.</span></span></li><li><span>Janaúba Transmissora</span><span class="v">799,0 <span class="f">· 2 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp" data-k="neoenergia" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Neoenergia <span class="xp">▸</span></span><div class="pr-sub">Distribuição · 5 distribuidoras regionais</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">3,36x</td><td class="r">1,30</td><td class="r"><b>R$ 23,6 bi</b></td><td class="r">50</td><td class="r">9</td><td><span class="pr-ix" title="IPCA 54.1% · CDI 31.1% · Pré 14.8%"><i style="width:54.1%;background:#009FA9"></i><i style="width:31.1%;background:#E5562C"></i><i style="width:14.8%;background:#FAB400"></i></span></td></tr>
+        <tr class="subrow" id="sub-neoenergia" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Coelba · Bahia</span><span class="v">9.332,0 <span class="f">· 13 sér.</span></span></li><li><span>Elektro Redes</span><span class="v">4.654,0 <span class="f">· 12 sér.</span></span></li><li><span>Celpe · Pernambuco</span><span class="v">4.230,0 <span class="f">· 11 sér.</span></span></li><li><span>Cosern · Rio Grande do Norte</span><span class="v">2.043,5 <span class="f">· 7 sér.</span></span></li><li><span>Neoenergia S.A. (holding)</span><span class="v">1.294,4 <span class="f">· 2 sér.</span></span></li><li><span>EKTT 9 Transmissão</span><span class="v">1.100,0 <span class="f">· 1 sér.</span></span></li><li><span>Neoenergia Brasília</span><span class="v">500,0 <span class="f">· 2 sér.</span></span></li><li><span>Neoenergia Morro do Chapéu</span><span class="v">432,0 <span class="f">· 1 sér.</span></span></li><li><span>Lagoa 1 Energia Renovável</span><span class="v">46,2 <span class="f">· 1 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp" data-k="cpfl" tabindex="0" aria-expanded="false"><td><span class="pr-nm">CPFL <span class="xp">▸</span></span><div class="pr-sub">Distribuição + transmissão</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">2,67x</td><td class="r">0,84</td><td class="r"><b>R$ 20,4 bi</b></td><td class="r">38</td><td class="r">6</td><td><span class="pr-ix" title="IPCA 55.8% · CDI 44.2%"><i style="width:55.8%;background:#009FA9"></i><i style="width:44.2%;background:#E5562C"></i></span></td></tr>
+        <tr class="subrow" id="sub-cpfl" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>CPFL Paulista</span><span class="v">8.110,5 <span class="f">· 9 sér.</span></span></li><li><span>RGE Sul</span><span class="v">5.689,0 <span class="f">· 9 sér.</span></span></li><li><span>CPFL Transmissão</span><span class="v">3.217,0 <span class="f">· 8 sér.</span></span></li><li><span>Piratininga</span><span class="v">2.729,9 <span class="f">· 10 sér.</span></span></li><li><span>CPFL Comercialização Brasil</span><span class="v">482,0 <span class="f">· 1 sér.</span></span></li><li><span>CPFL Energias Renováveis</span><span class="v">190,0 <span class="f">· 1 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp" data-k="copel" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Copel <span class="xp">▸</span></span><div class="pr-sub">Distribuição + geração/transmissão</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">3,25x</td><td class="r">1,32</td><td class="r"><b>R$ 17,5 bi</b></td><td class="r">22</td><td class="r">2</td><td><span class="pr-ix" title="IPCA 50.2% · CDI 49.8%"><i style="width:50.2%;background:#009FA9"></i><i style="width:49.8%;background:#E5562C"></i></span></td></tr>
+        <tr class="subrow" id="sub-copel" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Copel Distribuição</span><span class="v">9.850,0 <span class="f">· 11 sér.</span></span></li><li><span>Copel Geração e Transmissão</span><span class="v">7.600,0 <span class="f">· 11 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp me" data-k="eneva" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Eneva <span class="xp">▸</span></span><div class="pr-sub">Geração térmica + gás (R2W)</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">2,77x</td><td class="r">1,47</td><td class="r"><b>R$ 16,9 bi</b></td><td class="r">21</td><td class="r">1</td><td><span class="pr-ix" title="IPCA 68.2% · CDI 31.8%"><i style="width:68.2%;background:#009FA9"></i><i style="width:31.8%;background:#E5562C"></i></span></td></tr>
+        <tr class="subrow" id="sub-eneva" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Eneva S.A. — emissor único do grupo</span><span class="v">16.926,0 <span class="f">· 21 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp" data-k="auren" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Auren <span class="xp">▸</span></span><div class="pr-sub">Geração hidro/renovável + comercialização</div></td><td><span class="pr-r a">ALTO</span></td><td class="r">7,31x</td><td class="r">1,11</td><td class="r"><b>R$ 15,6 bi</b></td><td class="r">15</td><td class="r">6</td><td><span class="pr-ix" title="IPCA 61.7% · CDI 38.3%"><i style="width:61.7%;background:#009FA9"></i><i style="width:38.3%;background:#E5562C"></i></span></td></tr>
+        <tr class="subrow" id="sub-auren" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Auren Operações</span><span class="v">6.150 <span class="f">· 7 sér.</span></span></li><li><span>CESP</span><span class="v">4.700 <span class="f">· 3 sér.</span></span></li><li><span>Auren Energia (holding)</span><span class="v">2.900 <span class="f">· 2 sér.</span></span></li><li><span>Cajuína AB1 Holdings</span><span class="v">950 <span class="f">· 1 sér.</span></span></li><li><span>Ventos de Santa Tereza 07</span><span class="v">600 <span class="f">· 1 sér.</span></span></li><li><span>Tucano Holding II</span><span class="v">300 <span class="f">· 1 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp" data-k="engie" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Engie Brasil <span class="xp">▸</span></span><div class="pr-sub">Geração (hidro, eólica, solar, térmica)</div></td><td><span class="pr-r b">BAIXO</span></td><td class="r">3,14x</td><td class="r">1,54</td><td class="r"><b>R$ 12,5 bi</b></td><td class="r">18</td><td class="r">3</td><td><span class="pr-ix" title="IPCA 68.5% · CDI 8.0% · Pré 23.5%"><i style="width:68.5%;background:#009FA9"></i><i style="width:8.0%;background:#E5562C"></i><i style="width:23.5%;background:#FAB400"></i></span></td></tr>
+        <tr class="subrow" id="sub-engie" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Engie Brasil Energia</span><span class="v">— <span class="f">· 16 sér.</span></span></li><li><span>Cia Energética Jaguara</span><span class="v">— <span class="f">· 1 sér.</span></span></li><li><span>Cia Energética Miranda</span><span class="v">— <span class="f">· 1 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp" data-k="serena" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Serena <span class="xp">▸</span></span><div class="pr-sub">Geração renovável (eólica/solar)</div></td><td><span class="pr-r a">ALTO</span></td><td class="r">5,18x</td><td class="r">1,48</td><td class="r"><b>R$ 3,9 bi</b></td><td class="r">12</td><td class="r">6</td><td><span class="pr-ix" title="IPCA 38.7% · CDI 61.3%"><i style="width:38.7%;background:#009FA9"></i><i style="width:61.3%;background:#E5562C"></i></span></td></tr>
+        <tr class="subrow" id="sub-serena" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Serena Geração</span><span class="v">2.700 <span class="f">· 7 sér.</span></span></li><li><span>Assuruá 4 e 5 Holding</span><span class="v">595 <span class="f">· 1 sér.</span></span></li><li><span>Delta 3 Energia</span><span class="v">220 <span class="f">· 1 sér.</span></span></li><li><span>Assuruá 2 Energia</span><span class="v">158 <span class="f">· 1 sér.</span></span></li><li><span>Serena Energia (holding)</span><span class="v">120 <span class="f">· 1 sér.</span></span></li><li><span>VDB F2 Geração</span><span class="v">106 <span class="f">· 1 sér.</span></span></li></ul></div></td></tr>
       </tbody>
     </table>
     </div>
@@ -440,8 +464,34 @@ footer p{max-width:62ch}
       <span><b style="background:#E5562C"></b>CDI (pós-fixada)</span>
       <span><b style="background:#FAB400"></b>Prefixada</span>
     </div>
-    <p class="note" style="margin-top:14px">Risco e indicadores financeiros: Credit Guide, 1T2026. Dívida em debêntures = soma das emissões ativas no nível do emissor consultado. Cemig e Copel são representadas pelo braço de Geração e Transmissão (Cemig GT, Copel GeT), o mais comparável à Eneva. *Energisa, Equatorial e Neoenergia emitem majoritariamente via distribuidoras, captadas à parte — os valores são da holding/emissor consultado e subestimam a dívida total do grupo. A CPFL não entra nesta versão: emite pulverizada em várias subsidiárias (Piratininga, CPFL Paulista, RGE, CPFL Transmissão), sem análise de crédito consolidada na base.</p>
+    <p class="note" style="margin-top:14px"><b>Metodologia.</b> Dívida em debêntures e nº de séries = soma de <b>todas as empresas do grupo econômico</b> (holding + distribuidoras regionais + transmissoras + SPEs), conforme a classificação de grupo da base Credit Guide. Considera apenas debêntures com marcação ANBIMA — por isso a Eneva aparece com R$ 16,9 bi (21 séries), o mesmo valor do indicador no topo do painel; a CESE11 (prefixada, R$ 3,4 bi) fica de fora por não ter marcação no secundário.<br>
+    <b>Indicadores de crédito (1T2026).</b> Sempre da holding do grupo, exceto onde a holding não tem análise publicada na base: <b>CPFL</b> usa a CPFL Paulista, <b>Cemig</b> usa a Cemig Distribuição e <b>Copel</b> usa a Copel Distribuição — as maiores subsidiárias operacionais de cada grupo. Nesses três casos os indicadores refletem a subsidiária, não o consolidado do grupo.<br>
+    <b>Ressalva.</b> A base classifica a <b>TAESA</b> (R$ 8,6 bi, 20 séries) dentro do grupo Cemig; se preferir tratá-la como emissor independente, o grupo Cemig cai para R$ 18,3 bi. A Eletrobras aparece como <b>Axia</b> no texto da análise de crédito, refletindo o rebranding.</p>
   </section>
+
+  <script>
+  (function(){
+    var tb = document.querySelector('.pr-tbl tbody');
+    if (!tb) return;
+    function toggle(tr){
+      var k = tr.getAttribute('data-k');
+      var sub = document.getElementById('sub-' + k);
+      if (!sub) return;
+      var open = !sub.hidden;
+      sub.hidden = open;
+      tr.classList.toggle('open', !open);
+      tr.setAttribute('aria-expanded', String(!open));
+    }
+    tb.addEventListener('click', function(e){
+      var tr = e.target.closest('tr.grp'); if (tr) toggle(tr);
+    });
+    tb.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') {
+        var tr = e.target.closest('tr.grp'); if (tr) { e.preventDefault(); toggle(tr); }
+      }
+    });
+  })();
+  </script>
 
   <section class="card">
     <div class="sec-head">
@@ -449,83 +499,90 @@ footer p{max-width:62ch}
         <div class="sec-num">08</div>
         <div>
           <h2>Debenturistas · quem detém a dívida</h2>
-          <p>Maiores gestoras/assets detentoras das debêntures de cada empresa (posição por valor, nº de fundos).</p>
+          <p>Maiores gestoras/assets detentoras das debêntures de cada grupo — somando holding e subsidiárias (posição por valor, nº de fundos).</p>
         </div>
       </div>
     </div>
     <div class="pr-grid">
-      <div class="pr-c"><h4>Eneva</h4><div class="sub">Top 5 · 110 gestoras no total</div><ol>
+      <div class="pr-c"><h4>Equatorial</h4><div class="sub">5 emissores · 87% do volume do grupo</div><ol>
+        <li><span>Itaú Asset</span><span class="v">R$ 4,11 bi <span class="f">1.002 f.</span></span></li>
+        <li><span>Bradesco</span><span class="v">R$ 3,43 bi <span class="f">310 f.</span></span></li>
+        <li><span>BB Gestão</span><span class="v">R$ 3,01 bi <span class="f">131 f.</span></span></li>
+        <li><span>Santander</span><span class="v">R$ 1,46 bi <span class="f">140 f.</span></span></li>
+        <li><span>Kinea</span><span class="v">R$ 1,17 bi <span class="f">85 f.</span></span></li>
+      </ol></div>
+      <div class="pr-c"><h4>Eletrobras (Axia)</h4><div class="sub">3 emissores · 95% do volume</div><ol>
+        <li><span>Itaú Asset</span><span class="v">R$ 5,43 bi <span class="f">783 f.</span></span></li>
+        <li><span>Bradesco</span><span class="v">R$ 4,02 bi <span class="f">357 f.</span></span></li>
+        <li><span>BB Gestão</span><span class="v">R$ 3,00 bi <span class="f">170 f.</span></span></li>
+        <li><span>Santander</span><span class="v">R$ 1,74 bi <span class="f">122 f.</span></span></li>
+        <li><span>Safra</span><span class="v">R$ 1,24 bi <span class="f">88 f.</span></span></li>
+      </ol></div>
+      <div class="pr-c"><h4>Energisa</h4><div class="sub">5 emissores · 88% do volume</div><ol>
+        <li><span>Itaú Asset</span><span class="v">R$ 4,36 bi <span class="f">1.117 f.</span></span></li>
+        <li><span>Bradesco</span><span class="v">R$ 2,86 bi <span class="f">355 f.</span></span></li>
+        <li><span>Santander</span><span class="v">R$ 1,00 bi <span class="f">94 f.</span></span></li>
+        <li><span>Kinea</span><span class="v">R$ 909 mi <span class="f">46 f.</span></span></li>
+        <li><span>Absolute</span><span class="v">R$ 820 mi <span class="f">47 f.</span></span></li>
+      </ol></div>
+      <div class="pr-c"><h4>Cemig</h4><div class="sub">3 emissores · 97% do volume</div><ol>
+        <li><span>Itaú Asset</span><span class="v">R$ 3,78 bi <span class="f">813 f.</span></span></li>
+        <li><span>Bradesco</span><span class="v">R$ 3,36 bi <span class="f">335 f.</span></span></li>
+        <li><span>BB Gestão</span><span class="v">R$ 1,93 bi <span class="f">156 f.</span></span></li>
+        <li><span>Santander</span><span class="v">R$ 1,51 bi <span class="f">129 f.</span></span></li>
+        <li><span>Safra</span><span class="v">R$ 1,16 bi <span class="f">87 f.</span></span></li>
+      </ol></div>
+      <div class="pr-c"><h4>Neoenergia</h4><div class="sub">4 emissores · 86% do volume</div><ol>
+        <li><span>Itaú Asset</span><span class="v">R$ 4,23 bi <span class="f">635 f.</span></span></li>
+        <li><span>Bradesco</span><span class="v">R$ 3,40 bi <span class="f">347 f.</span></span></li>
+        <li><span>BB Gestão</span><span class="v">R$ 3,00 bi <span class="f">183 f.</span></span></li>
+        <li><span>Santander</span><span class="v">R$ 1,08 bi <span class="f">91 f.</span></span></li>
+        <li><span>Caixa DTVM</span><span class="v">R$ 969 mi <span class="f">46 f.</span></span></li>
+      </ol></div>
+      <div class="pr-c"><h4>CPFL</h4><div class="sub">4 emissores · 97% do volume</div><ol>
+        <li><span>Itaú Asset</span><span class="v">R$ 4,83 bi <span class="f">1.162 f.</span></span></li>
+        <li><span>Bradesco</span><span class="v">R$ 1,99 bi <span class="f">272 f.</span></span></li>
+        <li><span>BB Gestão</span><span class="v">R$ 1,80 bi <span class="f">160 f.</span></span></li>
+        <li><span>Safra</span><span class="v">R$ 1,46 bi <span class="f">138 f.</span></span></li>
+        <li><span>Itaú Unibanco</span><span class="v">R$ 1,44 bi <span class="f">2 f.</span></span></li>
+      </ol></div>
+      <div class="pr-c"><h4>Copel</h4><div class="sub">2 emissores · 100% do volume</div><ol>
+        <li><span>Itaú Asset</span><span class="v">R$ 4,13 bi <span class="f">676 f.</span></span></li>
+        <li><span>BB Gestão</span><span class="v">R$ 2,51 bi <span class="f">129 f.</span></span></li>
+        <li><span>Bradesco</span><span class="v">R$ 2,45 bi <span class="f">219 f.</span></span></li>
+        <li><span>Santander</span><span class="v">R$ 1,17 bi <span class="f">107 f.</span></span></li>
+        <li><span>Caixa DTVM</span><span class="v">R$ 760 mi <span class="f">31 f.</span></span></li>
+      </ol></div>
+      <div class="pr-c"><h4>Eneva</h4><div class="sub">emissor único · 100% do volume</div><ol>
         <li><span>Itaú Asset</span><span class="v">R$ 3,19 bi <span class="f">342 f.</span></span></li>
         <li><span>BB Gestão</span><span class="v">R$ 1,17 bi <span class="f">98 f.</span></span></li>
         <li><span>Bradesco</span><span class="v">R$ 672 mi <span class="f">94 f.</span></span></li>
         <li><span>Santander</span><span class="v">R$ 557 mi <span class="f">25 f.</span></span></li>
         <li><span>BTG Pactual</span><span class="v">R$ 530 mi <span class="f">231 f.</span></span></li>
       </ol></div>
-      <div class="pr-c"><h4>Engie Brasil</h4><div class="sub">Top 5 · 88 gestoras no total</div><ol>
+      <div class="pr-c"><h4>Auren</h4><div class="sub">3 emissores · 88% do volume</div><ol>
+        <li><span>Bradesco</span><span class="v">R$ 2,94 bi <span class="f">224 f.</span></span></li>
+        <li><span>BB Gestão</span><span class="v">R$ 1,26 bi <span class="f">138 f.</span></span></li>
+        <li><span>Itaú Asset</span><span class="v">R$ 993 mi <span class="f">567 f.</span></span></li>
+        <li><span>Santander</span><span class="v">R$ 715 mi <span class="f">80 f.</span></span></li>
+        <li><span>Banco Santander</span><span class="v">R$ 414 mi <span class="f">1 f.</span></span></li>
+      </ol></div>
+      <div class="pr-c"><h4>Engie Brasil</h4><div class="sub">1 emissor · 92% do volume</div><ol>
         <li><span>Itaú Asset</span><span class="v">R$ 2,28 bi <span class="f">294 f.</span></span></li>
         <li><span>Safra</span><span class="v">R$ 991 mi <span class="f">59 f.</span></span></li>
         <li><span>Santander</span><span class="v">R$ 791 mi <span class="f">43 f.</span></span></li>
         <li><span>Bradesco</span><span class="v">R$ 584 mi <span class="f">126 f.</span></span></li>
         <li><span>Itaú Unibanco</span><span class="v">R$ 509 mi <span class="f">1 f.</span></span></li>
       </ol></div>
-      <div class="pr-c"><h4>Eletrobras (Axia)</h4><div class="sub">Top 5 · 149 gestoras no total</div><ol>
-        <li><span>Bradesco</span><span class="v">R$ 1,95 bi <span class="f">142 f.</span></span></li>
-        <li><span>Itaú Asset</span><span class="v">R$ 1,64 bi <span class="f">307 f.</span></span></li>
-        <li><span>BB Gestão</span><span class="v">R$ 1,39 bi <span class="f">98 f.</span></span></li>
-        <li><span>Santander</span><span class="v">R$ 938 mi <span class="f">56 f.</span></span></li>
-        <li><span>Safra</span><span class="v">R$ 702 mi <span class="f">63 f.</span></span></li>
-      </ol></div>
-      <div class="pr-c"><h4>Auren (CESP)</h4><div class="sub">Top 5 · 58 gestoras no total</div><ol>
-        <li><span>Bradesco</span><span class="v">R$ 1,02 bi <span class="f">68 f.</span></span></li>
-        <li><span>BB Gestão</span><span class="v">R$ 611 mi <span class="f">63 f.</span></span></li>
-        <li><span>Santander</span><span class="v">R$ 199 mi <span class="f">24 f.</span></span></li>
-        <li><span>Itaú Asset</span><span class="v">R$ 196 mi <span class="f">254 f.</span></span></li>
-        <li><span>Safra</span><span class="v">R$ 130 mi <span class="f">23 f.</span></span></li>
-      </ol></div>
-      <div class="pr-c"><h4>Energisa</h4><div class="sub">Top 5 · 126 gestoras no total</div><ol>
-        <li><span>Itaú Asset</span><span class="v">R$ 1,59 bi <span class="f">283 f.</span></span></li>
-        <li><span>Bradesco</span><span class="v">R$ 1,35 bi <span class="f">126 f.</span></span></li>
-        <li><span>Kinea</span><span class="v">R$ 740 mi <span class="f">13 f.</span></span></li>
-        <li><span>Santander</span><span class="v">R$ 528 mi <span class="f">30 f.</span></span></li>
-        <li><span>Absolute</span><span class="v">R$ 348 mi <span class="f">14 f.</span></span></li>
-      </ol></div>
-      <div class="pr-c"><h4>Serena</h4><div class="sub">Top 5 · 48 gestoras no total</div><ol>
+      <div class="pr-c"><h4>Serena</h4><div class="sub">3 emissores · 90% do volume</div><ol>
         <li><span>Kinea</span><span class="v">R$ 446 mi <span class="f">22 f.</span></span></li>
+        <li><span>Itaú Asset</span><span class="v">R$ 289 mi <span class="f">468 f.</span></span></li>
+        <li><span>Sparta</span><span class="v">R$ 163 mi <span class="f">48 f.</span></span></li>
         <li><span>Leto Asset</span><span class="v">R$ 161 mi <span class="f">18 f.</span></span></li>
-        <li><span>BB Gestão</span><span class="v">R$ 124 mi <span class="f">18 f.</span></span></li>
-        <li><span>Itaú Asset</span><span class="v">R$ 106 mi <span class="f">236 f.</span></span></li>
-        <li><span>Absolute Créd.</span><span class="v">R$ 106 mi <span class="f">9 f.</span></span></li>
-      </ol></div>
-      <div class="pr-c"><h4>Cemig GT</h4><div class="sub">Top 5 · 55 gestoras no total</div><ol>
-        <li><span>Bradesco</span><span class="v">R$ 521 mi <span class="f">105 f.</span></span></li>
-        <li><span>Santander</span><span class="v">R$ 495 mi <span class="f">30 f.</span></span></li>
-        <li><span>Itaú Asset</span><span class="v">R$ 421 mi <span class="f">294 f.</span></span></li>
-        <li><span>BB Gestão</span><span class="v">R$ 212 mi <span class="f">11 f.</span></span></li>
-        <li><span>Itaú Unibanco</span><span class="v">R$ 125 mi <span class="f">1 f.</span></span></li>
-      </ol></div>
-      <div class="pr-c"><h4>Copel GeT</h4><div class="sub">Top 5 · 83 gestoras no total</div><ol>
-        <li><span>Itaú Asset</span><span class="v">R$ 1,63 bi <span class="f">328 f.</span></span></li>
-        <li><span>BB Gestão</span><span class="v">R$ 1,09 bi <span class="f">49 f.</span></span></li>
-        <li><span>Bradesco</span><span class="v">R$ 1,04 bi <span class="f">108 f.</span></span></li>
-        <li><span>Santander</span><span class="v">R$ 638 mi <span class="f">53 f.</span></span></li>
-        <li><span>Kinea</span><span class="v">R$ 332 mi <span class="f">11 f.</span></span></li>
-      </ol></div>
-      <div class="pr-c"><h4>Equatorial</h4><div class="sub">Top 5 · 43 gestoras no total</div><ol>
-        <li><span>Itaú Asset</span><span class="v">R$ 402 mi <span class="f">25 f.</span></span></li>
-        <li><span>Santander</span><span class="v">R$ 198 mi <span class="f">28 f.</span></span></li>
-        <li><span>Regia Capital</span><span class="v">R$ 128 mi <span class="f">4 f.</span></span></li>
-        <li><span>Kinea</span><span class="v">R$ 97 mi <span class="f">20 f.</span></span></li>
-        <li><span>BNP Paribas</span><span class="v">R$ 82 mi <span class="f">9 f.</span></span></li>
-      </ol></div>
-      <div class="pr-c"><h4>Neoenergia</h4><div class="sub">Top 5 (holding) · 46 gestoras</div><ol>
-        <li><span>Plural</span><span class="v">R$ 43 mi <span class="f">6 f.</span></span></li>
-        <li><span>Sparta</span><span class="v">R$ 33 mi <span class="f">14 f.</span></span></li>
-        <li><span>BB Gestão</span><span class="v">R$ 32 mi <span class="f">26 f.</span></span></li>
-        <li><span>XP Vista</span><span class="v">R$ 23 mi <span class="f">3 f.</span></span></li>
-        <li><span>Itaú Asset</span><span class="v">R$ 23 mi <span class="f">23 f.</span></span></li>
+        <li><span>Itaú Unibanco</span><span class="v">R$ 158 mi <span class="f">1 f.</span></span></li>
       </ol></div>
     </div>
-    <p class="note" style="margin-top:14px">Fonte: Credit Guide — posições de fundos por gestora. Bancos de varejo (Itaú, Bradesco, BB, Santander) concentram a maior parte, refletindo a distribuição via fundos de crédito e previdência.</p>
+    <p class="note" style="margin-top:14px">Posições <b>consolidadas por grupo</b>: a mesma gestora aparece somada entre a holding e suas subsidiárias. Para conter o número de consultas, foram somados os maiores emissores de cada grupo até cobrir ~85–100% do volume (indicado em cada card). A API devolve as 25 maiores gestoras por emissor, então os valores são um <b>piso</b> — a cauda de gestoras menores fica de fora. O padrão é nítido: Itaú, Bradesco, BB e Santander dominam praticamente todos os grupos. Serena é a exceção, com a Kinea na liderança.</p>
   </section>
 
   <section class="card">
@@ -534,43 +591,45 @@ footer p{max-width:62ch}
         <div class="sec-num">09</div>
         <div>
           <h2>Cronograma de vencimentos</h2>
-          <p>Muro de amortização das debêntures por ano de vencimento (R$ bi). Selecione uma empresa ou veja todas empilhadas.</p>
+          <p>Muro de amortização consolidado por grupo econômico, por ano de vencimento (R$ bi). Selecione um grupo ou veja todos empilhados.</p>
         </div>
       </div>
       <div class="pr-seg" id="prMatSeg" role="tablist">
         <button class="on" data-c="Todos">Todos</button>
         <button data-c="Eneva">Eneva</button>
-        <button data-c="Engie Brasil">Engie</button>
-        <button data-c="Eletrobras (Axia)">Eletrobras</button>
-        <button data-c="Auren (CESP)">Auren</button>
-        <button data-c="Energisa">Energisa</button>
-        <button data-c="Serena">Serena</button>
-        <button data-c="Cemig GT">Cemig GT</button>
-        <button data-c="Copel GeT">Copel GeT</button>
+        <button data-c="Eletrobras (Axia)">Eletrobras (Axia)</button>
         <button data-c="Equatorial">Equatorial</button>
+        <button data-c="Energisa">Energisa</button>
+        <button data-c="Cemig">Cemig</button>
         <button data-c="Neoenergia">Neoenergia</button>
+        <button data-c="CPFL">CPFL</button>
+        <button data-c="Copel">Copel</button>
+        <button data-c="Auren">Auren</button>
+        <button data-c="Engie Brasil">Engie Brasil</button>
+        <button data-c="Serena">Serena</button>
       </div>
     </div>
     <div class="pr-chart"><canvas id="prMatChart"></canvas></div>
-    <p class="note" style="margin-top:14px">Vencimentos concentrados: Eneva tem o maior muro em <b>2032</b> (R$ 5,2 bi, inclui a prefixada CESE11 de R$ 3,4 bi); Eletrobras concentra <b>R$ 6,5 bi em 2031</b>. Valores = volume de emissão por ano de vencimento.</p>
+    <p class="note" style="margin-top:14px">Concentrações relevantes ao consolidar os grupos: a <b>Eletrobras (Axia)</b> tem um muro de <b>R$ 15,6 bi em 2031</b> — de longe o maior do setor — e a <b>Equatorial</b>, <b>R$ 8,8 bi em 2030</b>. A Eneva tem perfil bem mais distribuído, com pico de R$ 2,8 bi em 2030. Valores = volume de emissão por ano de vencimento, somando todas as empresas do grupo (apenas debêntures com marcação ANBIMA).</p>
   </section>
 
   <script>
   (function(){
     if (typeof window.Chart === 'undefined') return;
-    var PC = {'Eneva':'#009FA9','Engie Brasil':'#E5562C','Eletrobras (Axia)':'#00747C','Auren (CESP)':'#FAB400','Energisa':'#4F9F85','Serena':'#695F4A','Cemig GT':'#B23B19','Copel GeT':'#2f6b56','Equatorial':'#75808C','Neoenergia':'#0B2038'};
-    var order = ['Eneva','Engie Brasil','Eletrobras (Axia)','Auren (CESP)','Energisa','Serena','Cemig GT','Copel GeT','Equatorial','Neoenergia'];
+    var PC = {'Eneva':'#009FA9','Eletrobras (Axia)':'#0B2038','Equatorial':'#E5562C','Energisa':'#FAB400','Cemig':'#4F9F85','Neoenergia':'#695F4A','CPFL':'#B23B19','Copel':'#2f6b56','Auren':'#9AA7AE','Engie Brasil':'#8a6400','Serena':'#C4CED3'};
+    var order = ['Eneva','Eletrobras (Axia)','Equatorial','Energisa','Cemig','Neoenergia','CPFL','Copel','Auren','Engie Brasil','Serena'];
     var MAT = {
-      'Eneva':{2027:650,2028:2700,2029:2530.523,2030:2823.999,2031:307.548,2032:5193.491,2034:633.334,2035:573.969,2036:1500,2037:1041.509,2039:866.669,2041:900,2042:575},
-      'Engie Brasil':{2026:200,2028:1949.379,2029:1508.317,2030:1600,2032:2000,2033:1085.6,2034:636.761,2035:2200,2038:2096.278,2046:400},
-      'Eletrobras (Axia)':{2028:3000,2029:2688.895,2031:6519.9,2033:2606.6,2034:1630,2035:1000,2036:2029.4,2041:364},
-      'Auren (CESP)':{2030:1500,2032:2100,2034:1100},
-      'Energisa':{2026:700,2027:876.439,2028:1200,2029:1385.947,2030:1188.758,2031:976.556,2032:4160.819,2033:1152.701,2034:730,2039:793.444},
-      'Serena':{2027:150,2028:250,2029:1450,2030:215,2031:1771.944,2033:103.056,2035:30,2036:60},
-      'Cemig GT':{2027:700,2029:300,2030:625,2031:2000,2037:1000,2040:500},
-      'Copel GeT':{2026:1133.363,2029:1300,2030:1100,2031:866.637,2032:500,2034:300,2035:200,2037:1000,2038:1200},
-      'Equatorial':{2028:300,2030:1500},
-      'Neoenergia':{2029:802.746,2033:491.703}
+      'Eneva':{2027:650,2028:2700,2029:2530.52,2030:2824,2031:307.548,2032:1823.49,2034:633.334,2035:573.969,2036:1500,2037:1041.51,2039:866.669,2041:900,2042:575},
+      'Eletrobras (Axia)':{2028:3300,2029:4041.89,2030:700,2031:15592.4,2032:3000,2033:1267.1,2034:2762.5,2035:2000,2036:368.9,2041:364},
+      'Equatorial':{2029:1095,2030:8832.67,2031:2840,2032:6000,2033:950,2034:100,2035:720,2036:5795,2037:4000,2038:3000,2039:189},
+      'Energisa':{2026:700,2027:1241.94,2028:1251.46,2029:4338.01,2030:2524.26,2031:2885.8,2032:5397.38,2033:1152.7,2034:1200,2035:3208,2036:1415.94,2039:967.697,2040:1758,2041:281.198},
+      'Cemig':{2027:1850,2028:650,2029:2830.78,2030:1768,2031:3400,2032:3421.86,2033:951.835,2034:1600,2035:486.261,2036:1600,2037:3318.81,2038:385.904,2039:300,2040:3110,2044:1293.96},
+      'Neoenergia':{2026:390,2027:104,2028:3480,2029:2937.46,2030:800,2031:4697,2032:4800,2033:1691.7,2034:500,2035:2100,2038:1532,2040:600},
+      'CPFL':{2026:1700,2027:1148.48,2028:671,2029:2356,2030:2983,2031:1549,2033:2302.54,2034:1357.8,2035:4893.46,2036:1103,2039:354.1},
+      'Copel':{2026:1133.36,2027:1401.45,2028:400,2029:1300,2030:2400,2031:2116.64,2032:1298.55,2034:300,2035:200,2036:1500,2037:2200,2038:3200},
+      'Auren':{2027:1380,2029:820,2030:1700,2031:2500,2032:2100,2034:1500,2035:2000,2037:1150,2038:600,2039:600,2041:300,2044:950},
+      'Engie Brasil':{2027:1020,2028:1449.38,2029:1508.32,2030:100,2032:2000,2033:1085.6,2034:636.761,2035:2200,2038:2096.28,2046:400},
+      'Serena':{2027:150,2028:160,2029:620,2030:373,2031:1771.94,2033:106,2035:120,2041:595}
     };
     var yrs=[]; for(var y=2026;y<=2046;y++) yrs.push(y);
     var ctx = document.getElementById('prMatChart');
@@ -641,22 +700,22 @@ footer p{max-width:62ch}
       <div class="sec-title">
         <div class="sec-num">11</div>
         <div>
-          <h2>Spread médio por emissora</h2>
-          <p>Spread médio das debêntures de cada emissora do painel, por indexador: IPCA (spread sobre a NTN-B) e CDI (spread sobre o DI), em bps. Ordenado do maior para o menor spread IPCA; a Eneva aparece destacada.</p>
+          <h2>Spread médio por grupo</h2>
+          <p>Spread médio das debêntures de cada grupo econômico, por indexador: IPCA (spread sobre a NTN-B) e CDI (spread sobre o DI), em bps. Média simples de todos os papéis do grupo. Ordenado do maior para o menor spread IPCA; a Eneva aparece destacada.</p>
         </div>
       </div>
     </div>
     <div style="position:relative;height:480px"><canvas id="rankChart"></canvas></div>
-    <p class="note" style="margin-top:14px">Média simples do spread das séries ativas de cada emissora (Credit Guide, 24/07/2026). IPCA = spread sobre a NTN-B; CDI = spread sobre o DI — comparáveis dentro do mesmo indexador. Cemig/Copel = braço de Geração e Transmissão; Energisa/Equatorial/Neoenergia em nível de holding. A Equatorial não tem série IPCA e a Neoenergia não tem CDI no emissor consultado (prefixadas da Engie ficam de fora). Snapshot periódico.</p>
+    <p class="note" style="margin-top:14px">Média simples do spread de todas as séries ativas do grupo (Credit Guide, 24/07/2026). IPCA = spread sobre a NTN-B; CDI = spread sobre o DI — comparáveis apenas dentro do mesmo indexador. As séries prefixadas ficam de fora deste corte. Leitura: a <b>Serena</b> é disparada a mais larga nos dois indexadores; <b>Engie, Copel, CPFL e Cemig</b> são as mais apertadas em IPCA; a <b>Eneva</b> fica no meio do grupo, e as distribuidoras (Equatorial, Energisa) pagam mais que as geradoras integradas. Snapshot periódico.</p>
   </section>
 
   <script>
   (function(){
     if (typeof window.Chart === 'undefined') return;
-    var LB = ['Serena','Energisa','Auren (CESP)','Eneva','Cemig GT','Neoenergia','Copel GeT','Eletrobras (Axia)','Engie Brasil','Equatorial'];
-    var IPCA = [53.3, -3.4, -8.5, -15.9, -20.3, -25.5, -32.0, -35.1, -40.2, null];
-    var CDI  = [134.3, 64.5, 78.0, 73.8, 63.3, null, 65.6, 70.8, 60.0, 60.0];
-    var ENEVA_I = 3;
+    var LB = ['Serena','Equatorial','Energisa','Auren','Eletrobras (Axia)','Neoenergia','Eneva','Cemig','CPFL','Copel','Engie Brasil'];
+    var IPCA = [51.83,6.72,4.99,-2.58,-7.81,-11.75,-15.94,-31.38,-32.09,-33.44,-40.62];
+    var CDI  = [134.3,69.81,63.23,71.75,66.33,88.76,73.81,54.93,48.46,73.08,60.11];
+    var ENEVA_I = 6;
     var bord = LB.map(function(_, i){ return i === ENEVA_I ? '#0B1B33' : 'rgba(0,0,0,0)'; });
     var ctx = document.getElementById('rankChart');
     if (!ctx) return;
