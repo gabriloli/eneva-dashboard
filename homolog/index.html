@@ -947,6 +947,160 @@ footer p{max-width:62ch}
   </script>
 
 
+  <style>
+  .dt-wrap{display:grid;grid-template-columns:1.55fr 1fr;gap:18px;margin-top:22px}
+  .dt-box h4{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:9px}
+  .dt-w{color:var(--mut);font-weight:400;font-size:10.5px;margin-left:2px}
+  .dt-aaa_5y{background:#00747C !important}
+  .dt-aaa_7y{background:#00747C !important;opacity:.62}
+  .dt-aap_5y{background:#E5562C !important}
+  .dt-aap_7y{background:#E5562C !important;opacity:.62}
+  @media (max-width:760px){.dt-wrap{grid-template-columns:1fr}}
+  </style>
+
+  <section class="card">
+    <div class="sec-head">
+      <div class="sec-title">
+        <div class="sec-num">13</div>
+        <div>
+          <h2>Curva de cr&#233;dito por prazo &#8212; 5 anos vs. 7 anos</h2>
+          <p>A mesma mediana de spread da se&#231;&#227;o anterior, agora aberta por faixa de <i>duration</i>: 4 a 6 anos (&#8220;5 anos&#8221;) e 6 a 8 anos (&#8220;7 anos&#8221;). A dist&#226;ncia entre a linha cheia e a tracejada de cada cor &#233; o pr&#234;mio que o mercado cobra para alongar o prazo. Arraste para dar zoom.</p>
+        </div>
+      </div>
+      <div class="pr-seg" id="dtSeg" role="tablist">
+        <button class="on" data-f="all">Ambos</button>
+        <button data-f="aaa">AAA</button>
+        <button data-f="aap">AA+</button>
+      </div>
+    </div>
+    <div style="position:relative;height:400px"><canvas id="dtChart"></canvas></div>
+    <div class="rt-hint">
+      <span>Linha cheia = 5 anos &#183; tracejada = 7 anos. Arraste na horizontal para ampliar; duplo clique volta ao intervalo cheio.</span>
+      <button class="rt-reset" id="dtReset" disabled>Redefinir zoom</button>
+    </div>
+    <div class="dt-wrap">
+      <div class="dt-box"><h4>N&#237;vel por prazo</h4>
+        <table class="dtb"><thead><tr><th></th><th>Hoje</th><th>&#916; 1 m&#234;s</th><th>&#916; 12 meses</th><th>M&#237;nimo</th><th>M&#225;ximo</th><th>Pap&#233;is</th></tr></thead><tbody><tr><th class="dt-aaa_5y">AAA 5 anos</th><td class="rt-lv">-0,32%</td><td class="rt-up">+1 bps</td><td class="rt-dn">-19 bps</td><td>-0,87% <span class="dt-w">jan/26</span></td><td>1,49% <span class="dt-w">fev/23</span></td><td>56</td></tr><tr><th class="dt-aaa_7y">AAA 7 anos</th><td class="rt-lv">-0,24%</td><td class="rt-up">+2 bps</td><td class="rt-dn">-24 bps</td><td>-0,73% <span class="dt-w">jan/26</span></td><td>1,40% <span class="dt-w">abr/23</span></td><td>48</td></tr><tr><th class="dt-aap_5y">AA+ 5 anos</th><td class="rt-lv">-0,02%</td><td class="rt-up">+1 bps</td><td class="rt-up">+6 bps</td><td>-0,77% <span class="dt-w">jan/26</span></td><td>1,61% <span class="dt-w">mar/23</span></td><td>16</td></tr><tr><th class="dt-aap_7y">AA+ 7 anos</th><td class="rt-lv">0,11%</td><td class="rt-up">+6 bps</td><td class="rt-up">+13 bps</td><td>-0,72% <span class="dt-w">jan/26</span></td><td>0,55% <span class="dt-w">jul/24</span></td><td>25</td></tr></tbody></table></div>
+      <div class="dt-box"><h4>Pr&#234;mio de prazo (7a &#8722; 5a)</h4>
+        <table class="dtb"><thead><tr><th></th><th>Hoje</th><th>H&#225; 1 m&#234;s</th><th>H&#225; 12 meses</th><th>M&#233;dia</th></tr></thead><tbody><tr><th class="dt-aaa_5y">AAA</th><td>+8 bps</td><td>+7 bps</td><td>+12 bps</td><td>+8 bps</td></tr><tr><th class="dt-aap_5y">AA+</th><td>+13 bps</td><td>+9 bps</td><td>+6 bps</td><td>+12 bps</td></tr></tbody></table></div>
+    </div>
+    <p class="note" style="margin-top:18px"><b>Metodologia.</b> Mediana mensal (&#250;ltima observa&#231;&#227;o do m&#234;s) do <i>spread over</i> NTN-B das deb&#234;ntures incentivadas de Energia El&#233;trica, por rating e faixa de <i>duration</i>. Frequ&#234;ncia mensal &#8212; e n&#227;o semanal como na se&#231;&#227;o 12 &#8212; porque o corte por prazo divide a amostra ao meio e a s&#233;rie semanal fica ruidosa demais. As linhas tracejadas dos eventos s&#227;o posicionadas no m&#234;s do evento.<br><br>
+    <b>Por que come&#231;a em 2022 e por que n&#227;o h&#225; AA.</b> Ao cruzar rating com faixa de prazo a coorte encolhe muito: antes de 2022 nenhuma combina&#231;&#227;o tinha os 5 pap&#233;is m&#237;nimos que a base exige para publicar mediana. A linha <b>AA+ 7 anos come&#231;a s&#243; em julho de 2024</b> pelo mesmo motivo. O rating <b>AA ficou de fora</b>: na faixa de 4&#8211;6 anos n&#227;o h&#225; nenhum papel do setor e na de 6&#8211;8 anos h&#225; apenas 2, insuficiente para uma mediana.<br><br>
+    <b>Como ler o pr&#234;mio de prazo.</b> Valor positivo significa que o papel de 7 anos paga mais que o de 5 anos &#8212; curva de cr&#233;dito ascendente, o normal. Valor negativo indica curva invertida no cr&#233;dito: o mercado est&#225; pedindo <i>menos</i> pr&#234;mio para alongar, em geral quando h&#225; escassez de papel longo isento ou demanda concentrada em <i>duration</i>.</p>
+  </section>
+
+  <script>
+  (function(){
+    if (typeof window.Chart === 'undefined') return;
+    var L = ["2022-01-01","2022-02-01","2022-03-01","2022-04-01","2022-05-01","2022-06-01","2022-07-01","2022-08-01","2022-09-01","2022-10-01","2022-11-01","2022-12-01","2023-01-01","2023-02-01","2023-03-01","2023-04-01","2023-05-01","2023-06-01","2023-07-01","2023-08-01","2023-09-01","2023-10-01","2023-11-01","2023-12-01","2024-01-01","2024-02-01","2024-03-01","2024-04-01","2024-05-01","2024-06-01","2024-07-01","2024-08-01","2024-09-01","2024-10-01","2024-11-01","2024-12-01","2025-01-01","2025-02-01","2025-03-01","2025-04-01","2025-05-01","2025-06-01","2025-07-01","2025-08-01","2025-09-01","2025-10-01","2025-11-01","2025-12-01","2026-01-01","2026-02-01","2026-03-01","2026-04-01","2026-05-01","2026-06-01","2026-07-01"];
+    var S = {"aaa_5y":[null,null,null,null,null,33.21,37.21,51.8,65.92,90.48,102.21,101.05,115.58,149.4,141.28,146.94,124.07,102.07,86.26,79.59,82.63,81.44,75.75,72.72,64.44,31.35,31.13,30.47,34.1,36.59,29.8,23.44,13.59,18.55,20.15,18.56,11.64,5.63,6.89,0.84,1.47,-3.84,-12.32,-41.83,-81.94,-50.24,-46.53,-43.72,-87.38,-75.47,-44.12,-9.2,-6.91,-32.95,-31.6],"aaa_7y":[67.28,62.29,62.75,57.72,62.09,52.72,54.28,58.33,68.69,82.23,85.93,92.01,106.63,129.63,132.37,140.25,123.24,120.76,107.97,109.39,111.17,87.22,84.34,78.33,67.92,43.97,35.69,32.31,35.46,40.08,43.89,26.8,20.86,22.53,28.19,36.82,27.93,18.29,16.45,16.2,15.15,12.1,-0.06,-33.08,-65.69,-34.45,-34.36,-28.24,-72.72,-63.79,-24.83,4.44,2.44,-26.22,-23.8],"aap_5y":[null,null,null,null,82.16,81.73,84.59,86.63,100.36,111.53,118.01,121.49,125.61,155.25,161.46,157.15,129.68,126.07,103.77,92.68,90.98,97.97,99.16,100.04,86.89,47.94,47.01,50.9,55.1,54.89,43.48,33.39,20.57,22.73,31.98,25.25,21.64,15.48,16.25,13.71,14.12,4.87,-8.45,-25.1,-67.07,-34.95,-21.91,-21.8,-76.98,-62.83,-29.77,7.79,10.74,-3.8,-2.37],"aap_7y":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,54.82,45.39,29.38,44.83,36.49,38.29,41.58,32.11,29.17,27.37,25.28,12.89,-2.47,-9.97,-50.44,-24.05,-4.91,-7.97,-72.19,-54.34,-14.94,18.95,22.84,4.86,10.83]};
+    var CN = {"aaa_5y":[2,3,3,3,4,5,5,9,10,10,10,10,11,11,11,11,11,10,11,12,12,13,17,20,22,22,24,24,31,36,39,39,39,39,39,40,40,41,43,45,47,49,49,51,52,52,52,52,52,52,54,56,56,56,56],"aaa_7y":[5,6,6,6,7,9,9,10,10,10,10,10,11,11,11,11,11,11,11,11,11,13,14,16,16,16,16,16,17,17,18,18,18,20,22,22,24,25,27,27,27,27,30,32,32,34,35,38,39,41,45,47,48,48,48],"aap_5y":[4,4,4,4,5,5,5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,10,10,10,12,13,13,13,13,13,13,14,14,14,14,14,16,16,16,16,16,16,16,16,16,16,16,16,16,16],"aap_7y":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,5,5,6,6,8,9,10,10,10,10,10,10,12,12,13,16,19,20,21,21,21,25,25,25,25]};
+    var EV = [{"d":"2023-01-01","s":"Americanas"},{"d":"2023-05-01","s":"RJ Light"},{"d":"2024-02-01","s":"CMN 5.118"},{"d":"2025-10-01","s":"MP 1.303"}];
+    var MO = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    var ctx = document.getElementById('dtChart'); if(!ctx) return;
+    EV.forEach(function(e){ var b=-1; for(var i=0;i<L.length;i++){ if(L[i]<=e.d) b=i; } e.i=b; });
+    function fmtLab(d){ var p=d.split('-'); return MO[parseInt(p[1],10)-1]+'/'+p[0].slice(2); }
+    function pct(v){ return (v/100).toFixed(2).replace('.',',')+'%'; }
+    var lo=0, hi=L.length-1, drag=null;
+
+    var evLines = {id:'dtEv', beforeDatasetsDraw:function(ch){
+      var x=ch.scales.x, ya=ch.chartArea, c=ch.ctx; c.save();
+      c.beginPath(); c.rect(ya.left, ya.top, ya.right-ya.left, ya.bottom-ya.top); c.clip();
+      c.font="700 9.5px 'Carlito', Calibri, sans-serif"; c.textAlign='left';
+      var put=[];
+      EV.forEach(function(e){
+        if(e.i<lo-0.5 || e.i>hi+0.5) return;
+        var px=x.getPixelForValue(e.i);
+        c.setLineDash([5,4]); c.strokeStyle='#695F4A'; c.lineWidth=1.5;
+        c.beginPath(); c.moveTo(px,ya.top); c.lineTo(px,ya.bottom); c.stroke(); c.setLineDash([]);
+        var w=c.measureText(e.s).width, tx=px+5;
+        if(tx+w>ya.right-2) tx=px-5-w;
+        var ty=ya.top+1, g=0;
+        while(g++<6 && put.some(function(r){ return ty<r.b && ty+14>r.t && tx-3<r.r && tx+w+3>r.l; })) ty+=15;
+        put.push({l:tx-3,r:tx+w+3,t:ty,b:ty+14});
+        c.fillStyle='rgba(255,255,255,.88)'; c.fillRect(tx-3,ty,w+6,13);
+        c.fillStyle='#695F4A'; c.fillText(e.s, tx, ty+10);
+      });
+      c.restore();
+    }};
+
+    var endLab = {id:'dtEnd', afterDatasetsDraw:function(ch){
+      var c=ch.ctx, ya=ch.chartArea; c.save();
+      c.font="700 11.5px 'Carlito', Calibri, sans-serif"; c.textAlign='left';
+      var used=[];
+      ch.data.datasets.forEach(function(ds,di){
+        if(!ch.isDatasetVisible(di)) return;
+        var meta=ch.getDatasetMeta(di);
+        for(var i=Math.min(hi, ds.data.length-1); i>=lo; i--){
+          if(ds.data[i]!=null){
+            var pt=meta.data[i]; if(!pt) break;
+            var y=pt.y;
+            for(var k=0;k<used.length;k++){ if(Math.abs(used[k]-y)<13) y=used[k]+13; }
+            used.push(y);
+            c.fillStyle=ds.borderColor; c.fillText(pct(ds.data[i]), Math.min(pt.x+6, ya.right+6), y+4);
+            break;
+          }
+        }
+      });
+      c.restore();
+    }};
+
+    var dragPl = {id:'dtDrag', afterDraw:function(ch){
+      if(!drag || drag.x2==null) return;
+      var ya=ch.chartArea, c=ch.ctx;
+      var a=Math.max(ya.left,Math.min(drag.x1,drag.x2)), b=Math.min(ya.right,Math.max(drag.x1,drag.x2));
+      c.save(); c.fillStyle='rgba(0,159,169,.13)'; c.fillRect(a,ya.top,b-a,ya.bottom-ya.top);
+      c.strokeStyle='#009FA9'; c.lineWidth=1; c.beginPath();
+      c.moveTo(a,ya.top); c.lineTo(a,ya.bottom); c.moveTo(b,ya.top); c.lineTo(b,ya.bottom); c.stroke(); c.restore();
+    }};
+
+    var SETS = [{"k":"aaa_5y","l":"AAA 5 anos","c":"#00747C","d":[]},{"k":"aaa_7y","l":"AAA 7 anos","c":"#00747C","d":[6,4]},{"k":"aap_5y","l":"AA+ 5 anos","c":"#E5562C","d":[]},{"k":"aap_7y","l":"AA+ 7 anos","c":"#E5562C","d":[6,4]}];
+    var chart = new Chart(ctx, {type:'line',
+      data:{labels:L, datasets:SETS.map(function(s){
+        return {label:s.l, data:S[s.k], borderColor:s.c, backgroundColor:s.c, borderWidth:2,
+          borderDash:s.d, pointRadius:0, pointHoverRadius:4, pointHoverBorderWidth:2,
+          pointHoverBackgroundColor:'#fff', tension:.25, spanGaps:false, _k:s.k}; })},
+      options:{responsive:true, maintainAspectRatio:false, animation:{duration:280},
+        layout:{padding:{right:62, top:6}},
+        interaction:{mode:'index', intersect:false},
+        plugins:{legend:{display:true, position:'top', align:'end',
+            labels:{usePointStyle:true, pointStyle:'line', boxWidth:24, font:{size:11.5, weight:'600'}, color:'#0B1B33', padding:14}},
+          tooltip:{backgroundColor:'#0B1B33', padding:12, cornerRadius:10, displayColors:true, usePointStyle:true,
+            titleFont:{size:12, weight:'700'}, bodyFont:{size:12},
+            callbacks:{title:function(it){return fmtLab(it[0].label);},
+              label:function(c){ return '  '+c.dataset.label+': '+(c.raw==null?'n/d':pct(c.raw)+'  ('+CN[c.dataset._k][c.dataIndex]+' pap.)'); }}}},
+        scales:{x:{grid:{display:false}, min:lo, max:hi,
+              ticks:{maxTicksLimit:11, autoSkip:true, maxRotation:0, font:{size:10}, color:'#7C8794',
+                callback:function(v){ return fmtLab(L[v] || L[L.length-1]); }}},
+            y:{grid:{color:'#E6ECEF'}, ticks:{font:{size:10}, color:'#7C8794', callback:function(v){return pct(v);}},
+               title:{display:true, text:'Spread over NTN-B (% a.a.)', color:'#695F4A', font:{weight:'700', size:10.5}}}}},
+      plugins:[evLines, endLab, dragPl]});
+
+    var btn=document.getElementById('dtReset'), seg=document.getElementById('dtSeg');
+    function apply(a,b){ lo=Math.max(0,a); hi=Math.min(L.length-1,b);
+      chart.options.scales.x.min=lo; chart.options.scales.x.max=hi;
+      btn.disabled=(lo===0&&hi===L.length-1); chart.update(); }
+    seg.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return;
+      Array.prototype.forEach.call(seg.querySelectorAll('button'),function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      var f=b.getAttribute('data-f');
+      SETS.forEach(function(s,i){ chart.setDatasetVisibility(i, f==='all' || s.k.indexOf(f)===0); });
+      chart.update(); });
+    btn.addEventListener('click', function(){ apply(0,L.length-1); });
+    var cv=chart.canvas;
+    function px(e){ var r=cv.getBoundingClientRect(); return e.clientX-r.left; }
+    cv.addEventListener('mousedown', function(e){ var ya=chart.chartArea, p=px(e);
+      if(p<ya.left||p>ya.right) return; drag={x1:p,x2:null}; e.preventDefault(); });
+    window.addEventListener('mousemove', function(e){ if(!drag) return; drag.x2=px(e); chart.draw(); });
+    window.addEventListener('mouseup', function(){ if(!drag) return; var d=drag; drag=null;
+      if(d.x2==null){ chart.draw(); return; }
+      var x=chart.scales.x;
+      var a=Math.round(x.getValueForPixel(Math.min(d.x1,d.x2))), b=Math.round(x.getValueForPixel(Math.max(d.x1,d.x2)));
+      if(!isFinite(a)||!isFinite(b)||b-a<2){ chart.draw(); return; } apply(a,b); });
+    cv.addEventListener('dblclick', function(){ apply(0,L.length-1); });
+  })();
+  </script>
+
 </main>
 
 <footer>
