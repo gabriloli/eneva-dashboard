@@ -194,7 +194,6 @@ footer p{max-width:62ch}
 </style>
 </head>
 <body>
-
 <header class="hero">
   <svg class="zig" viewBox="0 0 900 300" fill="none" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
     <polygon points="660,-60 900,-60 900,360 770,360 838,190 706,252 788,58" fill="rgba(255,255,255,0.035)"/>
@@ -730,6 +729,370 @@ footer p{max-width:62ch}
             callbacks:{label:function(c){return c.dataset.label.split(' (')[0] + ': ' + (c.raw==null?'n/d':(Math.round(c.raw*10)/10) + ' bps');}}}},
         scales:{x:{grid:{color:'#E6ECEF'}, ticks:{callback:function(v){return v+' bps';}, font:{size:10}}, title:{display:true, text:'Spread médio (bps)', color:'#695F4A', font:{weight:'700', size:11}}},
                 y:{grid:{display:false}, ticks:{font:{size:11}}}}}});
+  })();
+  </script>
+
+  <style>
+  .rt-wrap{display:grid;grid-template-columns:1fr 1.25fr;gap:18px;margin-top:22px}
+  .rt-box h4{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:9px}
+  .dtb{width:100%;border-collapse:collapse;font-size:12.5px;min-width:0}
+  .dtb th{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--taupe);padding:7px 8px;border-bottom:1.5px solid var(--line);text-align:right;white-space:nowrap}
+  .dtb thead th:first-child{text-align:left}
+  .dtb td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+  .dtb tbody th{text-align:left;font-size:11.5px;font-weight:700;color:#fff;border-radius:6px;padding:6px 11px;white-space:nowrap;border-bottom:1px solid var(--line);background:#695F4A}
+  .dtb tbody tr td:first-of-type{padding-left:14px}
+  .dtb-aaa{background:#00747C !important}
+  .dtb-aap{background:#E5562C !important}
+  .dtb-aa{background:#0B1B33 !important}
+  .rt-lv{color:var(--ink);font-weight:700}
+  .rt-up{color:var(--orange-deep)}.rt-dn{color:var(--teal-deep)}.rt-na{color:#B4BEC5;font-weight:400}
+  .rt-ev{display:grid;grid-template-columns:1fr 1fr;gap:13px 24px;font-size:11.5px;color:var(--mut);margin-top:16px;line-height:1.5}
+  .rt-ev .ev{display:flex;gap:9px;align-items:flex-start}
+  .rt-ev .dash{width:16px;height:0;border-top:2px dashed #695F4A;flex:none;margin-top:8px}
+  .rt-ev .evt{font-weight:700;color:var(--ink)}
+  #rtChart{cursor:crosshair}
+  .rt-hint{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:9px;font-size:11px;color:var(--mut)}
+  .rt-reset{border:1px solid var(--line);background:#fff;color:var(--taupe);font:inherit;font-size:11px;font-weight:700;padding:5px 12px;border-radius:999px;cursor:pointer;letter-spacing:.03em}
+  .rt-reset:hover{border-color:var(--teal);color:var(--teal-deep)}
+  .rt-reset[disabled]{opacity:.35;cursor:default}
+  @media (max-width:760px){.rt-ev{grid-template-columns:1fr}.rt-wrap{grid-template-columns:1fr}}
+  </style>
+
+  <section class="card">
+    <div class="sec-head">
+      <div class="sec-title">
+        <div class="sec-num">12</div>
+        <div>
+          <h2>Mediana de spreads por rating &#8212; Energia El&#233;trica</h2>
+          <p>Mediana semanal do <i>spread over</i> NTN-B das deb&#234;ntures incentivadas (Lei 12.431) do setor de Energia El&#233;trica, por n&#237;vel de rating, desde 2019. Linhas tracejadas marcam quatro eventos de mercado. Arraste sobre o gr&#225;fico para dar zoom.</p>
+        </div>
+      </div>
+      <div class="pr-seg" id="rtSeg" role="tablist">
+        <button class="on" data-r="max">M&#225;x</button>
+        <button data-r="60">5A</button>
+        <button data-r="36">3A</button>
+        <button data-r="12">12M</button>
+        <button data-r="6">6M</button>
+      </div>
+    </div>
+    <div style="position:relative;height:420px"><canvas id="rtChart"></canvas></div>
+    <div class="rt-hint">
+      <span>Arraste na horizontal para ampliar um per&#237;odo &#183; duplo clique volta ao intervalo cheio.</span>
+      <button class="rt-reset" id="rtReset" disabled>Redefinir zoom</button>
+    </div>
+    <div class="rt-ev">
+      <div class="ev"><span class="dash"></span><div><span class="evt">11/01/2023 &#183; Americanas</span> &#8212; a varejista revelou R$ 20 bi de &#8220;inconsist&#234;ncias cont&#225;beis&#8221; e entrou em recupera&#231;&#227;o judicial dias depois. Maior evento de cr&#233;dito corporativo do mercado local: resgates em massa nos fundos de cr&#233;dito privado for&#231;aram venda de papel bom para gerar caixa e abriram os spreads de todo o mercado, inclusive de emissores sem rela&#231;&#227;o com o caso.</div></div>
+      <div class="ev"><span class="dash"></span><div><span class="evt">12/05/2023 &#183; Recupera&#231;&#227;o judicial da Light</span> &#8212; a distribuidora carioca pediu RJ com ~R$ 11 bi de d&#237;vida. Por ser uma <i>utility</i> regulada &#8212; setor tido como def&#233;nsivo &#8212; o pedido reprecificou o risco de todo o setor el&#233;trico e marca o pico dos spreads da amostra.</div></div>
+      <div class="ev"><span class="dash"></span><div><span class="evt">02/02/2024 &#183; Resolu&#231;&#227;o CMN 5.118</span> &#8212; restringiu os lastros eleg&#237;veis de CRI e CRA, vedando d&#237;vida de empresas fora dos setores imobili&#225;rio e do agroneg&#243;cio e opera&#231;&#245;es entre partes relacionadas. Reduziu a oferta de papel isento concorrente &#224;s incentivadas e ajudou a comprimir os spreads.</div></div>
+      <div class="ev"><span class="dash"></span><div><span class="evt">08/10/2025 &#183; Caducidade da MP 1.303</span> &#8212; a medida provis&#243;ria propunha al&#237;quota &#250;nica de 17,5% sobre aplica&#231;&#245;es financeiras e tributar em 5% os t&#237;tulos hoje isentos, inclusive as incentivadas. Foi derrubada na C&#226;mara (251 a 193) e perdeu a validade &#8212; a isen&#231;&#227;o permaneceu.</div></div>
+    </div>
+    <div class="rt-wrap">
+      <div class="rt-box"><h4>N&#237;vel atual e varia&#231;&#227;o recente</h4><table class="dtb"><thead><tr><th></th><th>Hoje</th><th>&#916; 1 m&#234;s</th><th>&#916; 12 meses</th></tr></thead><tbody><tr><th class="dtb-aaa">AAA</th><td class="rt-lv">-0,24%</td><td class="rt-up">+1 bps</td><td class="rt-dn">-11 bps</td></tr><tr><th class="dtb-aap">AA+</th><td class="rt-lv">0,05%</td><td class="rt-up">+3 bps</td><td class="rt-up">+23 bps</td></tr><tr><th class="dtb-aa">AA</th><td class="rt-lv">-0,24%</td><td class="rt-dn">-11 bps</td><td class="rt-dn">-12 bps</td></tr></tbody></table></div>
+      <div class="rt-box"><h4>Varia&#231;&#227;o desde cada evento</h4><table class="dtb"><thead><tr><th></th><th>&#916; Americanas</th><th>&#916; RJ Light</th><th>&#916; CMN 5.118</th><th>&#916; MP 1.303</th></tr></thead><tbody><tr><th class="dtb-aaa">AAA</th><td class="rt-dn">-116 bps</td><td class="rt-dn">-152 bps</td><td class="rt-dn">-79 bps</td><td class="rt-up">+54 bps</td></tr><tr><th class="dtb-aap">AA+</th><td class="rt-dn">-97 bps</td><td class="rt-dn">-128 bps</td><td class="rt-dn">-53 bps</td><td class="rt-up">+87 bps</td></tr><tr><th class="dtb-aa">AA</th><td class="rt-dn">-134 bps</td><td class="rt-dn">-184 bps</td><td class="rt-dn">-106 bps</td><td class="rt-up">+40 bps</td></tr></tbody></table></div>
+    </div>
+    <p class="note" style="margin-top:18px"><b>Metodologia.</b> Mediana semanal do <i>spread over</i> NTN-B de todas as deb&#234;ntures incentivadas com rating na escala nacional em cada n&#237;vel (AAA, AA+, AA), restritas ao setor de Energia El&#233;trica, sem filtro de <i>duration</i> &#8212; mesma constru&#231;&#227;o da fun&#231;&#227;o &#8220;Mediana de Spreads&#8221; do Credit Guide. S&#233;rie de 07/01/2019 a 27/07/2026 (395 pontos). Amostra atual: <b>AAA 189 pap&#233;is</b>, <b>AA+ 78</b>, <b>AA 6</b>. Varia&#231;&#245;es em bps sobre o n&#237;vel da data de cada evento.<br><br>
+    <b>Leia a linha AA com cautela.</b> O cohort AA do setor el&#233;trico &#233; pequeno: come&#231;a apenas em <b>mar&#231;o de 2022</b> (antes disso havia de 1 a 4 pap&#233;is e a base n&#227;o publica mediana) e hoje re&#250;ne <b>apenas 6 s&#233;ries</b>. Com amostra t&#227;o fina, a mediana se move quando um &#250;nico papel entra ou sai da base &#8212; o n&#237;vel serve de refer&#234;ncia direcional, n&#227;o de <i>benchmark</i> de precifica&#231;&#227;o. A linha AA+ tem alguns trechos vazios em 2019&#8211;2020 pelo mesmo motivo.<br><br>
+    <b>Compara&#231;&#227;o com o &#205;dex JGP.</b> Este gr&#225;fico usa a base Credit Guide, n&#227;o o &#205;dex JGP. Os n&#237;veis absolutos diferem &#8212; universo, crit&#233;rio de marca&#231;&#227;o e composi&#231;&#227;o do &#237;ndice n&#227;o s&#227;o os mesmos &#8212; mas a dire&#231;&#227;o e a magnitude dos movimentos coincidem.</p>
+  </section>
+
+  <script>
+  (function(){
+    if (typeof window.Chart === 'undefined') return;
+    var L = ["2019-01-07","2019-01-14","2019-01-21","2019-01-28","2019-02-04","2019-02-11","2019-02-18","2019-02-25","2019-03-04","2019-03-11","2019-03-18","2019-03-25","2019-04-01","2019-04-08","2019-04-15","2019-04-22","2019-04-29","2019-05-06","2019-05-13","2019-05-20","2019-05-27","2019-06-03","2019-06-10","2019-06-17","2019-06-24","2019-07-01","2019-07-08","2019-07-15","2019-07-22","2019-07-29","2019-08-05","2019-08-12","2019-08-19","2019-08-26","2019-09-02","2019-09-09","2019-09-16","2019-09-23","2019-09-30","2019-10-07","2019-10-14","2019-10-21","2019-10-28","2019-11-04","2019-11-11","2019-11-18","2019-11-25","2019-12-02","2019-12-09","2019-12-16","2019-12-23","2019-12-30","2020-01-06","2020-01-13","2020-01-20","2020-01-27","2020-02-03","2020-02-10","2020-02-17","2020-02-24","2020-03-02","2020-03-09","2020-03-16","2020-03-23","2020-03-30","2020-04-06","2020-04-13","2020-04-20","2020-04-27","2020-05-04","2020-05-11","2020-05-18","2020-05-25","2020-06-01","2020-06-08","2020-06-15","2020-06-22","2020-06-29","2020-07-06","2020-07-13","2020-07-20","2020-07-27","2020-08-03","2020-08-10","2020-08-17","2020-08-24","2020-08-31","2020-09-07","2020-09-14","2020-09-21","2020-09-28","2020-10-05","2020-10-12","2020-10-19","2020-10-26","2020-11-02","2020-11-09","2020-11-16","2020-11-23","2020-11-30","2020-12-07","2020-12-14","2020-12-21","2020-12-28","2021-01-04","2021-01-11","2021-01-18","2021-01-25","2021-02-01","2021-02-08","2021-02-15","2021-02-22","2021-03-01","2021-03-08","2021-03-15","2021-03-22","2021-03-29","2021-04-05","2021-04-12","2021-04-19","2021-04-26","2021-05-03","2021-05-10","2021-05-17","2021-05-24","2021-05-31","2021-06-07","2021-06-14","2021-06-21","2021-06-28","2021-07-05","2021-07-12","2021-07-19","2021-07-26","2021-08-02","2021-08-09","2021-08-16","2021-08-23","2021-08-30","2021-09-06","2021-09-13","2021-09-20","2021-09-27","2021-10-04","2021-10-11","2021-10-18","2021-10-25","2021-11-01","2021-11-08","2021-11-15","2021-11-22","2021-11-29","2021-12-06","2021-12-13","2021-12-20","2021-12-27","2022-01-03","2022-01-10","2022-01-17","2022-01-24","2022-01-31","2022-02-07","2022-02-14","2022-02-21","2022-02-28","2022-03-07","2022-03-14","2022-03-21","2022-03-28","2022-04-04","2022-04-11","2022-04-18","2022-04-25","2022-05-02","2022-05-09","2022-05-16","2022-05-23","2022-05-30","2022-06-06","2022-06-13","2022-06-20","2022-06-27","2022-07-04","2022-07-11","2022-07-18","2022-07-25","2022-08-01","2022-08-08","2022-08-15","2022-08-22","2022-08-29","2022-09-05","2022-09-12","2022-09-19","2022-09-26","2022-10-03","2022-10-10","2022-10-17","2022-10-24","2022-10-31","2022-11-07","2022-11-14","2022-11-21","2022-11-28","2022-12-05","2022-12-12","2022-12-19","2022-12-26","2023-01-02","2023-01-09","2023-01-16","2023-01-23","2023-01-30","2023-02-06","2023-02-13","2023-02-20","2023-02-27","2023-03-06","2023-03-13","2023-03-20","2023-03-27","2023-04-03","2023-04-10","2023-04-17","2023-04-24","2023-05-01","2023-05-08","2023-05-15","2023-05-22","2023-05-29","2023-06-05","2023-06-12","2023-06-19","2023-06-26","2023-07-03","2023-07-10","2023-07-17","2023-07-24","2023-07-31","2023-08-07","2023-08-14","2023-08-21","2023-08-28","2023-09-04","2023-09-11","2023-09-18","2023-09-25","2023-10-02","2023-10-09","2023-10-16","2023-10-23","2023-10-30","2023-11-06","2023-11-13","2023-11-20","2023-11-27","2023-12-04","2023-12-11","2023-12-18","2023-12-25","2024-01-01","2024-01-08","2024-01-15","2024-01-22","2024-01-29","2024-02-05","2024-02-12","2024-02-19","2024-02-26","2024-03-04","2024-03-11","2024-03-18","2024-03-25","2024-04-01","2024-04-08","2024-04-15","2024-04-22","2024-04-29","2024-05-06","2024-05-13","2024-05-20","2024-05-27","2024-06-03","2024-06-10","2024-06-17","2024-06-24","2024-07-01","2024-07-08","2024-07-15","2024-07-22","2024-07-29","2024-08-05","2024-08-12","2024-08-19","2024-08-26","2024-09-02","2024-09-09","2024-09-16","2024-09-23","2024-09-30","2024-10-07","2024-10-14","2024-10-21","2024-10-28","2024-11-04","2024-11-11","2024-11-18","2024-11-25","2024-12-02","2024-12-09","2024-12-16","2024-12-23","2024-12-30","2025-01-06","2025-01-13","2025-01-20","2025-01-27","2025-02-03","2025-02-10","2025-02-17","2025-02-24","2025-03-03","2025-03-10","2025-03-17","2025-03-24","2025-03-31","2025-04-07","2025-04-14","2025-04-21","2025-04-28","2025-05-05","2025-05-12","2025-05-19","2025-05-26","2025-06-02","2025-06-09","2025-06-16","2025-06-23","2025-06-30","2025-07-07","2025-07-14","2025-07-21","2025-07-28","2025-08-04","2025-08-11","2025-08-18","2025-08-25","2025-09-01","2025-09-08","2025-09-15","2025-09-22","2025-09-29","2025-10-06","2025-10-13","2025-10-20","2025-10-27","2025-11-03","2025-11-10","2025-11-17","2025-11-24","2025-12-01","2025-12-08","2025-12-15","2025-12-22","2025-12-29","2026-01-05","2026-01-12","2026-01-19","2026-01-26","2026-02-02","2026-02-09","2026-02-16","2026-02-23","2026-03-02","2026-03-09","2026-03-16","2026-03-23","2026-03-30","2026-04-06","2026-04-13","2026-04-20","2026-04-27","2026-05-04","2026-05-11","2026-05-18","2026-05-25","2026-06-01","2026-06-08","2026-06-15","2026-06-22","2026-06-29","2026-07-06","2026-07-13","2026-07-20","2026-07-27"];
+    var S = {"aaa":[58.42,57.18,56.48,57.24,55.62,61.81,47.63,56.23,54.45,54.89,54.43,51.67,48.23,49.62,47.62,48.11,47.04,45.64,41.48,40.59,38.58,37.73,38.01,39.54,40.19,39.46,43.34,28.91,38.22,47.15,49.82,52.65,53.23,54.22,62.24,60.78,63.54,65.28,67.88,72.72,81.79,92.6,99.12,107.74,120.57,125.4,127.69,126.22,132.85,119.32,116.11,114.14,113.14,111.48,110.94,111.05,112.36,112.95,117.96,118.45,118.47,118.01,123.12,173.3,170.73,171.1,170.15,159.51,147.07,148.13,141.15,154.29,155.45,151.02,154.53,163.75,157.72,157.54,152.51,146.14,146.22,141.99,143.88,142.44,140.68,140.21,142.31,144.7,145.45,142.8,139.51,135.5,128.52,119.97,106.35,106.14,103.44,103.86,103.25,109.84,113.81,111.96,111.88,108.67,101.4,99.03,95.41,87.45,87.89,84.56,88.02,85.0,80.66,78.2,73.34,70.21,71.6,68.7,70.11,65.2,61.93,60.52,59.68,60.35,62.4,62.8,62.96,54.79,52.09,52.02,54.35,44.34,45.49,36.74,37.31,33.28,35.91,41.01,39.55,42.48,43.65,42.69,37.72,32.67,25.79,29.88,32.6,34.77,32.17,29.75,30.1,31.56,32.48,33.13,34.11,30.72,25.59,32.14,34.62,35.97,36.09,31.13,29.93,30.36,34.22,33.34,33.82,36.81,37.38,36.04,34.08,32.04,32.57,34.11,33.42,32.84,33.41,33.58,35.08,34.29,34.35,33.36,33.08,35.59,36.01,36.95,35.74,35.19,41.55,43.61,50.1,50.59,50.88,54.61,58.5,61.45,60.75,67.14,70.5,73.85,78.9,81.35,78.87,84.14,85.5,84.83,87.14,88.02,88.29,95.43,99.29,100.56,103.38,115.1,124.63,127.44,134.38,138.32,136.05,132.56,132.58,132.53,132.22,133.42,136.41,136.14,128.81,128.35,122.6,117.9,113.04,107.75,105.87,97.87,93.08,91.74,88.22,87.59,85.94,85.01,84.72,83.03,80.75,78.31,77.58,77.67,80.77,81.55,78.97,80.77,80.24,82.59,82.16,85.23,84.66,82.91,79.7,79.92,77.68,76.45,76.33,73.95,70.2,65.36,55.64,33.33,39.63,33.45,32.06,28.54,27.11,24.87,27.39,26.43,28.03,23.37,25.6,26.72,29.42,26.64,26.5,30.54,28.49,30.84,31.68,31.65,33.82,33.92,31.49,29.05,26.77,23.87,18.56,16.87,19.37,14.46,11.85,11.2,13.55,12.65,15.13,14.0,15.96,15.4,18.2,14.38,14.79,19.95,17.09,17.75,21.84,21.58,18.87,17.57,17.21,14.46,13.8,13.22,11.71,9.87,7.91,8.28,6.64,9.71,2.84,3.22,3.27,4.58,0.23,2.3,3.32,6.04,2.43,1.49,1.07,-2.52,-10.15,-7.15,-9.64,-10.86,-11.97,-13.33,-12.55,-19.14,-20.26,-29.86,-38.72,-45.64,-49.98,-55.52,-69.3,-71.24,-83.17,-79.77,-57.45,-45.9,-49.59,-48.34,-46.57,-44.44,-45.61,-41.93,-42.08,-40.99,-38.35,-45.69,-58.36,-70.79,-81.88,-78.55,-73.12,-70.61,-69.68,-72.52,-62.35,-43.52,-38.77,-34.46,-21.08,-16.27,-8.08,-5.22,-3.59,-2.62,2.98,-3.56,-7.01,-13.03,-21.04,-24.92,-25.48,-26.87,-25.7,-24.56,-23.59],"aap":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,62.22,64.58,66.34,66.47,71.04,74.12,81.17,86.77,104.62,127.09,136.88,136.03,146.85,155.49,142.99,138.46,132.93,123.91,122.63,109.3,114.22,114.28,112.01,112.63,116.26,118.37,115.19,119.21,113.72,115.53,177.75,170.78,169.89,172.85,148.97,155.96,160.87,145.63,157.41,160.07,162.51,154.55,149.34,148.11,141.02,141.55,137.59,145.25,139.71,139.38,132.72,133.42,142.25,142.1,143.53,141.3,143.22,133.51,134.04,128.47,122.14,117.47,113.53,121.39,118.33,123.62,123.19,131.09,126.2,122.27,149.95,143.96,143.01,134.99,136.78,135.76,138.61,140.0,100.04,98.25,92.79,89.24,83.07,77.28,79.95,79.06,76.98,78.7,72.09,72.45,73.38,77.99,75.63,78.9,72.97,68.31,67.34,71.09,71.34,73.3,70.14,71.39,64.74,64.15,72.26,70.67,68.96,74.78,73.32,64.15,62.15,49.91,54.55,49.01,56.2,54.08,54.65,57.0,58.73,55.72,54.69,59.43,59.14,50.23,50.54,56.17,61.08,58.71,51.76,61.52,63.01,64.49,65.13,62.7,61.66,60.78,59.0,55.33,53.61,50.03,50.1,47.67,48.39,48.14,49.69,50.14,49.3,50.39,49.52,41.16,50.08,49.32,49.98,51.62,49.3,56.42,61.57,63.76,66.39,64.3,63.69,67.36,71.04,72.12,78.2,82.09,90.49,95.35,100.51,94.54,99.21,100.91,98.36,99.96,100.08,99.38,105.04,108.09,111.69,112.47,126.12,140.56,138.74,153.53,155.48,143.64,141.34,139.66,138.96,139.01,138.89,138.72,138.43,133.7,130.54,124.33,113.8,109.84,106.85,104.68,102.11,96.82,93.36,92.19,89.06,89.43,89.63,86.28,87.57,79.85,78.47,80.32,80.11,82.89,82.04,78.69,81.36,83.83,83.27,84.69,86.05,87.55,89.3,84.58,87.24,83.86,86.17,81.32,79.18,77.23,67.84,58.1,36.62,40.85,38.38,36.91,33.3,30.14,28.13,28.96,28.99,29.35,24.81,27.36,31.88,33.18,34.36,33.25,32.32,33.04,33.91,34.75,34.77,35.96,36.61,36.0,31.63,28.86,24.48,17.81,17.7,22.21,18.67,16.22,12.08,17.41,16.41,17.78,17.3,17.52,17.96,19.02,13.2,14.09,21.04,19.73,19.8,25.63,24.9,23.43,20.06,21.64,16.48,17.04,16.09,16.61,13.55,10.74,13.8,10.2,14.2,8.57,10.97,9.98,11.3,8.47,8.75,9.74,10.98,8.84,6.97,7.16,4.07,-6.5,-2.32,-7.35,-6.41,-14.59,-16.71,-7.03,-16.25,-19.89,-24.6,-30.5,-36.25,-41.78,-48.78,-64.6,-69.09,-83.31,-75.51,-52.2,-37.91,-33.93,-30.87,-29.27,-21.91,-26.2,-23.1,-31.65,-20.12,-15.3,-29.42,-51.86,-65.15,-73.84,-70.91,-64.52,-60.55,-59.93,-56.79,-44.94,-25.09,-16.87,-17.97,-14.25,-2.47,6.06,11.42,13.38,17.13,20.71,17.61,13.4,6.62,2.73,2.77,2.43,2.46,6.13,6.55,5.49],"aa":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,79.33,82.66,78.69,78.45,76.72,72.06,71.15,70.95,71.86,74.35,66.33,58.99,50.12,53.89,54.49,60.33,57.47,59.31,62.67,64.71,61.92,61.93,60.4,57.16,58.16,59.02,57.58,58.59,63.48,68.51,74.12,81.66,89.71,95.81,98.21,107.64,104.82,104.06,106.53,110.95,108.2,110.31,117.68,115.48,116.51,128.86,146.3,146.83,161.48,168.69,167.41,166.69,169.12,168.86,168.05,165.98,168.32,165.83,159.77,149.98,143.64,140.81,136.95,135.29,136.83,128.6,126.65,122.27,113.3,112.19,110.39,113.02,109.52,101.55,108.75,97.46,96.99,96.14,96.59,93.54,96.24,90.05,96.02,92.33,97.49,98.14,100.01,97.87,95.83,93.62,93.44,98.65,92.99,92.71,88.4,84.77,81.9,45.24,54.35,43.97,38.86,36.8,36.76,28.64,29.86,30.87,32.76,26.2,30.55,30.21,36.48,35.37,33.92,36.67,35.6,36.53,36.82,34.68,37.74,37.56,36.86,33.42,28.61,21.77,17.52,20.15,22.11,12.7,5.43,5.71,8.94,12.19,14.34,9.9,12.81,3.84,11.02,7.59,10.39,25.82,13.76,14.65,16.73,17.82,18.34,9.73,18.71,12.93,13.17,19.86,12.15,7.43,-12.61,2.55,-6.67,1.67,-11.25,-1.1,1.13,4.12,-3.7,-0.2,2.93,7.73,3.79,-0.01,-1.95,7.73,-11.32,-6.44,-11.12,-8.45,-11.05,-11.25,-10.23,-11.96,-15.76,-15.74,-17.85,-21.05,-21.64,-24.82,-55.5,-59.82,-71.63,-60.47,-41.87,-35.75,-49.04,-48.6,-43.35,-49.51,-53.2,-43.6,-34.31,-43.41,-42.89,-47.65,-50.82,-57.35,-71.76,-70.62,-52.79,-55.19,-57.44,-55.83,-56.25,-47.04,-45.59,-48.17,-48.24,-43.37,-44.17,-46.26,-41.09,-15.86,-15.78,-11.67,-13.93,-10.85,-12.84,-13.46,-23.28,-21.68,-20.66,-22.88,-23.99]};
+    var CN = {"aaa":[10,10,10,10,10,10,9,10,10,10,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,15,15,15,15,15,15,17,17,17,17,25,25,25,25,25,27,27,27,27,27,28,28,28,28,28,28,28,28,28,28,30,30,30,30,30,30,30,30,30,30,30,31,31,31,31,31,32,32,32,33,33,33,33,33,36,36,36,36,37,37,37,37,38,38,38,38,38,40,40,40,40,40,40,40,40,40,41,41,41,41,41,41,41,41,41,41,41,41,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,39,39,41,41,41,41,41,42,42,43,43,43,44,44,44,44,46,46,46,46,46,46,46,46,46,46,47,47,47,49,49,49,49,54,54,54,54,54,55,55,55,55,56,56,56,56,60,60,60,60,63,63,63,63,63,63,63,63,63,68,68,68,68,68,71,70,71,71,72,71,71,72,74,74,74,74,74,74,74,74,74,77,77,77,77,77,77,77,77,77,78,78,78,78,78,78,78,78,79,79,79,79,77,77,77,77,75,77,77,77,77,81,81,81,81,81,82,82,82,82,87,87,87,87,87,94,94,94,99,99,99,99,99,101,101,101,101,101,102,102,102,102,104,104,104,104,105,105,105,105,105,113,113,113,113,121,121,121,121,125,125,125,125,125,125,125,125,125,125,125,125,125,125,127,127,127,127,131,131,131,132,132,132,132,132,132,135,135,135,135,137,137,137,137,142,142,142,142,145,145,145,145,145,147,147,146,147,150,150,149,150,149,154,154,153,153,157,158,158,158,162,163,163,162,163,164,164,164,164,166,166,166,166,169,169,169,169,169,174,174,174,174,176,177,177,177,182,184,184,183,183,191,191,190,190,191,190,191,190,190,190,190,188,188,189],"aap":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,5,5,5,5,6,6,6,6,6,8,8,8,8,8,8,8,8,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,11,11,11,11,11,11,11,11,15,15,15,15,15,15,15,15,15,15,15,15,15,17,17,17,17,17,17,17,17,17,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,19,19,19,19,19,21,21,21,21,24,24,24,24,24,24,24,24,24,24,24,24,24,25,25,25,25,25,25,25,25,25,25,25,25,25,30,30,30,30,30,30,30,30,30,30,29,29,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,31,31,31,31,31,31,31,31,31,31,31,31,31,32,32,32,32,34,34,34,34,34,39,39,39,39,39,39,39,39,39,39,39,39,39,40,40,40,40,42,42,42,42,42,42,42,42,42,43,43,43,43,46,46,46,46,48,48,47,47,48,48,48,48,47,49,49,49,49,49,49,49,49,49,51,51,51,52,52,52,52,52,52,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,53,53,53,52,54,56,56,55,56,56,58,57,57,58,58,58,57,58,57,59,59,58,59,65,65,65,65,70,70,70,70,74,74,74,74,74,75,75,75,75,75,75,75,75,75,75,75,74,73,79,79,79,79,79,79,79,79,79,78,78,78,78,78],"aa":[1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6]};
+    var EV = [{"d":"2023-01-11","s":"Americanas","t":"Americanas"},{"d":"2023-05-12","s":"RJ Light","t":"RJ Light"},{"d":"2024-02-02","s":"CMN 5.118","t":"CMN 5.118"},{"d":"2025-10-08","s":"MP 1.303","t":"MP 1.303"}];
+    var ctx = document.getElementById('rtChart'); if(!ctx) return;
+    var MO = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    function idxOf(d){ var b=-1; for(var i=0;i<L.length;i++){ if(L[i]<=d) b=i; } return b; }
+    EV.forEach(function(e){ e.i = idxOf(e.d); });
+    function fmtLab(d){ var p=d.split('-'); return MO[parseInt(p[1],10)-1]+'/'+p[0].slice(2); }
+    function fmtFull(d){ var p=d.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; }
+    function pct(v){ return (v/100).toFixed(2).replace('.',',')+'%'; }
+    var lo=0, hi=L.length-1, drag=null;
+
+    var evLines = {id:'evLines', beforeDatasetsDraw:function(ch){
+      var x=ch.scales.x, ya=ch.chartArea, c=ch.ctx; c.save();
+      c.beginPath(); c.rect(ya.left, ya.top, ya.right-ya.left, ya.bottom-ya.top); c.clip();
+      c.font="700 9.5px 'Carlito', Calibri, sans-serif"; c.textAlign='left';
+      var put=[];
+      EV.forEach(function(e){
+        if(e.i<lo-0.5 || e.i>hi+0.5) return;
+        var px=x.getPixelForValue(e.i);
+        c.setLineDash([5,4]); c.strokeStyle='#695F4A'; c.lineWidth=1.5;
+        c.beginPath(); c.moveTo(px,ya.top); c.lineTo(px,ya.bottom); c.stroke();
+        c.setLineDash([]);
+        var w=c.measureText(e.s).width, tx=px+5;
+        if(tx+w>ya.right-2) tx=px-5-w;
+        var ty=ya.top+1, guard=0;
+        while(guard++<6 && put.some(function(r){ return ty<r.b && ty+14>r.t && tx-3<r.r && tx+w+3>r.l; })) ty+=15;
+        put.push({l:tx-3, r:tx+w+3, t:ty, b:ty+14});
+        c.fillStyle='rgba(255,255,255,.88)'; c.fillRect(tx-3, ty, w+6, 13);
+        c.fillStyle='#695F4A'; c.fillText(e.s, tx, ty+10);
+      });
+      c.restore();
+    }};
+
+    var endLab = {id:'endLab', afterDatasetsDraw:function(ch){
+      var c=ch.ctx, ya=ch.chartArea; c.save();
+      c.font="700 12px 'Carlito', Calibri, sans-serif"; c.textAlign='left';
+      var used=[];
+      ch.data.datasets.forEach(function(ds,di){
+        var meta=ch.getDatasetMeta(di); if(meta.hidden || ch.getDatasetMeta(di).visible===false) return;
+        if(!ch.isDatasetVisible(di)) return;
+        for(var i=Math.min(hi, ds.data.length-1); i>=lo; i--){
+          if(ds.data[i]!=null){
+            var pt=meta.data[i]; if(!pt) break;
+            var y=pt.y;
+            for(var k=0;k<used.length;k++){ if(Math.abs(used[k]-y)<13) y = used[k]+13; }
+            used.push(y);
+            c.fillStyle=ds.borderColor;
+            c.fillText(pct(ds.data[i]), Math.min(pt.x+6, ya.right+6), y+4);
+            break;
+          }
+        }
+      });
+      c.restore();
+    }};
+
+    var dragPl = {id:'dragPl', afterDraw:function(ch){
+      if(!drag || drag.x2==null) return;
+      var ya=ch.chartArea, c=ch.ctx;
+      var a=Math.max(ya.left,Math.min(drag.x1,drag.x2)), b=Math.min(ya.right,Math.max(drag.x1,drag.x2));
+      c.save(); c.fillStyle='rgba(0,159,169,.13)'; c.fillRect(a, ya.top, b-a, ya.bottom-ya.top);
+      c.strokeStyle='#009FA9'; c.lineWidth=1;
+      c.beginPath(); c.moveTo(a,ya.top); c.lineTo(a,ya.bottom); c.moveTo(b,ya.top); c.lineTo(b,ya.bottom); c.stroke();
+      c.restore();
+    }};
+
+    function ds(key, label, color, dash){
+      return {label:label, data:S[key], borderColor:color, backgroundColor:color,
+        borderWidth:2, borderDash:dash||[], pointRadius:0, pointHoverRadius:4,
+        pointHoverBorderWidth:2, pointHoverBackgroundColor:'#fff', tension:.2, spanGaps:true, _k:key};
+    }
+
+    var chart = new Chart(ctx, {type:'line',
+      data:{labels:L, datasets:[ds('aaa','AAA','#00747C'), ds('aap','AA+','#E5562C'), ds('aa','AA','#0B1B33')]},
+      options:{responsive:true, maintainAspectRatio:false, animation:{duration:280},
+        layout:{padding:{right:62, top:6}},
+        interaction:{mode:'index', intersect:false},
+        plugins:{legend:{display:true, position:'top', align:'end',
+            labels:{usePointStyle:true, pointStyle:'line', boxWidth:22, font:{size:11.5, weight:'600'}, color:'#0B1B33', padding:16}},
+          tooltip:{backgroundColor:'#0B1B33', padding:12, cornerRadius:10, displayColors:true, usePointStyle:true,
+            titleFont:{size:12, weight:'700'}, bodyFont:{size:12},
+            callbacks:{title:function(it){return fmtFull(it[0].label);},
+              label:function(c){ var k=c.dataset._k;
+                return '  '+c.dataset.label+': '+(c.raw==null?'n/d':pct(c.raw)+'  ('+CN[k][c.dataIndex]+' pap.)'); }}}},
+        scales:{x:{grid:{display:false}, min:lo, max:hi,
+              ticks:{maxTicksLimit:11, autoSkip:true, maxRotation:0, font:{size:10}, color:'#7C8794',
+                callback:function(v){ return fmtLab(L[v] || L[L.length-1]); }}},
+            y:{grid:{color:'#E6ECEF'}, ticks:{font:{size:10}, color:'#7C8794', callback:function(v){return pct(v);}},
+               title:{display:true, text:'Spread over NTN-B (% a.a.)', color:'#695F4A', font:{weight:'700', size:10.5}}}}},
+      plugins:[evLines, endLab, dragPl]});
+
+    var btnReset = document.getElementById('rtReset');
+    var seg = document.getElementById('rtSeg');
+    function apply(a, b, fromSeg){
+      lo=Math.max(0,a); hi=Math.min(L.length-1,b);
+      chart.options.scales.x.min=lo; chart.options.scales.x.max=hi;
+      chart.update();
+      var full = (lo===0 && hi===L.length-1);
+      btnReset.disabled = full;
+      if(!fromSeg){ Array.prototype.forEach.call(seg.querySelectorAll('button'),function(x){x.classList.remove('on');}); }
+    }
+    function segTo(r){
+      if(r==='max') return apply(0, L.length-1, true);
+      apply(L.length-1-Math.round(parseInt(r,10)*4.345), L.length-1, true);
+    }
+    seg.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return;
+      Array.prototype.forEach.call(seg.querySelectorAll('button'),function(x){x.classList.remove('on');});
+      b.classList.add('on'); segTo(b.getAttribute('data-r')); });
+    btnReset.addEventListener('click', function(){
+      Array.prototype.forEach.call(seg.querySelectorAll('button'),function(x){x.classList.remove('on');});
+      seg.querySelector('button[data-r="max"]').classList.add('on');
+      apply(0, L.length-1, true);
+    });
+
+    var cv = chart.canvas;
+    function px(e){ var r=cv.getBoundingClientRect(); return (e.clientX!=null?e.clientX:e.touches[0].clientX)-r.left; }
+    cv.addEventListener('mousedown', function(e){
+      var ya=chart.chartArea, p=px(e);
+      if(p<ya.left || p>ya.right) return;
+      drag={x1:p, x2:null}; e.preventDefault();
+    });
+    window.addEventListener('mousemove', function(e){
+      if(!drag) return; drag.x2=px(e); chart.draw();
+    });
+    window.addEventListener('mouseup', function(e){
+      if(!drag) return;
+      var d=drag; drag=null;
+      if(d.x2==null){ chart.draw(); return; }
+      var x=chart.scales.x;
+      var a=Math.round(x.getValueForPixel(Math.min(d.x1,d.x2)));
+      var b=Math.round(x.getValueForPixel(Math.max(d.x1,d.x2)));
+      if(!isFinite(a)||!isFinite(b)||b-a<3){ chart.draw(); return; }
+      apply(a,b,false);
+    });
+    cv.addEventListener('dblclick', function(){
+      Array.prototype.forEach.call(seg.querySelectorAll('button'),function(x){x.classList.remove('on');});
+      seg.querySelector('button[data-r="max"]').classList.add('on');
+      apply(0, L.length-1, true);
+    });
+  })();
+  </script>
+
+
+  <style>
+  .dt-wrap{display:grid;grid-template-columns:1.55fr 1fr;gap:18px;margin-top:22px}
+  .dt-box h4{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:9px}
+  .dt-w{color:var(--mut);font-weight:400;font-size:10.5px;margin-left:2px}
+  .dt-aaa_5y{background:#00747C !important}
+  .dt-aaa_7y{background:#00747C !important;opacity:.62}
+  .dt-aap_5y{background:#E5562C !important}
+  .dt-aap_7y{background:#E5562C !important;opacity:.62}
+  @media (max-width:760px){.dt-wrap{grid-template-columns:1fr}}
+  </style>
+
+  <section class="card">
+    <div class="sec-head">
+      <div class="sec-title">
+        <div class="sec-num">13</div>
+        <div>
+          <h2>Curva de cr&#233;dito por prazo &#8212; 5 anos vs. 7 anos</h2>
+          <p>A mesma mediana de spread da se&#231;&#227;o anterior, agora aberta por faixa de <i>duration</i>: 4 a 6 anos (&#8220;5 anos&#8221;) e 6 a 8 anos (&#8220;7 anos&#8221;). A dist&#226;ncia entre a linha cheia e a tracejada de cada cor &#233; o pr&#234;mio que o mercado cobra para alongar o prazo. Arraste para dar zoom.</p>
+        </div>
+      </div>
+      <div class="pr-seg" id="dtSeg" role="tablist">
+        <button class="on" data-f="all">Ambos</button>
+        <button data-f="aaa">AAA</button>
+        <button data-f="aap">AA+</button>
+      </div>
+    </div>
+    <div style="position:relative;height:400px"><canvas id="dtChart"></canvas></div>
+    <div class="rt-hint">
+      <span>Linha cheia = 5 anos &#183; tracejada = 7 anos. Arraste na horizontal para ampliar; duplo clique volta ao intervalo cheio.</span>
+      <button class="rt-reset" id="dtReset" disabled>Redefinir zoom</button>
+    </div>
+    <div class="dt-wrap">
+      <div class="dt-box"><h4>N&#237;vel por prazo</h4>
+        <table class="dtb"><thead><tr><th></th><th>Hoje</th><th>&#916; 1 m&#234;s</th><th>&#916; 12 meses</th><th>M&#237;nimo</th><th>M&#225;ximo</th><th>Pap&#233;is</th></tr></thead><tbody><tr><th class="dt-aaa_5y">AAA 5 anos</th><td class="rt-lv">-0,32%</td><td class="rt-up">+1 bps</td><td class="rt-dn">-19 bps</td><td>-0,87% <span class="dt-w">jan/26</span></td><td>1,49% <span class="dt-w">fev/23</span></td><td>56</td></tr><tr><th class="dt-aaa_7y">AAA 7 anos</th><td class="rt-lv">-0,24%</td><td class="rt-up">+2 bps</td><td class="rt-dn">-24 bps</td><td>-0,73% <span class="dt-w">jan/26</span></td><td>1,40% <span class="dt-w">abr/23</span></td><td>48</td></tr><tr><th class="dt-aap_5y">AA+ 5 anos</th><td class="rt-lv">-0,02%</td><td class="rt-up">+1 bps</td><td class="rt-up">+6 bps</td><td>-0,77% <span class="dt-w">jan/26</span></td><td>1,61% <span class="dt-w">mar/23</span></td><td>16</td></tr><tr><th class="dt-aap_7y">AA+ 7 anos</th><td class="rt-lv">0,11%</td><td class="rt-up">+6 bps</td><td class="rt-up">+13 bps</td><td>-0,72% <span class="dt-w">jan/26</span></td><td>0,55% <span class="dt-w">jul/24</span></td><td>25</td></tr></tbody></table></div>
+      <div class="dt-box"><h4>Pr&#234;mio de prazo (7a &#8722; 5a)</h4>
+        <table class="dtb"><thead><tr><th></th><th>Hoje</th><th>H&#225; 1 m&#234;s</th><th>H&#225; 12 meses</th><th>M&#233;dia</th></tr></thead><tbody><tr><th class="dt-aaa_5y">AAA</th><td>+8 bps</td><td>+7 bps</td><td>+12 bps</td><td>+8 bps</td></tr><tr><th class="dt-aap_5y">AA+</th><td>+13 bps</td><td>+9 bps</td><td>+6 bps</td><td>+12 bps</td></tr></tbody></table></div>
+    </div>
+    <p class="note" style="margin-top:18px"><b>Metodologia.</b> Mediana mensal (&#250;ltima observa&#231;&#227;o do m&#234;s) do <i>spread over</i> NTN-B das deb&#234;ntures incentivadas de Energia El&#233;trica, por rating e faixa de <i>duration</i>. Frequ&#234;ncia mensal &#8212; e n&#227;o semanal como na se&#231;&#227;o 12 &#8212; porque o corte por prazo divide a amostra ao meio e a s&#233;rie semanal fica ruidosa demais. As linhas tracejadas dos eventos s&#227;o posicionadas no m&#234;s do evento.<br><br>
+    <b>Por que come&#231;a em 2022 e por que n&#227;o h&#225; AA.</b> Ao cruzar rating com faixa de prazo a coorte encolhe muito: antes de 2022 nenhuma combina&#231;&#227;o tinha os 5 pap&#233;is m&#237;nimos que a base exige para publicar mediana. A linha <b>AA+ 7 anos come&#231;a s&#243; em julho de 2024</b> pelo mesmo motivo. O rating <b>AA ficou de fora</b>: na faixa de 4&#8211;6 anos n&#227;o h&#225; nenhum papel do setor e na de 6&#8211;8 anos h&#225; apenas 2, insuficiente para uma mediana.<br><br>
+    <b>Como ler o pr&#234;mio de prazo.</b> Valor positivo significa que o papel de 7 anos paga mais que o de 5 anos &#8212; curva de cr&#233;dito ascendente, o normal. Valor negativo indica curva invertida no cr&#233;dito: o mercado est&#225; pedindo <i>menos</i> pr&#234;mio para alongar, em geral quando h&#225; escassez de papel longo isento ou demanda concentrada em <i>duration</i>.</p>
+  </section>
+
+  <script>
+  (function(){
+    if (typeof window.Chart === 'undefined') return;
+    var L = ["2022-01-01","2022-02-01","2022-03-01","2022-04-01","2022-05-01","2022-06-01","2022-07-01","2022-08-01","2022-09-01","2022-10-01","2022-11-01","2022-12-01","2023-01-01","2023-02-01","2023-03-01","2023-04-01","2023-05-01","2023-06-01","2023-07-01","2023-08-01","2023-09-01","2023-10-01","2023-11-01","2023-12-01","2024-01-01","2024-02-01","2024-03-01","2024-04-01","2024-05-01","2024-06-01","2024-07-01","2024-08-01","2024-09-01","2024-10-01","2024-11-01","2024-12-01","2025-01-01","2025-02-01","2025-03-01","2025-04-01","2025-05-01","2025-06-01","2025-07-01","2025-08-01","2025-09-01","2025-10-01","2025-11-01","2025-12-01","2026-01-01","2026-02-01","2026-03-01","2026-04-01","2026-05-01","2026-06-01","2026-07-01"];
+    var S = {"aaa_5y":[null,null,null,null,null,33.21,37.21,51.8,65.92,90.48,102.21,101.05,115.58,149.4,141.28,146.94,124.07,102.07,86.26,79.59,82.63,81.44,75.75,72.72,64.44,31.35,31.13,30.47,34.1,36.59,29.8,23.44,13.59,18.55,20.15,18.56,11.64,5.63,6.89,0.84,1.47,-3.84,-12.32,-41.83,-81.94,-50.24,-46.53,-43.72,-87.38,-75.47,-44.12,-9.2,-6.91,-32.95,-31.6],"aaa_7y":[67.28,62.29,62.75,57.72,62.09,52.72,54.28,58.33,68.69,82.23,85.93,92.01,106.63,129.63,132.37,140.25,123.24,120.76,107.97,109.39,111.17,87.22,84.34,78.33,67.92,43.97,35.69,32.31,35.46,40.08,43.89,26.8,20.86,22.53,28.19,36.82,27.93,18.29,16.45,16.2,15.15,12.1,-0.06,-33.08,-65.69,-34.45,-34.36,-28.24,-72.72,-63.79,-24.83,4.44,2.44,-26.22,-23.8],"aap_5y":[null,null,null,null,82.16,81.73,84.59,86.63,100.36,111.53,118.01,121.49,125.61,155.25,161.46,157.15,129.68,126.07,103.77,92.68,90.98,97.97,99.16,100.04,86.89,47.94,47.01,50.9,55.1,54.89,43.48,33.39,20.57,22.73,31.98,25.25,21.64,15.48,16.25,13.71,14.12,4.87,-8.45,-25.1,-67.07,-34.95,-21.91,-21.8,-76.98,-62.83,-29.77,7.79,10.74,-3.8,-2.37],"aap_7y":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,54.82,45.39,29.38,44.83,36.49,38.29,41.58,32.11,29.17,27.37,25.28,12.89,-2.47,-9.97,-50.44,-24.05,-4.91,-7.97,-72.19,-54.34,-14.94,18.95,22.84,4.86,10.83]};
+    var CN = {"aaa_5y":[2,3,3,3,4,5,5,9,10,10,10,10,11,11,11,11,11,10,11,12,12,13,17,20,22,22,24,24,31,36,39,39,39,39,39,40,40,41,43,45,47,49,49,51,52,52,52,52,52,52,54,56,56,56,56],"aaa_7y":[5,6,6,6,7,9,9,10,10,10,10,10,11,11,11,11,11,11,11,11,11,13,14,16,16,16,16,16,17,17,18,18,18,20,22,22,24,25,27,27,27,27,30,32,32,34,35,38,39,41,45,47,48,48,48],"aap_5y":[4,4,4,4,5,5,5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,10,10,10,12,13,13,13,13,13,13,14,14,14,14,14,16,16,16,16,16,16,16,16,16,16,16,16,16,16],"aap_7y":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,5,5,6,6,8,9,10,10,10,10,10,10,12,12,13,16,19,20,21,21,21,25,25,25,25]};
+    var EV = [{"d":"2023-01-01","s":"Americanas"},{"d":"2023-05-01","s":"RJ Light"},{"d":"2024-02-01","s":"CMN 5.118"},{"d":"2025-10-01","s":"MP 1.303"}];
+    var MO = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    var ctx = document.getElementById('dtChart'); if(!ctx) return;
+    EV.forEach(function(e){ var b=-1; for(var i=0;i<L.length;i++){ if(L[i]<=e.d) b=i; } e.i=b; });
+    function fmtLab(d){ var p=d.split('-'); return MO[parseInt(p[1],10)-1]+'/'+p[0].slice(2); }
+    function pct(v){ return (v/100).toFixed(2).replace('.',',')+'%'; }
+    var lo=0, hi=L.length-1, drag=null;
+
+    var evLines = {id:'dtEv', beforeDatasetsDraw:function(ch){
+      var x=ch.scales.x, ya=ch.chartArea, c=ch.ctx; c.save();
+      c.beginPath(); c.rect(ya.left, ya.top, ya.right-ya.left, ya.bottom-ya.top); c.clip();
+      c.font="700 9.5px 'Carlito', Calibri, sans-serif"; c.textAlign='left';
+      var put=[];
+      EV.forEach(function(e){
+        if(e.i<lo-0.5 || e.i>hi+0.5) return;
+        var px=x.getPixelForValue(e.i);
+        c.setLineDash([5,4]); c.strokeStyle='#695F4A'; c.lineWidth=1.5;
+        c.beginPath(); c.moveTo(px,ya.top); c.lineTo(px,ya.bottom); c.stroke(); c.setLineDash([]);
+        var w=c.measureText(e.s).width, tx=px+5;
+        if(tx+w>ya.right-2) tx=px-5-w;
+        var ty=ya.top+1, g=0;
+        while(g++<6 && put.some(function(r){ return ty<r.b && ty+14>r.t && tx-3<r.r && tx+w+3>r.l; })) ty+=15;
+        put.push({l:tx-3,r:tx+w+3,t:ty,b:ty+14});
+        c.fillStyle='rgba(255,255,255,.88)'; c.fillRect(tx-3,ty,w+6,13);
+        c.fillStyle='#695F4A'; c.fillText(e.s, tx, ty+10);
+      });
+      c.restore();
+    }};
+
+    var endLab = {id:'dtEnd', afterDatasetsDraw:function(ch){
+      var c=ch.ctx, ya=ch.chartArea; c.save();
+      c.font="700 11.5px 'Carlito', Calibri, sans-serif"; c.textAlign='left';
+      var used=[];
+      ch.data.datasets.forEach(function(ds,di){
+        if(!ch.isDatasetVisible(di)) return;
+        var meta=ch.getDatasetMeta(di);
+        for(var i=Math.min(hi, ds.data.length-1); i>=lo; i--){
+          if(ds.data[i]!=null){
+            var pt=meta.data[i]; if(!pt) break;
+            var y=pt.y;
+            for(var k=0;k<used.length;k++){ if(Math.abs(used[k]-y)<13) y=used[k]+13; }
+            used.push(y);
+            c.fillStyle=ds.borderColor; c.fillText(pct(ds.data[i]), Math.min(pt.x+6, ya.right+6), y+4);
+            break;
+          }
+        }
+      });
+      c.restore();
+    }};
+
+    var dragPl = {id:'dtDrag', afterDraw:function(ch){
+      if(!drag || drag.x2==null) return;
+      var ya=ch.chartArea, c=ch.ctx;
+      var a=Math.max(ya.left,Math.min(drag.x1,drag.x2)), b=Math.min(ya.right,Math.max(drag.x1,drag.x2));
+      c.save(); c.fillStyle='rgba(0,159,169,.13)'; c.fillRect(a,ya.top,b-a,ya.bottom-ya.top);
+      c.strokeStyle='#009FA9'; c.lineWidth=1; c.beginPath();
+      c.moveTo(a,ya.top); c.lineTo(a,ya.bottom); c.moveTo(b,ya.top); c.lineTo(b,ya.bottom); c.stroke(); c.restore();
+    }};
+
+    var SETS = [{"k":"aaa_5y","l":"AAA 5 anos","c":"#00747C","d":[]},{"k":"aaa_7y","l":"AAA 7 anos","c":"#00747C","d":[6,4]},{"k":"aap_5y","l":"AA+ 5 anos","c":"#E5562C","d":[]},{"k":"aap_7y","l":"AA+ 7 anos","c":"#E5562C","d":[6,4]}];
+    var chart = new Chart(ctx, {type:'line',
+      data:{labels:L, datasets:SETS.map(function(s){
+        return {label:s.l, data:S[s.k], borderColor:s.c, backgroundColor:s.c, borderWidth:2,
+          borderDash:s.d, pointRadius:0, pointHoverRadius:4, pointHoverBorderWidth:2,
+          pointHoverBackgroundColor:'#fff', tension:.25, spanGaps:false, _k:s.k}; })},
+      options:{responsive:true, maintainAspectRatio:false, animation:{duration:280},
+        layout:{padding:{right:62, top:6}},
+        interaction:{mode:'index', intersect:false},
+        plugins:{legend:{display:true, position:'top', align:'end',
+            labels:{usePointStyle:true, pointStyle:'line', boxWidth:24, font:{size:11.5, weight:'600'}, color:'#0B1B33', padding:14}},
+          tooltip:{backgroundColor:'#0B1B33', padding:12, cornerRadius:10, displayColors:true, usePointStyle:true,
+            titleFont:{size:12, weight:'700'}, bodyFont:{size:12},
+            callbacks:{title:function(it){return fmtLab(it[0].label);},
+              label:function(c){ return '  '+c.dataset.label+': '+(c.raw==null?'n/d':pct(c.raw)+'  ('+CN[c.dataset._k][c.dataIndex]+' pap.)'); }}}},
+        scales:{x:{grid:{display:false}, min:lo, max:hi,
+              ticks:{maxTicksLimit:11, autoSkip:true, maxRotation:0, font:{size:10}, color:'#7C8794',
+                callback:function(v){ return fmtLab(L[v] || L[L.length-1]); }}},
+            y:{grid:{color:'#E6ECEF'}, ticks:{font:{size:10}, color:'#7C8794', callback:function(v){return pct(v);}},
+               title:{display:true, text:'Spread over NTN-B (% a.a.)', color:'#695F4A', font:{weight:'700', size:10.5}}}}},
+      plugins:[evLines, endLab, dragPl]});
+
+    var btn=document.getElementById('dtReset'), seg=document.getElementById('dtSeg');
+    function apply(a,b){ lo=Math.max(0,a); hi=Math.min(L.length-1,b);
+      chart.options.scales.x.min=lo; chart.options.scales.x.max=hi;
+      btn.disabled=(lo===0&&hi===L.length-1); chart.update(); }
+    seg.addEventListener('click', function(e){ var b=e.target.closest('button'); if(!b) return;
+      Array.prototype.forEach.call(seg.querySelectorAll('button'),function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      var f=b.getAttribute('data-f');
+      SETS.forEach(function(s,i){ chart.setDatasetVisibility(i, f==='all' || s.k.indexOf(f)===0); });
+      chart.update(); });
+    btn.addEventListener('click', function(){ apply(0,L.length-1); });
+    var cv=chart.canvas;
+    function px(e){ var r=cv.getBoundingClientRect(); return e.clientX-r.left; }
+    cv.addEventListener('mousedown', function(e){ var ya=chart.chartArea, p=px(e);
+      if(p<ya.left||p>ya.right) return; drag={x1:p,x2:null}; e.preventDefault(); });
+    window.addEventListener('mousemove', function(e){ if(!drag) return; drag.x2=px(e); chart.draw(); });
+    window.addEventListener('mouseup', function(){ if(!drag) return; var d=drag; drag=null;
+      if(d.x2==null){ chart.draw(); return; }
+      var x=chart.scales.x;
+      var a=Math.round(x.getValueForPixel(Math.min(d.x1,d.x2))), b=Math.round(x.getValueForPixel(Math.max(d.x1,d.x2)));
+      if(!isFinite(a)||!isFinite(b)||b-a<2){ chart.draw(); return; } apply(a,b); });
+    cv.addEventListener('dblclick', function(){ apply(0,L.length-1); });
   })();
   </script>
 
