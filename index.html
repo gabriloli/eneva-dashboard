@@ -183,6 +183,18 @@ tr.detail td{background:#F7FAFB; padding:16px 18px 18px; white-space:normal}
 }
 .rt span{color:var(--taupe); font-weight:400; margin-right:6px}
 .note{font-size:12px; color:var(--mut); margin-top:14px; max-width:100ch}
+.ysp{margin-top:18px; padding:18px 20px; background:#F4F8F9; border:1px solid #E1E8EA; border-radius:14px}
+.ysp h3{font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); margin-bottom:8px}
+.ysp p{font-size:13.5px; line-height:1.55; color:var(--ink); max-width:112ch; margin:6px 0}
+.ysp .ysp-foot{font-size:12px; color:var(--mut); margin-top:10px}
+.eq{display:flex; align-items:stretch; gap:10px; flex-wrap:wrap; margin:14px 0 12px}
+.eqt{flex:1 1 190px; background:#fff; border:1px solid #E1E8EA; border-left-width:4px; border-radius:12px; padding:10px 14px; display:flex; flex-direction:column; gap:2px}
+.eq-y{border-left-color:var(--navy, #061027)} .eq-n{border-left-color:#8E9BA5} .eq-s{border-left-color:var(--teal-deep)}
+.eqk{font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--taupe)}
+.eqv{font-size:19px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums}
+.eqc{font-size:11.5px; color:var(--mut)}
+.op{align-self:center; font-size:22px; font-weight:700; color:var(--taupe)}
+@media (max-width:640px){ .op{flex-basis:100%; text-align:center; line-height:1} }
 
 /* ---------- FOOTER ---------- */
 footer{
@@ -338,9 +350,20 @@ footer p{max-width:62ch}
         <tbody id="tbody"></tbody>
       </table>
     </div>
-    <p class="note"><b>YTM</b> (<i>yield to maturity</i>): taxa indicativa ANBIMA — a taxa que iguala o valor presente do fluxo remanescente de juros e amortizações ao preço de mercado, ou seja, o retorno anual de quem compra hoje e carrega o papel até o vencimento. Nas séries IPCA é juro real (IPCA + x% a.a.); nas séries DI, é expressa como spread sobre o CDI (DI + x% a.a.).<br>
-    <b>Spread</b>: prêmio de crédito sobre o referencial, em bps. Nas séries IPCA, é o spread sobre a NTN-B de referência (título público de vencimento próximo) — na prática, ≈ YTM − taxa da NTN-B; nas séries DI, é o próprio spread sobre o DI (igual à YTM). Por isso YTM e spread podem andar em sentidos opostos: se a NTN-B cai mais do que o spread abre, a YTM cai.<br>
-    <b>Δ 30d</b>: variação em bps contra a marcação de 30 dias corridos antes (ou o pregão anterior mais próximo).</p>
+    <div class="ysp" aria-labelledby="yspT">
+      <h3 id="yspT">Como ler YTM e spread</h3>
+      <p>A <b>YTM</b> é a taxa total que o papel rende: o retorno anual de quem compra hoje, pelo preço de mercado, e carrega até o vencimento. Nas séries IPCA, ela se divide em duas parcelas — o <b>nível</b> do juro real do Tesouro no mesmo prazo (a NTN-B de referência) e o <b>spread</b>, que é só o adicional que o mercado cobra da Eneva pelo risco de crédito, sem o nível da NTN-B.</p>
+      <div class="eq" id="eqBox">
+        <div class="eqt eq-y"><span class="eqk">YTM</span><span class="eqv" id="eqY">—</span><span class="eqc">retorno total até o vencimento</span></div>
+        <div class="op" aria-hidden="true">≈</div>
+        <div class="eqt eq-n"><span class="eqk">NTN-B de referência</span><span class="eqv" id="eqN">—</span><span class="eqc">juro real do Tesouro, sem risco de crédito</span></div>
+        <div class="op" aria-hidden="true">+</div>
+        <div class="eqt eq-s"><span class="eqk">Spread</span><span class="eqv" id="eqS">—</span><span class="eqc">prêmio pelo risco de crédito da Eneva</span></div>
+      </div>
+      <p id="eqEx"></p>
+      <p>Por isso as duas colunas podem contar histórias diferentes: o <b>spread</b> mostra só como o mercado precifica o risco da Eneva; a <b>YTM</b> mistura isso com o sobe e desce dos juros do Tesouro.</p>
+      <p class="ysp-foot">Nas séries DI não há essa separação: a YTM já vem expressa como spread sobre o CDI (DI + x%), então YTM e spread são o mesmo número. <b>Δ 30d</b> = variação em bps contra a marcação de 30 dias corridos antes (ou o pregão anterior mais próximo). A soma é aproximada porque o spread é medido contra a curva de NTN-B no prazo exato do papel, e não contra um único título; a variação da NTN-B no exemplo é estimada como Δ YTM − Δ spread.</p>
+    </div>
   </section>
 
   <section class="card">
@@ -1700,6 +1723,29 @@ function buildHist(b) {
   });
 }
 
+function renderEq() {
+  const box = document.getElementById('eqBox'); if (!box) return;
+  const ex = document.getElementById('eqEx');
+  const b = BONDS.find(x => x.codigo === 'ENEV26') ||
+            BONDS.filter(x => x.idx === 'IPCA').sort((a, c) => c.volEmissao - a.volEmissao)[0];
+  const nb = b && dataRef === SNAP_REF ? NTNB_RATE[b.codigo] : null;
+  if (!b || b.ytm == null || b.spreadOver == null || nb == null) { box.style.display = 'none'; ex.textContent = ''; return; }
+  box.style.display = '';
+  const so = Math.round(b.spreadOver * 100);
+  document.getElementById('eqY').textContent = 'IPCA + ' + nbr(b.ytm, 2) + '%';
+  document.getElementById('eqN').textContent = nbr(nb, 2) + '%';
+  document.getElementById('eqS').textContent = sbps(so);
+  let txt = '<b>Exemplo — ' + b.codigo + ' em ' + dataRef + ':</b> NTN-B ' + (b.ntnb || 'de referência') + ' a ' + nbr(nb, 2) +
+    '% + spread de ' + so + ' bps (' + nbr(so / 100, 2) + ' p.p.) ≈ YTM de IPCA + ' + nbr(b.ytm, 2) + '%.';
+  if (b.varYtm30 != null && b.var30 != null) {
+    const dy = Math.round(b.varYtm30 * 100), ds = Math.round(b.var30 * 100), dn = dy - ds;
+    const mv = (x, up, dn_) => x === 0 ? 'ficou estável' : (x > 0 ? up : dn_) + ' ' + Math.abs(x) + ' bps';
+    txt += ' Em 30 dias, o spread ' + mv(ds, 'abriu', 'fechou') + ', a NTN-B ' + (dn === 0 ? 'ficou estável' : (dn > 0 ? 'subiu' : 'caiu') + ' cerca de ' + Math.abs(dn) + ' bps') +
+      ' — e a YTM ' + mv(dy, 'subiu', 'caiu') + '.';
+  }
+  ex.innerHTML = txt;
+}
+
 function renderTable() {
   let list = BONDS.filter(b => {
     if (T.filter === 'IPCA' && b.idx !== 'IPCA') return false;
@@ -1736,6 +1782,7 @@ function renderTable() {
     return h;
   }).join('');
   list.forEach(b => { if (T.open.has(b.codigo)) buildHist(b); });
+  renderEq();
 }
 
 thr.addEventListener('click', e => {
