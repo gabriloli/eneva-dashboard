@@ -155,6 +155,17 @@ tr.detail td{background:#F7FAFB; padding:16px 18px 18px; white-space:normal}
 .dgrid label{display:block; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); margin-bottom:2px}
 .dgrid b{font-size:13.5px; font-weight:700}
 .empty td{text-align:center; color:var(--mut); padding:26px}
+/* histórico do spread no detalhe da série */
+.hist{margin-top:18px; padding-top:16px; border-top:1px solid #E1E8EA; text-align:left}
+.hist-head{display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap; margin-bottom:10px}
+.hist-head h3{font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe)}
+.hist-stats{display:flex; gap:6px 20px; flex-wrap:wrap; margin-top:6px; font-size:12.5px; color:var(--mut)}
+.hist-stats b{color:var(--ink); font-size:13.5px; font-variant-numeric:tabular-nums; margin-left:5px}
+.hist-stats b.pos{color:var(--orange-deep)} .hist-stats b.neg{color:var(--teal-deep)}
+.hseg button{font-size:12px; padding:6px 12px}
+.hseg button.on{background:var(--teal-deep)}
+.hist-wrap{position:relative; height:240px}
+.hist-note{font-size:11.5px; color:var(--mut); margin-top:8px; max-width:110ch}
 
 /* ---------- CREDIT ---------- */
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(172px,1fr)); gap:13px}
@@ -294,7 +305,7 @@ footer p{max-width:62ch}
         <div class="sec-num">05</div>
         <div>
           <h2>Carteira completa</h2>
-          <p>Clique em uma linha para abrir os detalhes da série. Clique nos cabeçalhos para ordenar.</p>
+          <p>Clique em uma linha para abrir os detalhes da série, com o histórico do spread. Clique nos cabeçalhos para ordenar.</p>
         </div>
       </div>
       <div class="toolbar">
@@ -1466,7 +1477,7 @@ const COLS = [
   {k: 'volMed20',  l: 'Vol. méd. 20d',   f: b => int0(b.volMed20),     s: b => b.volMed20},
   {k: 'isento',    l: 'IR',              f: b => b.isento ? '<span class="ir">Isenta</span>' : '<span class="muted">—</span>', s: b => b.isento ? 1 : 0}
 ];
-const T = {sortK: 'venc', dir: 1, filter: 'ALL', q: '', vencMin: null, vencMax: null, open: new Set()};
+const T = {sortK: 'venc', dir: 1, filter: 'ALL', q: '', vencMin: null, vencMax: null, open: new Set(), hmode: 'so'};
 
 const thr = document.getElementById('thr');
 thr.innerHTML = COLS.map(c =>
@@ -1494,6 +1505,154 @@ function detailHTML(b) {
     '<div><label>' + p[0] + '</label><b>' + p[1] + '</b></div>').join('') + '</div>';
 }
 
+/* ===== 05 · histórico do spread por série =====
+   Fonte: Credit Guide · cg_get_asset_history (metric=price, granularity=monthly).
+   Cada ponto: [data, spread over (bps), spread eq. com IR / gross-up (bps)].
+   Pontos de fim de trimestre de set/2024 a jun/2026 e de fim de mês a partir de jul/2026.
+   Rotina diária: para cada série com marcação no as_of, se o último ponto for do mesmo mês,
+   substituir; senão, acrescentar. Depois, HIST_REF = as_of. Série cujo último ponto é anterior
+   a HIST_REF (sem marcação) fica congelada. */
+const HIST_REF = '2026-09-23';
+const SPREAD_HIST = {"CESE22":[["2024-09-30",86,86],["2024-12-31",96,96],["2025-03-31",75,75],["2025-06-30",94,94],["2025-09-30",100,100],["2025-12-31",98,98],["2026-03-31",104,104],["2026-06-30",77,77],["2026-07-31",74,74],["2026-08-31",74,74],["2026-09-21",74,74]],"CESE32":[["2024-09-30",18,239],["2024-12-31",17,295],["2025-03-31",1,263],["2025-06-30",0,230],["2025-09-30",-74,146],["2025-12-31",-45,182],["2026-03-31",-43,193],["2026-06-30",-32,211],["2026-07-31",-27,220],["2026-08-31",-25,225],["2026-09-23",7,256]],"ENEV13":[["2024-09-30",-20,195],["2024-12-31",7,290],["2025-03-31",-47,214],["2025-06-30",-41,210],["2025-09-30",-53,195],["2025-12-31",-48,179],["2026-03-31",-51,182],["2026-06-30",-33,202],["2026-07-31",-25,208],["2026-08-31",-26,202],["2026-09-23",31,259]],"ENEV15":[["2024-09-30",11,232],["2024-12-31",17,299],["2025-03-31",5,267],["2025-06-30",-10,218],["2025-09-30",-63,158],["2025-12-31",-62,161],["2026-03-31",-54,179],["2026-06-30",-32,210],["2026-07-31",-23,222],["2026-08-31",-20,227],["2026-09-23",5,249]],"ENEV16":[["2024-09-30",29,254],["2024-12-31",30,314],["2025-03-31",21,288],["2025-06-30",-5,225],["2025-09-30",-59,164],["2025-12-31",-53,172],["2026-03-31",-44,191],["2026-06-30",-35,207],["2026-07-31",-22,224],["2026-08-31",-16,232],["2026-09-23",4,248]],"ENEV18":[["2024-09-30",29,254],["2024-12-31",41,324],["2025-03-31",24,294],["2025-06-30",-3,232],["2025-09-30",-61,166],["2025-12-31",-40,192],["2026-03-31",-28,212],["2026-06-30",-19,227],["2026-07-31",-12,241],["2026-08-31",-11,243],["2026-09-23",15,267]],"ENEV19":[["2024-09-30",18,241],["2024-12-31",37,320],["2025-03-31",13,281],["2025-06-30",-1,234],["2025-09-30",-57,169],["2025-12-31",-37,194],["2026-03-31",-25,216],["2026-06-30",-21,225],["2026-07-31",-14,238],["2026-08-31",-9,245],["2026-09-23",14,265]],"ENEV26":[["2024-09-30",46,274],["2024-12-31",47,327],["2025-03-31",42,316],["2025-06-30",14,255],["2025-09-30",-52,179],["2025-12-31",-21,217],["2026-03-31",-12,232],["2026-06-30",-14,234],["2026-07-31",-10,248],["2026-08-31",9,270],["2026-09-23",29,285]],"ENEV28":[["2024-09-30",44,271],["2024-12-31",49,329],["2025-03-31",45,320],["2025-06-30",15,257],["2025-09-30",-52,180],["2025-12-31",-20,218],["2026-03-31",-6,239],["2026-06-30",-13,236],["2026-07-31",-1,258],["2026-08-31",8,266],["2026-09-23",32,287]],"ENEV29":[["2024-09-30",36,262],["2024-12-31",51,332],["2025-03-31",45,320],["2025-06-30",13,255],["2025-09-30",-50,182],["2025-12-31",-20,219],["2026-03-31",-14,229],["2026-06-30",-10,240],["2026-07-31",-4,256],["2026-08-31",3,264],["2026-09-23",28,282]],"ENEV32":[["2024-09-30",7,227],["2024-12-31",19,305],["2025-03-31",0,260],["2025-06-30",-12,217],["2025-09-30",-61,161],["2025-12-31",-52,171],["2026-03-31",-40,196],["2026-06-30",-36,207],["2026-07-31",-28,217],["2026-08-31",-23,224],["2026-09-23",-1,244]],"ENEV38":[["2024-09-30",75,75],["2024-12-31",95,95],["2025-03-31",78,78],["2025-06-30",75,75],["2025-09-30",78,78],["2025-12-31",91,91],["2026-03-31",92,92],["2026-06-30",89,89],["2026-07-31",91,91],["2026-08-31",92,92],["2026-09-21",101,101]],"ENEV39":[["2024-09-30",53,280],["2024-12-31",58,331],["2025-03-31",48,323],["2025-06-30",28,272],["2025-09-30",-33,200],["2025-12-31",-2,238],["2026-03-31",-1,246],["2026-06-30",0,251],["2026-07-31",6,269],["2026-08-31",16,276],["2026-09-23",36,291]],"ENEV48":[["2024-09-30",86,86],["2024-12-31",103,103],["2025-03-31",93,93],["2025-06-30",78,78],["2025-09-30",84,84],["2025-12-31",90,90],["2026-03-31",99,99],["2026-06-30",81,81],["2026-07-31",82,82],["2026-08-31",80,80],["2026-09-23",78,78]],"ENEVA0":[["2024-09-30",29,254],["2024-12-31",33,313],["2025-03-31",19,289],["2025-06-30",8,247],["2025-09-30",-64,164],["2025-12-31",-30,207],["2026-03-31",-30,211],["2026-06-30",-19,228],["2026-07-31",-12,244],["2026-08-31",-1,257],["2026-09-23",23,277]],"ENEVA3":[["2025-01-31",71,71],["2025-04-30",81,81],["2025-07-31",80,80],["2025-10-31",82,82],["2026-01-30",72,72],["2026-04-30",74,74],["2026-07-31",68,68],["2026-08-31",68,68],["2026-09-23",58,58]],"ENEVA4":[["2026-03-31",-24,221],["2026-04-30",14,260],["2026-05-29",-2,246],["2026-06-30",-11,239],["2026-07-31",-7,252],["2026-08-31",-1,259],["2026-09-23",28,284]],"ENEVB0":[["2024-09-30",30,254],["2024-12-31",44,315],["2025-03-31",15,285],["2025-06-30",15,256],["2025-09-30",-55,177],["2025-12-31",-6,233],["2026-03-31",-12,232],["2026-06-30",-8,242],["2026-07-31",-2,258],["2026-08-31",4,263],["2026-09-23",32,288]],"ENEVB4":[["2026-03-31",-23,225],["2026-04-30",24,270],["2026-05-29",20,271],["2026-06-30",-5,245],["2026-07-31",0,260],["2026-08-31",8,267],["2026-09-23",39,295]],"ENEVC0":[["2024-09-30",76,76],["2024-12-31",89,89],["2025-03-31",80,80],["2025-06-30",64,64],["2025-09-30",63,63],["2025-12-31",62,62],["2026-03-31",60,60],["2026-06-30",63,63],["2026-07-31",59,59],["2026-08-31",57,57],["2026-09-21",60,60]],"ENEVD0":[["2024-09-30",86,86],["2024-12-31",104,104],["2025-03-31",78,78],["2025-06-30",72,72],["2025-09-30",75,75],["2025-12-31",77,77],["2026-03-31",79,79],["2026-06-30",71,71],["2026-07-31",70,70],["2026-08-31",67,67],["2026-09-23",62,62]]};
+
+const MES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const isoOf = br => br.split('/').reverse().join('-');
+const tsOf = iso => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10));
+const mesAno = ts => { const d = new Date(ts); return MES[d.getUTCMonth()] + '/' + String(d.getUTCFullYear()).slice(2); };
+const dataBR = ts => { const d = new Date(ts); return String(d.getUTCDate()).padStart(2, '0') + '/' + String(d.getUTCMonth() + 1).padStart(2, '0') + '/' + d.getUTCFullYear(); };
+const sbps = x => (x > 0 ? '+' : '') + x + ' bps';
+const rgba = (hex, a) => 'rgba(' + [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)).join(',') + ',' + a + ')';
+const HCH = {};
+
+function histPts(b) {
+  const raw = SPREAD_HIST[b.codigo];
+  if (!raw || !raw.length) return [];
+  const pts = raw.map(r => ({t: tsOf(r[0]), d: r[0], so: r[1], ir: r[2]}));
+  const last = pts[pts.length - 1], ref = isoOf(dataRef);
+  if (last.d >= HIST_REF && ref > last.d && b.spreadOver != null) {
+    const so = Math.round(b.spreadOver * 100);
+    const ir = b.idx === 'DI' ? so : (dataRef === SNAP_REF && b.spreadEqIR != null ? Math.round(b.spreadEqIR * 100) : null);
+    const cur = {t: tsOf(ref), d: ref, so, ir};
+    if (last.d.slice(0, 7) === ref.slice(0, 7)) pts[pts.length - 1] = cur; else pts.push(cur);
+  }
+  return pts;
+}
+
+function nearest(pts, ts) {
+  return pts.reduce((best, p) => Math.abs(p.t - ts) < Math.abs(best.t - ts) ? p : best, pts[0]);
+}
+
+function histHTML(b) {
+  const all = histPts(b);
+  if (!all.length) return '<div class="hist"><p class="hist-note">Sem histórico de spread disponível para esta série.</p></div>';
+  const ipca = b.idx === 'IPCA', m = ipca ? T.hmode : 'so';
+  const pts = all.filter(p => p[m] != null), cur = pts[pts.length - 1];
+  const DAY = 864e5;
+  const stat = (lab, v, cls) => '<span>' + lab + '<b class="' + (cls || '') + '">' + v + '</b></span>';
+  const delta = back => {
+    const p = nearest(pts, cur.t - back * DAY);
+    if (p === cur || cur.t - p.t < back * DAY * 0.6) return '';
+    const dv = cur[m] - p[m];
+    return stat('Δ desde ' + mesAno(p.t), sbps(dv), dv > 0 ? 'pos' : (dv < 0 ? 'neg' : ''));
+  };
+  const lv = x => m === 'ir' ? x + ' bps' : sbps(x);
+  const lo = pts.reduce((a, p) => p[m] < a[m] ? p : a, pts[0]);
+  const hi = pts.reduce((a, p) => p[m] > a[m] ? p : a, pts[0]);
+  const frozen = all[all.length - 1].d < HIST_REF;
+  const refLab = ipca ? (m === 'so' ? 'spread sobre a NTN-B de referência' : 'spread equivalente com IR (gross-up, comparável às séries DI)') : 'spread sobre o DI';
+  let qEnd = null;
+  for (let i = 1; i < pts.length; i++) if (pts[i].t - pts[i - 1].t > 45 * DAY) qEnd = pts[i];
+  const amostra = qEnd ? 'Fechamentos trimestrais até ' + mesAno(qEnd.t) + ' e mensais depois' : 'Fechamentos mensais';
+  const note = 'Fonte: Credit Guide (marcação ANBIMA) · ' + refLab + '. ' + amostra + '; o ponto escuro é a marcação de ' + dataBR(cur.t) + '.' +
+    (ipca && m === 'so' ? ' Trocas da NTN-B de referência podem gerar saltos pontuais.' : '') +
+    (frozen ? ' Série sem marcação desde ' + dataBR(cur.t) + ' — histórico encerrado nessa data.' : '');
+  return '<div class="hist">' +
+    '<div class="hist-head"><div><h3>Histórico do spread · desde ' + mesAno(pts[0].t) + '</h3><div class="hist-stats">' +
+      stat('Atual', lv(cur[m])) + delta(91) + delta(365) +
+      stat('Mín.', lv(lo[m]) + ' (' + mesAno(lo.t) + ')') + stat('Máx.', lv(hi[m]) + ' (' + mesAno(hi.t) + ')') +
+    '</div></div>' +
+    (ipca ? '<div class="seg hseg" role="group" aria-label="Métrica do histórico">' +
+      '<button type="button" data-m="so" class="' + (m === 'so' ? 'on' : '') + '">Spread s/ NTN-B</button>' +
+      '<button type="button" data-m="ir" class="' + (m === 'ir' ? 'on' : '') + '">Eq. com IR</button></div>' : '') +
+    '</div>' +
+    '<div class="hist-wrap">' + (hasChart
+      ? '<canvas id="hc-' + b.codigo + '" role="img" aria-label="Histórico do spread da ' + b.codigo + '"></canvas>'
+      : '<div class="nofall">Não foi possível carregar a biblioteca de gráficos.</div>') + '</div>' +
+    '<p class="hist-note">' + note + '</p></div>';
+}
+
+function histTicks(min, max) {
+  const out = [], step = (max - min) > 400 * 864e5 ? 3 : 1;
+  const d0 = new Date(min);
+  let y = d0.getUTCFullYear(), mo = d0.getUTCMonth() + 1;
+  if (mo > 11) { mo = 0; y++; }
+  while (Date.UTC(y, mo, 1) <= max) {
+    if (mo % step === 0) out.push(Date.UTC(y, mo, 1));
+    mo++; if (mo > 11) { mo = 0; y++; }
+  }
+  return out;
+}
+
+function destroyHist() {
+  Object.keys(HCH).forEach(k => { HCH[k].destroy(); delete HCH[k]; });
+}
+
+function buildHist(b) {
+  const cv = document.getElementById('hc-' + b.codigo);
+  if (!cv || !hasChart) return;
+  const ipca = b.idx === 'IPCA', m = ipca ? T.hmode : 'so';
+  const pts = histPts(b).filter(p => p[m] != null);
+  if (!pts.length) return;
+  const n = pts.length, col = ipca ? (m === 'so' ? C.teal : C.tealDeep) : C.orange;
+  const suf = m === 'ir' ? ' eq. com IR' : (ipca ? ' s/ NTN-B' : ' s/ DI');
+  const pad = 12 * 864e5;
+  HCH[b.codigo] = new Chart(cv, {
+    type: 'line',
+    data: {datasets: [{
+      data: pts.map(p => ({x: p.t, y: p[m]})),
+      borderColor: col, backgroundColor: rgba(col, 0.10), fill: m === 'so' ? 'origin' : 'start',
+      borderWidth: 2.2, tension: 0, clip: false,
+      pointRadius: pts.map((_, i) => i === n - 1 ? 5.5 : 3.2),
+      pointBackgroundColor: pts.map((_, i) => i === n - 1 ? C.navy : '#fff'),
+      pointBorderColor: pts.map((_, i) => i === n - 1 ? C.navy : col),
+      pointBorderWidth: 1.8, pointHoverRadius: 6.5
+    }]},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? false : {duration: 350},
+      interaction: {mode: 'nearest', intersect: false, axis: 'x'},
+      layout: {padding: {top: 8, right: 10}},
+      plugins: {
+        legend: {display: false},
+        tooltip: {
+          backgroundColor: C.ink, titleColor: '#fff', bodyColor: '#D9E4E6', padding: 11, cornerRadius: 10,
+          displayColors: false, titleFont: {weight: '700', size: 12.5}, bodyFont: {size: 12.5},
+          callbacks: {
+            title: it => dataBR(it[0].parsed.x) + (it[0].dataIndex === n - 1 ? ' · marcação atual' : ''),
+            label: it => (m === 'ir' ? it.parsed.y + ' bps' : sbps(it.parsed.y)) + suf
+          }
+        }
+      },
+      scales: {
+        x: {
+          type: 'linear', min: pts[0].t - pad, max: pts[n - 1].t + pad,
+          afterBuildTicks: ax => { ax.ticks = histTicks(pts[0].t, pts[n - 1].t).map(v => ({value: v})); },
+          ticks: {callback: v => mesAno(v), maxRotation: 0, autoSkip: true, autoSkipPadding: 14},
+          grid: {color: C.grid}
+        },
+        y: {
+          grace: '12%',
+          title: {display: true, text: 'bps', color: C.taupe, font: {weight: '700', size: 11}},
+          grid: {
+            color: ctx => ctx.tick && ctx.tick.value === 0 ? '#9FAAB2' : C.grid,
+            lineWidth: ctx => ctx.tick && ctx.tick.value === 0 ? 1.4 : 1
+          }
+        }
+      }
+    }
+  });
+}
+
 function renderTable() {
   let list = BONDS.filter(b => {
     if (T.filter === 'IPCA' && b.idx !== 'IPCA') return false;
@@ -1517,6 +1676,7 @@ function renderTable() {
     }
   });
   const tb = document.getElementById('tbody');
+  destroyHist();
   if (!list.length) {
     tb.innerHTML = '<tr class="empty"><td colspan="' + COLS.length + '">Nenhuma série encontrada para o filtro atual.</td></tr>';
     return;
@@ -1525,9 +1685,10 @@ function renderTable() {
     const open = T.open.has(b.codigo);
     let h = '<tr class="row' + (open ? ' open' : '') + '" data-c="' + b.codigo + '" tabindex="0" aria-expanded="' + open + '">' +
       COLS.map(c => '<td class="' + (c.left ? 'left' : '') + '">' + c.f(b) + '</td>').join('') + '</tr>';
-    if (open) h += '<tr class="detail"><td colspan="' + COLS.length + '">' + detailHTML(b) + '</td></tr>';
+    if (open) h += '<tr class="detail"><td colspan="' + COLS.length + '">' + detailHTML(b) + histHTML(b) + '</td></tr>';
     return h;
   }).join('');
+  list.forEach(b => { if (T.open.has(b.codigo)) buildHist(b); });
 }
 
 thr.addEventListener('click', e => {
@@ -1540,6 +1701,8 @@ thr.addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.target.closest('th') && e.target.closest('th').click(); }
 });
 document.getElementById('tbody').addEventListener('click', e => {
+  const hb = e.target.closest('.hseg button');
+  if (hb) { if (hb.dataset.m !== T.hmode) { T.hmode = hb.dataset.m; renderTable(); } return; }
   const tr = e.target.closest('tr.row'); if (!tr) return;
   const c = tr.dataset.c;
   if (T.open.has(c)) T.open.delete(c); else T.open.add(c);
