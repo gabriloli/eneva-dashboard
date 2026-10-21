@@ -148,10 +148,6 @@ tr.row.open{background:#F0F7F8}
 .pos{color:var(--orange-deep); font-weight:700}
 .neg{color:var(--teal-deep); font-weight:700}
 .zero{color:#9AA6AF}
-.v2{display:flex; flex-direction:column; align-items:flex-end; gap:3px; line-height:1.15}
-.v2 .lv{font-variant-numeric:tabular-nums}
-.v2 .dl{font-size:11.5px; font-weight:700; font-variant-numeric:tabular-nums}
-.v2 .dl.zero{font-weight:400}
 .ir{font-size:11px; font-weight:700; color:var(--teal-deep); border:1px solid rgba(0,159,169,.4); border-radius:999px; padding:2px 9px}
 .muted{color:#B4BEC5}
 tr.detail td{background:#F7FAFB; padding:16px 18px 18px; white-space:normal}
@@ -159,17 +155,6 @@ tr.detail td{background:#F7FAFB; padding:16px 18px 18px; white-space:normal}
 .dgrid label{display:block; font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); margin-bottom:2px}
 .dgrid b{font-size:13.5px; font-weight:700}
 .empty td{text-align:center; color:var(--mut); padding:26px}
-/* histórico do spread no detalhe da série */
-.hist{margin-top:18px; padding-top:16px; border-top:1px solid #E1E8EA; text-align:left}
-.hist-head{display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap; margin-bottom:10px}
-.hist-head h3{font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe)}
-.hist-stats{display:flex; gap:6px 20px; flex-wrap:wrap; margin-top:6px; font-size:12.5px; color:var(--mut)}
-.hist-stats b{color:var(--ink); font-size:13.5px; font-variant-numeric:tabular-nums; margin-left:5px}
-.hist-stats b.pos{color:var(--orange-deep)} .hist-stats b.neg{color:var(--teal-deep)}
-.hseg button{font-size:12px; padding:6px 12px}
-.hseg button.on{background:var(--teal-deep)}
-.hist-wrap{position:relative; height:240px}
-.hist-note{font-size:11.5px; color:var(--mut); margin-top:8px; max-width:110ch}
 
 /* ---------- CREDIT ---------- */
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(172px,1fr)); gap:13px}
@@ -183,18 +168,6 @@ tr.detail td{background:#F7FAFB; padding:16px 18px 18px; white-space:normal}
 }
 .rt span{color:var(--taupe); font-weight:400; margin-right:6px}
 .note{font-size:12px; color:var(--mut); margin-top:14px; max-width:100ch}
-.ysp{margin-top:18px; padding:18px 20px; background:#F4F8F9; border:1px solid #E1E8EA; border-radius:14px}
-.ysp h3{font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); margin-bottom:8px}
-.ysp p{font-size:13.5px; line-height:1.55; color:var(--ink); max-width:112ch; margin:6px 0}
-.ysp .ysp-foot{font-size:12px; color:var(--mut); margin-top:10px}
-.eq{display:flex; align-items:stretch; gap:10px; flex-wrap:wrap; margin:14px 0 12px}
-.eqt{flex:1 1 190px; background:#fff; border:1px solid #E1E8EA; border-left-width:4px; border-radius:12px; padding:10px 14px; display:flex; flex-direction:column; gap:2px}
-.eq-y{border-left-color:var(--navy, #061027)} .eq-n{border-left-color:#8E9BA5} .eq-s{border-left-color:var(--teal-deep)}
-.eqk{font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--taupe)}
-.eqv{font-size:19px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums}
-.eqc{font-size:11.5px; color:var(--mut)}
-.op{align-self:center; font-size:22px; font-weight:700; color:var(--taupe)}
-@media (max-width:640px){ .op{flex-basis:100%; text-align:center; line-height:1} }
 
 /* ---------- FOOTER ---------- */
 footer{
@@ -235,7 +208,7 @@ footer p{max-width:62ch}
       <p class="eyebrow">Relações com Investidores · Renda Fixa Corporativa</p>
       <h1>Mercado de Capitais<span class="bar">|</span>Debêntures</h1>
       <div class="chips">
-        <span class="chip chip-live"><i id="liveDot"></i><span id="refTxt">Snapshot local · 19/10/2026</span></span>
+        <span class="chip chip-live"><i id="liveDot"></i><span id="refTxt">Snapshot local · 20/10/2026</span></span>
         <span class="chip" id="nChip">18 séries ativas</span>
         <span class="chip">brAAA · S&amp;P</span>
         <span class="chip">AAA(bra) · Fitch</span>
@@ -321,7 +294,7 @@ footer p{max-width:62ch}
         <div class="sec-num">05</div>
         <div>
           <h2>Carteira completa</h2>
-          <p>YTM e spread mostram o nível atual e, abaixo, a variação em 30 dias. Clique em uma linha para abrir os detalhes da série, com o histórico do spread e da YTM; clique nos cabeçalhos para ordenar.</p>
+          <p>Clique em uma linha para abrir os detalhes da série. Clique nos cabeçalhos para ordenar.</p>
         </div>
       </div>
       <div class="toolbar">
@@ -350,20 +323,6 @@ footer p{max-width:62ch}
         <tbody id="tbody"></tbody>
       </table>
     </div>
-    <div class="ysp" aria-labelledby="yspT">
-      <h3 id="yspT">Como ler YTM e spread</h3>
-      <p>A <b>YTM</b> é a taxa total que o papel rende: o retorno anual de quem compra hoje, pelo preço de mercado, e carrega até o vencimento. Nas séries IPCA, ela se divide em duas parcelas — o <b>nível</b> do juro real do Tesouro no mesmo prazo (a NTN-B de referência) e o <b>spread</b>, que é só o adicional que o mercado cobra da Eneva pelo risco de crédito, sem o nível da NTN-B.</p>
-      <div class="eq" id="eqBox">
-        <div class="eqt eq-y"><span class="eqk">YTM</span><span class="eqv" id="eqY">—</span><span class="eqc">retorno total até o vencimento</span></div>
-        <div class="op" aria-hidden="true">≈</div>
-        <div class="eqt eq-n"><span class="eqk">NTN-B de referência</span><span class="eqv" id="eqN">—</span><span class="eqc">juro real do Tesouro, sem risco de crédito</span></div>
-        <div class="op" aria-hidden="true">+</div>
-        <div class="eqt eq-s"><span class="eqk">Spread</span><span class="eqv" id="eqS">—</span><span class="eqc">prêmio pelo risco de crédito da Eneva</span></div>
-      </div>
-      <p id="eqEx"></p>
-      <p>Por isso as duas colunas podem contar histórias diferentes: o <b>spread</b> mostra só como o mercado precifica o risco da Eneva; a <b>YTM</b> mistura isso com o sobe e desce dos juros do Tesouro.</p>
-      <p class="ysp-foot">Nas séries DI não há essa separação: a YTM já vem expressa como spread sobre o CDI (DI + x%), então YTM e spread são o mesmo número. <b>Δ 30d</b> = variação em bps contra a marcação de 30 dias corridos antes (ou o pregão anterior mais próximo). A soma é aproximada porque o spread é medido contra a curva de NTN-B no prazo exato do papel, e não contra um único título; a variação da NTN-B no exemplo é estimada como Δ YTM − Δ spread.</p>
-    </div>
   </section>
 
   <section class="card">
@@ -377,19 +336,19 @@ footer p{max-width:62ch}
       </div>
     </div>
     <div class="stats">
-      <div class="stat"><div class="lab">Dívida líquida</div><div class="val">R$ 19,8 bi</div></div>
-      <div class="stat"><div class="lab">Dívida bruta</div><div class="val">R$ 22,4 bi</div></div>
-      <div class="stat"><div class="lab">Dív. líquida / EBITDA</div><div class="val">3,18x</div></div>
-      <div class="stat"><div class="lab">Margem EBITDA 12m</div><div class="val">32,6%</div></div>
-      <div class="stat"><div class="lab">Custo da dívida 12m</div><div class="val">14,06% a.a.</div></div>
-      <div class="stat"><div class="lab">Liquidez corrente</div><div class="val">1,28x</div></div>
+      <div class="stat"><div class="lab">Dívida líquida</div><div class="val">R$ 18,5 bi</div></div>
+      <div class="stat"><div class="lab">Dívida bruta</div><div class="val">R$ 22,0 bi</div></div>
+      <div class="stat"><div class="lab">Dív. líquida / EBITDA</div><div class="val">2,77x</div></div>
+      <div class="stat"><div class="lab">Margem EBITDA 12m</div><div class="val">35,7%</div></div>
+      <div class="stat"><div class="lab">Custo da dívida 12m</div><div class="val">13,65% a.a.</div></div>
+      <div class="stat"><div class="lab">Liquidez corrente</div><div class="val">1,48x</div></div>
     </div>
     <div class="ratings">
       <span class="rt"><span>S&amp;P</span>brAAA</span>
       <span class="rt"><span>Fitch</span>AAA(bra)</span>
       <span class="rt"><span>Risco</span>Médio · Score CG 3,00</span>
     </div>
-    <p class="note">Indicadores de crédito do 2T2026 (últimos 12 meses), conforme a base Credit Guide em 16/10/2026. As taxas indicativas refletem o mercado secundário na data de referência exibida no topo; séries IPCA são incentivadas (Lei 12.431) e isentas de IR para pessoa física.</p>
+    <p class="note">Indicadores de crédito conforme snapshot da base Credit Guide (20/10/2026). As taxas indicativas refletem o mercado secundário na data de referência exibida no topo; séries IPCA são incentivadas (Lei 12.431) e isentas de IR para pessoa física.</p>
   </section>
 
   <style>
@@ -488,8 +447,8 @@ footer p{max-width:62ch}
         <tr class="subrow" id="sub-cpfl" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>CPFL Paulista</span><span class="v">8.110,5 <span class="f">· 9 sér.</span></span></li><li><span>RGE Sul</span><span class="v">5.689,0 <span class="f">· 9 sér.</span></span></li><li><span>CPFL Transmissão</span><span class="v">3.217,0 <span class="f">· 8 sér.</span></span></li><li><span>Piratininga</span><span class="v">2.729,9 <span class="f">· 10 sér.</span></span></li><li><span>CPFL Comercialização Brasil</span><span class="v">482,0 <span class="f">· 1 sér.</span></span></li><li><span>CPFL Energias Renováveis</span><span class="v">190,0 <span class="f">· 1 sér.</span></span></li></ul></div></td></tr>
         <tr class="grp" data-k="copel" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Copel <span class="xp">▸</span></span><div class="pr-sub">Distribuição + geração/transmissão</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">3,25x</td><td class="r">1,32</td><td class="r"><b>R$ 17,5 bi</b></td><td class="r">22</td><td class="r">2</td><td><span class="pr-ix" title="IPCA 50.2% · CDI 49.8%"><i style="width:50.2%;background:#009FA9"></i><i style="width:49.8%;background:#E5562C"></i></span></td></tr>
         <tr class="subrow" id="sub-copel" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Copel Distribuição</span><span class="v">9.850,0 <span class="f">· 11 sér.</span></span></li><li><span>Copel Geração e Transmissão</span><span class="v">7.600,0 <span class="f">· 11 sér.</span></span></li></ul></div></td></tr>
-        <tr class="grp me" data-k="eneva" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Eneva <span class="xp">▸</span></span><div class="pr-sub">Geração térmica + gás (R2W)</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">2,77x</td><td class="r">1,47</td><td class="r"><b>R$ 16,9 bi</b></td><td class="r">21</td><td class="r">1</td><td><span class="pr-ix" title="IPCA 68.2% · CDI 31.8%"><i style="width:68.2%;background:#009FA9"></i><i style="width:31.8%;background:#E5562C"></i></span></td></tr>
-        <tr class="subrow" id="sub-eneva" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Eneva S.A. — emissor único do grupo</span><span class="v">16.926,0 <span class="f">· 21 sér.</span></span></li></ul></div></td></tr>
+        <tr class="grp me" data-k="eneva" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Eneva <span class="xp">▸</span></span><div class="pr-sub">Geração térmica + gás (R2W)</div></td><td><span class="pr-r m">MÉDIO</span></td><td class="r">2,77x</td><td class="r">1,47</td><td class="r"><b>R$ 13,0 bi</b></td><td class="r">18</td><td class="r">1</td><td><span class="pr-ix" title="IPCA 88.5% · CDI 11.5%"><i style="width:88.5%;background:#009FA9"></i><i style="width:11.5%;background:#E5562C"></i></span></td></tr>
+        <tr class="subrow" id="sub-eneva" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Eneva S.A. — emissor único do grupo</span><span class="v">13.033,6 <span class="f">· 18 sér.</span></span></li></ul></div></td></tr>
         <tr class="grp" data-k="auren" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Auren <span class="xp">▸</span></span><div class="pr-sub">Geração hidro/renovável + comercialização</div></td><td><span class="pr-r a">ALTO</span></td><td class="r">7,31x</td><td class="r">1,11</td><td class="r"><b>R$ 15,6 bi</b></td><td class="r">15</td><td class="r">6</td><td><span class="pr-ix" title="IPCA 61.7% · CDI 38.3%"><i style="width:61.7%;background:#009FA9"></i><i style="width:38.3%;background:#E5562C"></i></span></td></tr>
         <tr class="subrow" id="sub-auren" hidden><td colspan="8"><div class="sublist"><div class="subhead">Empresas do grupo · volume em R$ milhões</div><ul><li><span>Auren Operações</span><span class="v">6.150 <span class="f">· 7 sér.</span></span></li><li><span>CESP</span><span class="v">4.700 <span class="f">· 3 sér.</span></span></li><li><span>Auren Energia (holding)</span><span class="v">2.900 <span class="f">· 2 sér.</span></span></li><li><span>Cajuína AB1 Holdings</span><span class="v">950 <span class="f">· 1 sér.</span></span></li><li><span>Ventos de Santa Tereza 07</span><span class="v">600 <span class="f">· 1 sér.</span></span></li><li><span>Tucano Holding II</span><span class="v">300 <span class="f">· 1 sér.</span></span></li></ul></div></td></tr>
         <tr class="grp" data-k="engie" tabindex="0" aria-expanded="false"><td><span class="pr-nm">Engie Brasil <span class="xp">▸</span></span><div class="pr-sub">Geração (hidro, eólica, solar, térmica)</div></td><td><span class="pr-r b">BAIXO</span></td><td class="r">3,14x</td><td class="r">1,54</td><td class="r"><b>R$ 12,5 bi</b></td><td class="r">18</td><td class="r">3</td><td><span class="pr-ix" title="IPCA 68.5% · CDI 8.0% · Pré 23.5%"><i style="width:68.5%;background:#009FA9"></i><i style="width:8.0%;background:#E5562C"></i><i style="width:23.5%;background:#FAB400"></i></span></td></tr>
@@ -504,7 +463,7 @@ footer p{max-width:62ch}
       <span><b style="background:#E5562C"></b>CDI (pós-fixada)</span>
       <span><b style="background:#FAB400"></b>Prefixada</span>
     </div>
-    <p class="note" style="margin-top:14px"><b>Metodologia.</b> Dívida em debêntures e nº de séries = soma de <b>todas as empresas do grupo econômico</b> (holding + distribuidoras regionais + transmissoras + SPEs), conforme a classificação de grupo da base Credit Guide. Considera apenas debêntures com marcação ANBIMA — por isso a Eneva aparece com R$ 16,9 bi (21 séries) na posição de 24/07/2026. Em set/2026 três séries DI (CESE22, ENEV38 e ENEVC0, R$ 3,9 bi) foram resgatadas antecipadamente, e o indicador no topo do painel passou a R$ 13,0 bi (18 séries). A CESE11 (IPCA + 8%, R$ 3,4 bi emitidos) fica de fora por não ter marcação no secundário.<br>
+    <p class="note" style="margin-top:14px"><b>Metodologia.</b> Dívida em debêntures e nº de séries = soma de <b>todas as empresas do grupo econômico</b> (holding + distribuidoras regionais + transmissoras + SPEs), conforme a classificação de grupo da base Credit Guide. Considera apenas debêntures com marcação ANBIMA — por isso a Eneva aparece com R$ 13,0 bi (18 séries), o mesmo valor do indicador no topo do painel; a CESE11 (prefixada, R$ 3,4 bi) fica de fora por não ter marcação no secundário.<br>
     <b>Indicadores de crédito (1T2026).</b> Sempre da holding do grupo, exceto onde a holding não tem análise publicada na base: <b>CPFL</b> usa a CPFL Paulista, <b>Cemig</b> usa a Cemig Distribuição e <b>Copel</b> usa a Copel Distribuição — as maiores subsidiárias operacionais de cada grupo. Nesses três casos os indicadores refletem a subsidiária, não o consolidado do grupo.<br>
     <b>Ressalva.</b> A base classifica a <b>TAESA</b> (R$ 8,6 bi, 20 séries) dentro do grupo Cemig; se preferir tratá-la como emissor independente, o grupo Cemig cai para R$ 18,3 bi. A Eletrobras aparece como <b>Axia</b> no texto da análise de crédito, refletindo o rebranding.</p>
   </section>
@@ -1154,9 +1113,9 @@ footer p{max-width:62ch}
 /* ================= configuração ================= */
 const MCP_URL = 'https://mcp.creditguide.com.br/mcp';
 const PORTFOLIO_ID = 608;
-const SNAP_REF = '19/10/2026';
+const SNAP_REF = '20/10/2026';
 
-const SNAPSHOT = [{"codigo": "CESE32", "idx": "IPCA", "taxaEmissao": "IPCA + 7,49%", "venc": "15/09/2030", "vencAno": 2030, "dataEmissao": "15/09/2023", "duration": 3.02, "ytm": 7.73, "spreadOver": 0.79, "compra": 7.84, "venda": 7.5, "pu": 1150.26, "puPar": 1158.14, "pctPuPar": 99.32, "volMed20": 26196.37, "volDia": 48958.27, "var1": -0.02, "var7": 0.3, "var30": 0.79, "volEmissao": 1800000000.0, "isento": true, "serie": 3, "emissaoNum": 11, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/08/2030", "prazoDias": 1427.0, "spreadEqIR": 3.22, "reune": "45%", "qtdMercado": 1800000.0, "qtdEmissao": 1800000.0, "varYtm30": 0.17}, {"codigo": "ENEV13", "idx": "IPCA", "taxaEmissao": "IPCA + 4,23%", "venc": "15/12/2027", "vencAno": 2027, "dataEmissao": "15/12/2019", "duration": 0.63, "ytm": 6.95, "spreadOver": 1.4, "compra": 7.17, "venda": 6.66, "pu": 971.67, "puPar": 987.67, "pctPuPar": 98.38, "volMed20": 522.84, "volDia": 347351.01, "var1": 0.01, "var7": 0.33, "var30": 1.31, "volEmissao": 650000000.0, "isento": true, "serie": 0, "emissaoNum": 3, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2027", "prazoDias": 422.0, "spreadEqIR": 3.79, "reune": null, "qtdMercado": 650000.0, "qtdEmissao": 650000.0, "varYtm30": 1.05}, {"codigo": "ENEV15", "idx": "IPCA", "taxaEmissao": "IPCA + 5,5%", "venc": "15/06/2030", "vencAno": 2030, "dataEmissao": "15/06/2020", "duration": 2.41, "ytm": 7.59, "spreadOver": 0.68, "compra": 7.75, "venda": 7.47, "pu": 1406.59, "puPar": 1474.88, "pctPuPar": 95.37, "volMed20": 6863.86, "volDia": 491156.42, "var1": 0.03, "var7": 0.3, "var30": 0.7, "volEmissao": 650000000.0, "isento": true, "serie": 0, "emissaoNum": 5, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2029", "prazoDias": 1335.0, "spreadEqIR": 3.07, "reune": null, "qtdMercado": 650000.0, "qtdEmissao": 650000.0, "varYtm30": 0.23}, {"codigo": "ENEV16", "idx": "IPCA", "taxaEmissao": "IPCA + 4,13%", "venc": "15/09/2030", "vencAno": 2030, "dataEmissao": "15/09/2020", "duration": 2.7, "ytm": 7.59, "spreadOver": 0.68, "compra": 7.67, "venda": 7.44, "pu": 1315.42, "puPar": 1437.93, "pctPuPar": 91.48, "volMed20": 645.93, "volDia": 262810.87, "var1": -0.06, "var7": 0.34, "var30": 0.68, "volEmissao": 373999000.0, "isento": true, "serie": 1, "emissaoNum": 6, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2029", "prazoDias": 1427.0, "spreadEqIR": 3.07, "reune": null, "qtdMercado": 373999.0, "qtdEmissao": 373999.0, "varYtm30": 0.2}, {"codigo": "ENEV18", "idx": "IPCA", "taxaEmissao": "IPCA + 6,53%", "venc": "15/07/2032", "vencAno": 2032, "dataEmissao": "15/07/2022", "duration": 4.02, "ytm": 7.71, "spreadOver": 0.8, "compra": 7.89, "venda": 7.6, "pu": 1161.01, "puPar": 1213.93, "pctPuPar": 95.64, "volMed20": 2894.89, "volDia": 1238499.7, "var1": -0.1, "var7": 0.29, "var30": 0.71, "volEmissao": 718491000.0, "isento": true, "serie": 1, "emissaoNum": 8, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": "15/05/2031", "prazoDias": 2096.0, "spreadEqIR": 3.24, "reune": null, "qtdMercado": 718491.0, "qtdEmissao": 718491.0, "varYtm30": 0.05}, {"codigo": "ENEV19", "idx": "IPCA", "taxaEmissao": "IPCA + 6,9%", "venc": "15/09/2032", "vencAno": 2032, "dataEmissao": "15/09/2022", "duration": 4.17, "ytm": 7.79, "spreadOver": 0.88, "compra": 7.95, "venda": 7.57, "pu": 1172.11, "puPar": 1213.62, "pctPuPar": 96.58, "volMed20": 1045.89, "volDia": 2252144.95, "var1": -0.01, "var7": 0.35, "var30": 0.82, "volEmissao": 755000000.0, "isento": true, "serie": 1, "emissaoNum": 9, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2031", "prazoDias": 2158.0, "spreadEqIR": 3.34, "reune": null, "qtdMercado": 755000.0, "qtdEmissao": 755000.0, "varYtm30": 0.17}, {"codigo": "ENEV26", "idx": "IPCA", "taxaEmissao": "IPCA + 4,5%", "venc": "15/09/2035", "vencAno": 2035, "dataEmissao": "15/09/2020", "duration": 6.5, "ytm": 7.93, "spreadOver": 0.95, "compra": 8.11, "venda": 7.82, "pu": 1162.44, "puPar": 1438.3, "pctPuPar": 80.82, "volMed20": 982.27, "volDia": 6275553.82, "var1": -0.07, "var7": 0.39, "var30": 0.73, "volEmissao": 573969000.0, "isento": true, "serie": 2, "emissaoNum": 6, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2035", "prazoDias": 3253.0, "spreadEqIR": 3.46, "reune": null, "qtdMercado": 573969.0, "qtdEmissao": 573969.0, "varYtm30": 0.05}, {"codigo": "ENEV28", "idx": "IPCA", "taxaEmissao": "IPCA + 6,59%", "venc": "15/07/2037", "vencAno": 2037, "dataEmissao": "15/07/2022", "duration": 7.05, "ytm": 8.04, "spreadOver": 1.05, "compra": 8.18, "venda": 7.82, "pu": 1102.84, "puPar": 1214.05, "pctPuPar": 90.84, "volMed20": 1134.84, "volDia": 4239854.17, "var1": -0.04, "var7": 0.37, "var30": 0.81, "volEmissao": 471509000.0, "isento": true, "serie": 2, "emissaoNum": 8, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": "15/05/2035", "prazoDias": 3922.0, "spreadEqIR": 3.58, "reune": null, "qtdMercado": 471509.0, "qtdEmissao": 471509.0, "varYtm30": 0.21}, {"codigo": "ENEV29", "idx": "IPCA", "taxaEmissao": "IPCA + 7,0%", "venc": "15/09/2037", "vencAno": 2037, "dataEmissao": "15/09/2022", "duration": 7.14, "ytm": 8.03, "spreadOver": 1.03, "compra": 8.15, "venda": 7.81, "pu": 1132.68, "puPar": 1213.76, "pctPuPar": 93.32, "volMed20": 1312.24, "volDia": 8642644.23, "var1": -0.06, "var7": 0.3, "var30": 0.83, "volEmissao": 570000000.0, "isento": true, "serie": 2, "emissaoNum": 9, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2037", "prazoDias": 3984.0, "spreadEqIR": 3.56, "reune": "5%", "qtdMercado": 570000.0, "qtdEmissao": 570000.0, "varYtm30": 0.25}, {"codigo": "ENEV32", "idx": "IPCA", "taxaEmissao": "IPCA + 5,05%", "venc": "15/05/2029", "vencAno": 2029, "dataEmissao": "15/05/2019", "duration": 1.45, "ytm": 7.7, "spreadOver": 0.72, "compra": 7.83, "venda": 7.53, "pu": 1454.96, "puPar": 1508.98, "pctPuPar": 96.42, "volMed20": 1836.85, "volDia": 215907.3, "var1": -0.01, "var7": 0.39, "var30": 0.81, "volEmissao": 500000000.0, "isento": true, "serie": 3, "emissaoNum": 2, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/08/2028", "prazoDias": 939.0, "spreadEqIR": 3.18, "reune": null, "qtdMercado": 500000.0, "qtdEmissao": 500000.0, "varYtm30": 0.46}, {"codigo": "ENEV39", "idx": "IPCA", "taxaEmissao": "IPCA + 7,15%", "venc": "15/09/2042", "vencAno": 2042, "dataEmissao": "15/09/2022", "duration": 9.47, "ytm": 8.02, "spreadOver": 1.12, "compra": 8.15, "venda": 7.8, "pu": 1122.91, "puPar": 1213.96, "pctPuPar": 92.5, "volMed20": 1223.25, "volDia": 5362370.07, "var1": 0.0, "var7": 0.38, "var30": 0.75, "volEmissao": 575000000.0, "isento": true, "serie": 3, "emissaoNum": 9, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/08/2040", "prazoDias": 5810.0, "spreadEqIR": 3.64, "reune": null, "qtdMercado": 575000.0, "qtdEmissao": 575000.0, "varYtm30": 0.2}, {"codigo": "ENEV48", "idx": "DI", "taxaEmissao": "DI + 2,0%", "venc": "15/07/2032", "vencAno": 2032, "dataEmissao": "15/07/2022", "duration": 3.44, "ytm": 0.82, "spreadOver": 0.82, "compra": 0.97, "venda": 0.64, "pu": 1082.34, "puPar": 1040.01, "pctPuPar": 104.07, "volMed20": 105.35, "volDia": 0.0, "var1": 0.0, "var7": 0.03, "var30": 0.03, "volEmissao": 350000000.0, "isento": false, "serie": 4, "emissaoNum": 8, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": null, "prazoDias": 2096.0, "spreadEqIR": 0.82, "reune": null, "qtdMercado": 350000.0, "qtdEmissao": 350000.0, "varYtm30": 0.03}, {"codigo": "ENEVA0", "idx": "IPCA", "taxaEmissao": "IPCA + 6,56%", "venc": "15/04/2034", "vencAno": 2034, "dataEmissao": "15/04/2024", "duration": 5.31, "ytm": 7.81, "spreadOver": 0.89, "compra": 7.99, "venda": 7.65, "pu": 1050.42, "puPar": 1117.83, "pctPuPar": 93.97, "volMed20": 1400.95, "volDia": 1273251.21, "var1": -0.02, "var7": 0.33, "var30": 0.73, "volEmissao": 633334000.0, "isento": true, "serie": 1, "emissaoNum": 10, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2033", "prazoDias": 2735.0, "spreadEqIR": 3.37, "reune": null, "qtdMercado": 633334.0, "qtdEmissao": 633334.0, "varYtm30": 0.01}, {"codigo": "ENEVA3", "idx": "DI", "taxaEmissao": "DI + 0,9%", "venc": "15/12/2029", "vencAno": 2029, "dataEmissao": "15/12/2024", "duration": 2.54, "ytm": 0.69, "spreadOver": 0.69, "compra": 0.81, "venda": 0.53, "pu": 1055.49, "puPar": 1050.03, "pctPuPar": 100.52, "volMed20": 8679.51, "volDia": 42715343.46, "var1": 0.0, "var7": 0.1, "var30": 0.07, "volEmissao": 838074000.0, "isento": false, "serie": 0, "emissaoNum": 13, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": null, "prazoDias": 1153.0, "spreadEqIR": 0.69, "reune": null, "qtdMercado": 838074.0, "qtdEmissao": 838074.0, "varYtm30": 0.07}, {"codigo": "ENEVA4", "idx": "IPCA", "taxaEmissao": "IPCA + 6,71%", "venc": "15/01/2036", "vencAno": 2036, "dataEmissao": "15/01/2026", "duration": 6.79, "ytm": 7.97, "spreadOver": 0.99, "compra": 8.11, "venda": 7.73, "pu": 973.11, "puPar": 1054.63, "pctPuPar": 92.27, "volMed20": 16728.14, "volDia": 4277843.03, "var1": 0.0, "var7": 0.31, "var30": 0.78, "volEmissao": 1500000000.0, "isento": true, "serie": 1, "emissaoNum": 14, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": "15/05/2035", "prazoDias": 3375.0, "spreadEqIR": 3.51, "reune": null, "qtdMercado": 1500000.0, "qtdEmissao": 1500000.0, "varYtm30": 0.11}, {"codigo": "ENEVB0", "idx": "IPCA", "taxaEmissao": "IPCA + 6,67%", "venc": "15/04/2039", "vencAno": 2039, "dataEmissao": "15/04/2024", "duration": 8.0, "ytm": 7.97, "spreadOver": 0.98, "compra": 8.2, "venda": 7.74, "pu": 1013.25, "puPar": 1117.88, "pctPuPar": 90.64, "volMed20": 1316.91, "volDia": 2927367.44, "var1": -0.02, "var7": 0.25, "var30": 0.75, "volEmissao": 866669000.0, "isento": true, "serie": 2, "emissaoNum": 10, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2037", "prazoDias": 4561.0, "spreadEqIR": 3.5, "reune": null, "qtdMercado": 866669.0, "qtdEmissao": 866669.0, "varYtm30": 0.17}, {"codigo": "ENEVB4", "idx": "IPCA", "taxaEmissao": "IPCA + 6,67%", "venc": "15/01/2041", "vencAno": 2041, "dataEmissao": "15/01/2026", "duration": 8.58, "ytm": 7.99, "spreadOver": 1.08, "compra": 8.16, "venda": 7.8, "pu": 947.48, "puPar": 1054.51, "pctPuPar": 89.85, "volMed20": 1491.51, "volDia": 844232.78, "var1": 0.0, "var7": 0.32, "var30": 0.79, "volEmissao": 900000000.0, "isento": true, "serie": 2, "emissaoNum": 14, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": "15/08/2040", "prazoDias": 5202.0, "spreadEqIR": 3.61, "reune": null, "qtdMercado": 900000.0, "qtdEmissao": 900000.0, "varYtm30": 0.24}, {"codigo": "ENEVD0", "idx": "DI", "taxaEmissao": "DI + 1,15%", "venc": "15/04/2031", "vencAno": 2031, "dataEmissao": "15/04/2024", "duration": 3.17, "ytm": 0.71, "spreadOver": 0.71, "compra": 0.86, "venda": 0.58, "pu": 1014.93, "puPar": 1001.11, "pctPuPar": 101.38, "volMed20": 1409.14, "volDia": 12178589.09, "var1": 0.0, "var7": 0.13, "var30": 0.08, "volEmissao": 307548000.0, "isento": false, "serie": 4, "emissaoNum": 10, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": null, "prazoDias": 1639.0, "spreadEqIR": 0.71, "reune": null, "qtdMercado": 307548.0, "qtdEmissao": 307548.0, "varYtm30": 0.08}];
+const SNAPSHOT = [{"codigo": "CESE32", "idx": "IPCA", "taxaEmissao": "IPCA + 7,49%", "venc": "15/09/2030", "vencAno": 2030, "dataEmissao": "15/09/2023", "duration": 3.02, "ytm": 7.68, "spreadOver": 0.83, "compra": 7.83, "venda": 7.45, "pu": 1152.35, "puPar": 1158.61, "pctPuPar": 99.46, "volMed20": 27387.02, "volDia": 51199944.54, "var1": 0.04, "var7": 0.2, "var30": 0.83, "volEmissao": 1800000000.0, "isento": true, "serie": 3, "emissaoNum": 11, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/08/2030", "prazoDias": 1426.0, "spreadEqIR": 3.24, "reune": "45%", "qtdMercado": 1800000.0, "qtdEmissao": 1800000.0}, {"codigo": "ENEV13", "idx": "IPCA", "taxaEmissao": "IPCA + 4,23%", "venc": "15/12/2027", "vencAno": 2027, "dataEmissao": "15/12/2019", "duration": 0.62, "ytm": 6.94, "spreadOver": 1.42, "compra": 7.17, "venda": 6.67, "pu": 972.08, "puPar": 987.99, "pctPuPar": 98.39, "volMed20": 505.85, "volDia": 166027.39, "var1": 0.02, "var7": 0.33, "var30": 1.33, "volEmissao": 650000000.0, "isento": true, "serie": 0, "emissaoNum": 3, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2027", "prazoDias": 421.0, "spreadEqIR": 3.81, "reune": null, "qtdMercado": 650000.0, "qtdEmissao": 650000.0}, {"codigo": "ENEV15", "idx": "IPCA", "taxaEmissao": "IPCA + 5,5%", "venc": "15/06/2030", "vencAno": 2030, "dataEmissao": "15/06/2020", "duration": 2.41, "ytm": 7.53, "spreadOver": 0.72, "compra": 7.74, "venda": 7.3, "pu": 1408.81, "puPar": 1475.35, "pctPuPar": 95.49, "volMed20": 6704.17, "volDia": 3510474.87, "var1": 0.04, "var7": 0.33, "var30": 0.74, "volEmissao": 650000000.0, "isento": true, "serie": 0, "emissaoNum": 5, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2029", "prazoDias": 1334.0, "spreadEqIR": 3.09, "reune": null, "qtdMercado": 650000.0, "qtdEmissao": 650000.0}, {"codigo": "ENEV16", "idx": "IPCA", "taxaEmissao": "IPCA + 4,13%", "venc": "15/09/2030", "vencAno": 2030, "dataEmissao": "15/09/2020", "duration": 2.7, "ytm": 7.55, "spreadOver": 0.73, "compra": 7.64, "venda": 7.4, "pu": 1317.37, "puPar": 1438.33, "pctPuPar": 91.59, "volMed20": 636.72, "volDia": 452526.22, "var1": 0.05, "var7": 0.3, "var30": 0.73, "volEmissao": 373999000.0, "isento": true, "serie": 1, "emissaoNum": 6, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2029", "prazoDias": 1426.0, "spreadEqIR": 3.11, "reune": null, "qtdMercado": 373999.0, "qtdEmissao": 373999.0}, {"codigo": "ENEV18", "idx": "IPCA", "taxaEmissao": "IPCA + 6,53%", "venc": "15/07/2032", "vencAno": 2032, "dataEmissao": "15/07/2022", "duration": 4.02, "ytm": 7.63, "spreadOver": 0.81, "compra": 7.8, "venda": 7.46, "pu": 1164.96, "puPar": 1214.39, "pctPuPar": 95.93, "volMed20": 2772.93, "volDia": 333825.99, "var1": 0.01, "var7": 0.2, "var30": 0.71, "volEmissao": 718491000.0, "isento": true, "serie": 1, "emissaoNum": 8, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": "15/05/2031", "prazoDias": 2095.0, "spreadEqIR": 3.22, "reune": null, "qtdMercado": 718491.0, "qtdEmissao": 718491.0}, {"codigo": "ENEV19", "idx": "IPCA", "taxaEmissao": "IPCA + 6,9%", "venc": "15/09/2032", "vencAno": 2032, "dataEmissao": "15/09/2022", "duration": 4.17, "ytm": 7.67, "spreadOver": 0.85, "compra": 7.87, "venda": 7.5, "pu": 1178.05, "puPar": 1214.11, "pctPuPar": 97.03, "volMed20": 1060.12, "volDia": 1344672.96, "var1": -0.03, "var7": 0.24, "var30": 0.79, "volEmissao": 755000000.0, "isento": true, "serie": 1, "emissaoNum": 9, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2031", "prazoDias": 2157.0, "spreadEqIR": 3.27, "reune": null, "qtdMercado": 755000.0, "qtdEmissao": 755000.0}, {"codigo": "ENEV26", "idx": "IPCA", "taxaEmissao": "IPCA + 4,5%", "venc": "15/09/2035", "vencAno": 2035, "dataEmissao": "15/09/2020", "duration": 6.5, "ytm": 7.88, "spreadOver": 0.96, "compra": 8.01, "venda": 7.73, "pu": 1166.22, "puPar": 1438.71, "pctPuPar": 81.06, "volMed20": 1098.09, "volDia": 3414543.13, "var1": 0.0, "var7": 0.32, "var30": 0.74, "volEmissao": 573969000.0, "isento": true, "serie": 2, "emissaoNum": 6, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2035", "prazoDias": 3252.0, "spreadEqIR": 3.44, "reune": null, "qtdMercado": 573969.0, "qtdEmissao": 573969.0}, {"codigo": "ENEV28", "idx": "IPCA", "taxaEmissao": "IPCA + 6,59%", "venc": "15/07/2037", "vencAno": 2037, "dataEmissao": "15/07/2022", "duration": 7.05, "ytm": 7.98, "spreadOver": 1.04, "compra": 8.1, "venda": 7.76, "pu": 1107.35, "puPar": 1214.6, "pctPuPar": 91.17, "volMed20": 1184.16, "volDia": 2170423.92, "var1": 0.0, "var7": 0.3, "var30": 0.81, "volEmissao": 471509000.0, "isento": true, "serie": 2, "emissaoNum": 8, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": "15/05/2037", "prazoDias": 3921.0, "spreadEqIR": 3.55, "reune": null, "qtdMercado": 471509.0, "qtdEmissao": 471509.0}, {"codigo": "ENEV29", "idx": "IPCA", "taxaEmissao": "IPCA + 7,0%", "venc": "15/09/2037", "vencAno": 2037, "dataEmissao": "15/09/2022", "duration": 7.15, "ytm": 7.95, "spreadOver": 1.0, "compra": 8.06, "venda": 7.74, "pu": 1139.47, "puPar": 1214.27, "pctPuPar": 93.84, "volMed20": 1680.89, "volDia": 9054003.09, "var1": -0.03, "var7": 0.15, "var30": 0.8, "volEmissao": 570000000.0, "isento": true, "serie": 2, "emissaoNum": 9, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2035", "prazoDias": 3983.0, "spreadEqIR": 3.5, "reune": "5%", "qtdMercado": 570000.0, "qtdEmissao": 570000.0}, {"codigo": "ENEV32", "idx": "IPCA", "taxaEmissao": "IPCA + 5,05%", "venc": "15/05/2029", "vencAno": 2029, "dataEmissao": "15/05/2019", "duration": 1.45, "ytm": 7.59, "spreadOver": 0.7, "compra": 7.72, "venda": 7.5, "pu": 1457.67, "puPar": 1509.44, "pctPuPar": 96.57, "volMed20": 1840.98, "volDia": 1923616.27, "var1": -0.02, "var7": 0.3, "var30": 0.79, "volEmissao": 500000000.0, "isento": true, "serie": 3, "emissaoNum": 2, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/08/2028", "prazoDias": 938.0, "spreadEqIR": 3.13, "reune": null, "qtdMercado": 500000.0, "qtdEmissao": 500000.0}, {"codigo": "ENEV39", "idx": "IPCA", "taxaEmissao": "IPCA + 7,15%", "venc": "15/09/2042", "vencAno": 2042, "dataEmissao": "15/09/2022", "duration": 9.48, "ytm": 7.95, "spreadOver": 1.09, "compra": 8.07, "venda": 7.76, "pu": 1130.75, "puPar": 1214.42, "pctPuPar": 93.11, "volMed20": 1337.99, "volDia": 3632934.46, "var1": -0.03, "var7": 0.3, "var30": 0.73, "volEmissao": 575000000.0, "isento": true, "serie": 3, "emissaoNum": 9, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/08/2040", "prazoDias": 5809.0, "spreadEqIR": 3.58, "reune": null, "qtdMercado": 575000.0, "qtdEmissao": 575000.0}, {"codigo": "ENEV48", "idx": "DI", "taxaEmissao": "DI + 2,0%", "venc": "15/07/2032", "vencAno": 2032, "dataEmissao": "15/07/2022", "duration": 3.44, "ytm": 0.84, "spreadOver": 0.84, "compra": 1.03, "venda": 0.69, "pu": 1082.1, "puPar": 1040.68, "pctPuPar": 103.98, "volMed20": 100.33, "volDia": 0.0, "var1": 0.02, "var7": 0.04, "var30": 0.06, "volEmissao": 350000000.0, "isento": false, "serie": 4, "emissaoNum": 8, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": null, "prazoDias": 2095.0, "spreadEqIR": 0.84, "reune": null, "qtdMercado": 350000.0, "qtdEmissao": 350000.0}, {"codigo": "ENEVA0", "idx": "IPCA", "taxaEmissao": "IPCA + 6,56%", "venc": "15/04/2034", "vencAno": 2034, "dataEmissao": "15/04/2024", "duration": 5.31, "ytm": 7.69, "spreadOver": 0.83, "compra": 7.9, "venda": 7.48, "pu": 1057.43, "puPar": 1118.26, "pctPuPar": 94.56, "volMed20": 1410.42, "volDia": 1599881.23, "var1": -0.06, "var7": 0.2, "var30": 0.68, "volEmissao": 633334000.0, "isento": true, "serie": 1, "emissaoNum": 10, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2033", "prazoDias": 2734.0, "spreadEqIR": 3.27, "reune": null, "qtdMercado": 633334.0, "qtdEmissao": 633334.0}, {"codigo": "ENEVA3", "idx": "DI", "taxaEmissao": "DI + 0,9%", "venc": "15/12/2029", "vencAno": 2029, "dataEmissao": "15/12/2024", "duration": 2.54, "ytm": 0.68, "spreadOver": 0.68, "compra": 0.82, "venda": 0.54, "pu": 1056.29, "puPar": 1050.61, "pctPuPar": 100.54, "volMed20": 8272.94, "volDia": 141588.99, "var1": -0.01, "var7": 0.09, "var30": 0.06, "volEmissao": 838074000.0, "isento": false, "serie": 0, "emissaoNum": 13, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": null, "prazoDias": 1152.0, "spreadEqIR": 0.68, "reune": null, "qtdMercado": 838074.0, "qtdEmissao": 838074.0}, {"codigo": "ENEVA4", "idx": "IPCA", "taxaEmissao": "IPCA + 6,71%", "venc": "15/01/2036", "vencAno": 2036, "dataEmissao": "15/01/2026", "duration": 6.79, "ytm": 7.91, "spreadOver": 0.98, "compra": 8.09, "venda": 7.73, "pu": 977.04, "puPar": 1055.12, "pctPuPar": 92.6, "volMed20": 16939.41, "volDia": 21164745.9, "var1": -0.01, "var7": 0.16, "var30": 0.78, "volEmissao": 1500000000.0, "isento": true, "serie": 1, "emissaoNum": 14, "freqAmort": "Não uniforme", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": "15/05/2035", "prazoDias": 3374.0, "spreadEqIR": 3.47, "reune": null, "qtdMercado": 1500000.0, "qtdEmissao": 1500000.0}, {"codigo": "ENEVB0", "idx": "IPCA", "taxaEmissao": "IPCA + 6,67%", "venc": "15/04/2039", "vencAno": 2039, "dataEmissao": "15/04/2024", "duration": 8.01, "ytm": 7.91, "spreadOver": 0.96, "compra": 8.18, "venda": 7.68, "pu": 1018.58, "puPar": 1118.22, "pctPuPar": 91.09, "volMed20": 1271.04, "volDia": 353669.45, "var1": -0.01, "var7": 0.13, "var30": 0.74, "volEmissao": 866669000.0, "isento": true, "serie": 2, "emissaoNum": 10, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Não", "ntnb": "15/05/2037", "prazoDias": 4560.0, "spreadEqIR": 3.45, "reune": null, "qtdMercado": 866669.0, "qtdEmissao": 866669.0}, {"codigo": "ENEVB4", "idx": "IPCA", "taxaEmissao": "IPCA + 6,67%", "venc": "15/01/2041", "vencAno": 2041, "dataEmissao": "15/01/2026", "duration": 8.58, "ytm": 7.94, "spreadOver": 1.08, "compra": 8.18, "venda": 7.74, "pu": 951.63, "puPar": 1055.03, "pctPuPar": 90.2, "volMed20": 1478.24, "volDia": 1212879.93, "var1": 0.0, "var7": 0.27, "var30": 0.78, "volEmissao": 900000000.0, "isento": true, "serie": 2, "emissaoNum": 14, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": "15/08/2040", "prazoDias": 5201.0, "spreadEqIR": 3.58, "reune": null, "qtdMercado": 900000.0, "qtdEmissao": 900000.0}, {"codigo": "ENEVD0", "idx": "DI", "taxaEmissao": "DI + 1,15%", "venc": "15/04/2031", "vencAno": 2031, "dataEmissao": "15/04/2024", "duration": 3.17, "ytm": 0.73, "spreadOver": 0.73, "compra": 0.86, "venda": 0.54, "pu": 1015.07, "puPar": 1001.74, "pctPuPar": 101.33, "volMed20": 1763.0, "volDia": 8840230.82, "var1": 0.01, "var7": 0.14, "var30": 0.09, "volEmissao": 307548000.0, "isento": false, "serie": 4, "emissaoNum": 10, "freqAmort": "Anual", "freqJuros": "Semestral", "resgate": "Sim", "ntnb": null, "prazoDias": 1638.0, "spreadEqIR": 0.73, "reune": null, "qtdMercado": 307548.0, "qtdEmissao": 307548.0}];
 
 /* ================= tokens & helpers ================= */
 const C = {navy:'#061027', ink:'#0B1B33', teal:'#009FA9', tealDeep:'#00747C',
@@ -1167,11 +1126,11 @@ const int0 = v => v.toLocaleString('pt-BR', {maximumFractionDigits: 0});
 const rate = (b, v) => (b.idx === 'DI' ? 'DI + ' : 'IPCA + ') + nbr(v, 2) + '%';
 const bpsTxt = v => {const x = Math.round(v * 100); return (x > 0 ? '+' : '') + x + ' bps';};
 
-/* Taxa da NTN-B de referência (yield real, % a.a.) por papel IPCA — fonte Credit Guide 19/10/2026 */
+/* Taxa da NTN-B de referência (yield real, % a.a.) por papel IPCA — fonte Credit Guide 20/10/2026 */
 const NTNB_RATE = {
-  CESE32: 6.89, ENEV13: 5.47, ENEV15: 6.86, ENEV16: 6.86, ENEV18: 6.85,
-  ENEV19: 6.85, ENEV26: 6.91, ENEV28: 6.91, ENEV29: 6.93, ENEV32: 6.93,
-  ENEV39: 6.83, ENEVA0: 6.86, ENEVA4: 6.91, ENEVB0: 6.93, ENEVB4: 6.83
+  CESE32: 6.8, ENEV13: 5.44, ENEV15: 6.76, ENEV16: 6.76, ENEV18: 6.77,
+  ENEV19: 6.77, ENEV26: 6.86, ENEV28: 6.86, ENEV29: 6.88, ENEV32: 6.85,
+  ENEV39: 6.78, ENEVA0: 6.8, ENEVA4: 6.86, ENEVB0: 6.88, ENEVB4: 6.78
 };
 function prep(list) {
   list.forEach(b => {
@@ -1202,7 +1161,7 @@ function renderKPIs() {
   if (IP.length && vIP) cards.push({l: 'Carteira IPCA', v: 'IPCA + ' + nbr(IP.reduce((s, b) => s + b.ytm * b.volEmissao, 0) / vIP, 2) + '%', s: IP.length + ' séries · R$ ' + nbr(vIP / 1e9, 1) + ' bi', c: 'teal'});
   if (DI.length && vDI) cards.push({l: 'Carteira DI',   v: 'DI + '   + nbr(DI.reduce((s, b) => s + b.ytm * b.volEmissao, 0) / vDI, 2) + '%', s: DI.length + ' séries · R$ ' + nbr(vDI / 1e9, 1) + ' bi', c: 'orange'});
   cards.push({l: 'Isentas de IR', v: nbr(pIs, 0) + '%', s: 'do volume · Lei 12.431'});
-  cards.push({l: 'Alavancagem',   v: '3,18x',           s: 'dívida líquida / EBITDA · 2T26'});
+  cards.push({l: 'Alavancagem',   v: '2,77x',           s: 'dívida líquida / EBITDA'});
   document.getElementById('kpis').innerHTML = cards.map(k =>
     '<div class="kpi ' + (k.c || '') + '"><div class="lab">' + k.l + '</div><div class="val">' + k.v +
     '</div><div class="sub">' + k.s + '</div></div>').join('');
@@ -1488,39 +1447,30 @@ document.querySelectorAll('#segVar button').forEach(btn => {
 });
 
 /* ================= 05 · tabela interativa ================= */
-/* célula de duas linhas: nível em cima, Δ 30d (bps) embaixo */
-function v2(level, d) {
-  let dl;
-  if (d == null || isNaN(d)) dl = '<span class="dl zero">—</span>';
-  else {
-    const x = Math.round(d * 100);
-    dl = x === 0 ? '<span class="dl zero">0 bps · 30d</span>'
-      : '<span class="dl ' + (x > 0 ? 'pos' : 'neg') + '">' + (x > 0 ? '▲ ' : '▼ ') + Math.abs(x) + ' bps · 30d</span>';
-  }
-  return '<div class="v2"><span class="lv">' + level + '</span>' + dl + '</div>';
-}
-
 const COLS = [
   {k: 'codigo',    l: 'Código',          left: 1, f: b => '<span class="code">' + b.codigo + '</span>', s: b => b.codigo},
   {k: 'idx',       l: 'Índice',          left: 1, f: b => '<span class="idx-badge idx-' + b.idx + '">' + b.idx + '</span>', s: b => b.idx},
   {k: 'taxaEmissao', l: 'Emissão',       left: 1, f: b => b.taxaEmissao || '—', s: b => b.taxaEmissao || ''},
   {k: 'venc',      l: 'Vencimento',      f: b => b.venc,                s: b => b.vs},
   {k: 'duration',  l: 'Duration',        f: b => nbr(b.duration, 2),   s: b => b.duration},
-  {k: 'ytm',       l: 'YTM',             tt: 'Taxa indicativa (ANBIMA) e variação em 30 dias',
-      f: b => v2(rate(b, b.ytm), b.varYtm30), s: b => b.ytm},
-  {k: 'spreadOver', l: 'Spread',          tt: 'Spread s/ NTN-B de referência (IPCA) ou s/ DI, e variação em 30 dias',
-      f: b => v2(bpsTxt(b.spreadOver), b.var30), s: b => b.spreadOver},
+  {k: 'ytm',       l: 'Taxa indicativa', f: b => rate(b, b.ytm),       s: b => b.ytm},
   {k: 'cv',        l: 'Compra / venda',  f: b => nbr(b.compra, 2) + ' / ' + nbr(b.venda, 2), s: b => b.compra},
   {k: 'pu',        l: 'PU (R$)',         f: b => nbr(b.pu, 2),         s: b => b.pu},
   {k: 'pctPuPar',  l: '% PU par',        f: b => nbr(b.pctPuPar, 1) + '%', s: b => b.pctPuPar},
+  {k: 'var30',     l: 'Δ 30d',           f: b => {
+      const x = Math.round(b.var30 * 100);
+      if (x === 0) return '<span class="zero">0 bps</span>';
+      const cl = x > 0 ? 'pos' : 'neg', ar = x > 0 ? '▲' : '▼';
+      return '<span class="' + cl + '">' + ar + ' ' + Math.abs(x) + ' bps</span>';
+    }, s: b => b.var30},
   {k: 'volMed20',  l: 'Vol. méd. 20d',   f: b => int0(b.volMed20),     s: b => b.volMed20},
   {k: 'isento',    l: 'IR',              f: b => b.isento ? '<span class="ir">Isenta</span>' : '<span class="muted">—</span>', s: b => b.isento ? 1 : 0}
 ];
-const T = {sortK: 'venc', dir: 1, filter: 'ALL', q: '', vencMin: null, vencMax: null, open: new Set(), hmode: 'so'};
+const T = {sortK: 'venc', dir: 1, filter: 'ALL', q: '', vencMin: null, vencMax: null, open: new Set()};
 
 const thr = document.getElementById('thr');
 thr.innerHTML = COLS.map(c =>
-  '<th scope="col" class="' + (c.left ? 'left' : '') + '" data-k="' + c.k + '" tabindex="0"' + (c.tt ? ' title="' + c.tt + '"' : '') + '>' +
+  '<th scope="col" class="' + (c.left ? 'left' : '') + '" data-k="' + c.k + '" tabindex="0">' +
   c.l + '<span class="si">▾</span></th>').join('');
 
 function detailHTML(b) {
@@ -1542,208 +1492,6 @@ function detailHTML(b) {
   ].filter(Boolean);
   return '<div class="dgrid">' + pairs.map(p =>
     '<div><label>' + p[0] + '</label><b>' + p[1] + '</b></div>').join('') + '</div>';
-}
-
-/* ===== 05 · histórico do spread por série =====
-   Fonte: Credit Guide · cg_get_asset_history (metric=price, granularity=monthly).
-   Cada ponto: [data, spread over (bps), spread eq. com IR / gross-up (bps), YTM (% a.a.), taxa da NTN-B de ref. (% a.a.)];
-   YTM e NTN-B só nas séries IPCA (nas DI a YTM é o próprio spread s/ DI).
-   Pontos de fim de trimestre de set/2024 a jun/2026 e de fim de mês a partir de jul/2026.
-   Rotina diária: para cada série com marcação no as_of, se o último ponto for do mesmo mês,
-   substituir; senão, acrescentar. Depois, HIST_REF = as_of. Série cujo último ponto é anterior
-   a HIST_REF (sem marcação) fica congelada. */
-const HIST_REF = '2026-10-19';
-const SPREAD_HIST = {"CESE32":[["2024-09-30",18,239,6.72,6.53],["2024-12-31",17,295,7.93,7.75],["2025-03-31",1,263,7.89,7.88],["2025-06-30",0,230,7.49,7.5],["2025-09-30",-74,146,7.12,7.91],["2025-12-31",-45,182,7.26,7.74],["2026-03-31",-43,193,7.35,7.81],["2026-06-30",-32,211,8.17,8.52],["2026-07-31",-27,220,8.01,8.3],["2026-08-31",-25,225,7.85,8.12],["2026-09-30",21,273,7.83,7.6],["2026-10-19",79,322,7.73,6.89]],"ENEV13":[["2024-09-30",-20,195,6.62,6.84],["2024-12-31",7,290,8.09,8.01],["2025-03-31",-47,214,8.68,9.19],["2025-06-30",-41,210,9.39,9.83],["2025-09-30",-53,195,9.22,9.8],["2025-12-31",-48,179,7.97,8.49],["2026-03-31",-51,182,7.38,7.93],["2026-06-30",-33,202,8.29,8.65],["2026-07-31",-25,208,7.79,8.06],["2026-08-31",-26,202,6.41,6.69],["2026-09-30",71,305,6.35,5.6],["2026-10-19",140,379,6.95,5.47]],"ENEV15":[["2024-09-30",11,232,6.75,6.63],["2024-12-31",17,299,8.08,7.89],["2025-03-31",5,267,8.03,7.98],["2025-06-30",-10,218,7.47,7.58],["2025-09-30",-63,158,7.3,7.98],["2025-12-31",-62,161,7.17,7.84],["2026-03-31",-54,179,7.21,7.79],["2026-06-30",-32,210,8.19,8.53],["2026-07-31",-23,222,7.99,8.24],["2026-08-31",-20,227,7.76,7.97],["2026-09-30",23,270,7.64,7.4],["2026-10-19",68,307,7.59,6.86]],"ENEV16":[["2024-09-30",29,254,6.94,6.63],["2024-12-31",30,314,8.22,7.89],["2025-03-31",21,288,8.21,7.98],["2025-06-30",-5,225,7.52,7.58],["2025-09-30",-59,164,7.34,7.98],["2025-12-31",-53,172,7.26,7.84],["2026-03-31",-44,191,7.31,7.79],["2026-06-30",-35,207,8.15,8.53],["2026-07-31",-22,224,8.01,8.24],["2026-08-31",-16,232,7.8,7.97],["2026-09-30",23,271,7.65,7.4],["2026-10-19",68,307,7.59,6.86]],"ENEV18":[["2024-09-30",29,254,6.84,6.53],["2024-12-31",41,324,8.19,7.75],["2025-03-31",24,294,8.14,7.88],["2025-06-30",-3,232,7.47,7.5],["2025-09-30",-61,166,7.26,7.91],["2025-12-31",-40,192,7.3,7.74],["2026-03-31",-28,212,7.47,7.77],["2026-06-30",-19,227,8.19,8.39],["2026-07-31",-12,241,8.12,8.25],["2026-08-31",-11,243,7.97,8.09],["2026-09-30",30,284,7.92,7.59],["2026-10-19",80,324,7.71,6.85]],"ENEV19":[["2024-09-30",18,241,6.72,6.53],["2024-12-31",37,320,8.16,7.75],["2025-03-31",13,281,8.01,7.88],["2025-06-30",-1,234,7.48,7.5],["2025-09-30",-57,169,7.19,7.81],["2025-12-31",-37,194,7.26,7.66],["2026-03-31",-25,216,7.5,7.77],["2026-06-30",-21,225,8.16,8.39],["2026-07-31",-14,238,8.1,8.25],["2026-08-31",-9,245,7.99,8.09],["2026-09-30",30,284,7.91,7.59],["2026-10-19",88,334,7.79,6.85]],"ENEV26":[["2024-09-30",46,274,6.99,6.5],["2024-12-31",47,327,8.16,7.65],["2025-03-31",42,316,8.06,7.6],["2025-06-30",14,255,7.33,7.18],["2025-09-30",-52,179,7.06,7.62],["2025-12-31",-21,217,7.17,7.39],["2026-03-31",-12,232,7.44,7.56],["2026-06-30",-14,234,7.96,8.11],["2026-07-31",-10,248,8.01,8.12],["2026-08-31",9,270,8.04,7.94],["2026-09-30",45,303,8.05,7.57],["2026-10-19",95,346,7.93,6.91]],"ENEV28":[["2024-09-30",44,271,6.96,6.5],["2024-12-31",49,329,8.18,7.65],["2025-03-31",45,320,8.09,7.6],["2025-06-30",15,257,7.34,7.18],["2025-09-30",-52,180,7.06,7.62],["2025-12-31",-20,218,7.17,7.39],["2026-03-31",-6,239,7.44,7.51],["2026-06-30",-13,236,7.96,8.11],["2026-07-31",-1,258,7.95,7.95],["2026-08-31",8,266,7.86,7.77],["2026-09-30",52,312,8.11,7.54],["2026-10-19",105,358,8.04,6.91]],"ENEV29":[["2024-09-30",36,262,6.89,6.5],["2024-12-31",51,332,8.21,7.65],["2025-03-31",45,320,8.09,7.6],["2025-06-30",13,255,7.32,7.18],["2025-09-30",-50,182,7.08,7.62],["2025-12-31",-20,219,7.18,7.39],["2026-03-31",-14,229,7.36,7.51],["2026-06-30",-10,240,8.0,8.11],["2026-07-31",-4,256,8.07,8.12],["2026-08-31",3,264,7.97,7.94],["2026-09-30",51,310,8.09,7.54],["2026-10-19",103,356,8.03,6.93]],"ENEV32":[["2024-09-30",7,227,6.81,6.74],["2024-12-31",19,305,8.32,8.12],["2025-03-31",0,260,8.09,8.09],["2025-06-30",-12,217,7.78,7.91],["2025-09-30",-61,161,7.55,8.21],["2025-12-31",-52,171,7.45,8.01],["2026-03-31",-40,196,7.42,7.84],["2026-06-30",-36,207,8.4,8.79],["2026-07-31",-28,217,8.18,8.48],["2026-08-31",-23,224,7.69,7.94],["2026-09-30",19,268,7.56,7.36],["2026-10-19",72,318,7.7,6.93]],"ENEV39":[["2024-09-30",53,280,6.98,6.42],["2024-12-31",58,331,7.94,7.31],["2025-03-31",48,323,8.04,7.53],["2025-06-30",28,272,7.34,7.04],["2025-09-30",-33,200,7.02,7.37],["2025-12-31",-2,238,7.25,7.27],["2026-03-31",-1,246,7.39,7.4],["2026-06-30",0,251,7.85,7.85],["2026-07-31",6,269,7.91,7.84],["2026-08-31",16,276,7.82,7.65],["2026-09-30",58,316,7.97,7.35],["2026-10-19",112,364,8.02,6.83]],"ENEV48":[["2024-09-30",86,86],["2024-12-31",103,103],["2025-03-31",93,93],["2025-06-30",78,78],["2025-09-30",84,84],["2025-12-31",90,90],["2026-03-31",99,99],["2026-06-30",81,81],["2026-07-31",82,82],["2026-08-31",80,80],["2026-09-30",79,79],["2026-10-19",82,82]],"ENEVA0":[["2024-09-30",29,254,6.84,6.53],["2024-12-31",33,313,8.07,7.71],["2025-03-31",19,289,8.01,7.8],["2025-06-30",8,247,7.39,7.3],["2025-09-30",-64,164,7.09,7.78],["2025-12-31",-30,207,7.34,7.66],["2026-03-31",-30,211,7.4,7.72],["2026-06-30",-19,228,8.02,8.22],["2026-07-31",-12,244,8.09,8.22],["2026-08-31",-1,257,8.04,8.05],["2026-09-30",36,293,8.01,7.61],["2026-10-19",89,337,7.81,6.86]],"ENEVA3":[["2025-01-31",71,71],["2025-04-30",81,81],["2025-07-31",80,80],["2025-10-31",82,82],["2026-01-30",72,72],["2026-04-30",74,74],["2026-07-31",68,68],["2026-08-31",68,68],["2026-09-30",62,62],["2026-10-19",69,69]],"ENEVA4":[["2026-03-31",-24,221,7.46,7.72],["2026-04-30",14,260,7.67,7.52],["2026-05-29",-2,246,7.68,7.7],["2026-06-30",-11,239,8.0,8.11],["2026-07-31",-7,252,8.04,8.12],["2026-08-31",-1,259,7.93,7.94],["2026-09-30",42,300,8.03,7.57],["2026-10-19",99,351,7.97,6.91]],"ENEVB0":[["2024-09-30",30,254,6.82,6.5],["2024-12-31",44,315,7.78,7.31],["2025-03-31",15,285,7.77,7.6],["2025-06-30",15,256,7.2,7.04],["2025-09-30",-55,177,7.03,7.62],["2025-12-31",-6,233,7.2,7.27],["2026-03-31",-12,232,7.37,7.51],["2026-06-30",-8,242,7.9,7.99],["2026-07-31",-2,258,7.93,7.95],["2026-08-31",4,263,7.81,7.77],["2026-09-30",45,303,8.02,7.54],["2026-10-19",98,350,7.97,6.93]],"ENEVB4":[["2026-03-31",-23,225,7.48,7.72],["2026-04-30",24,270,7.53,7.28],["2026-05-29",20,271,7.68,7.46],["2026-06-30",-5,245,7.8,7.85],["2026-07-31",0,260,7.84,7.84],["2026-08-31",8,267,7.74,7.65],["2026-09-30",52,309,7.91,7.35],["2026-10-19",108,361,7.99,6.83]],"ENEVD0":[["2024-09-30",86,86],["2024-12-31",104,104],["2025-03-31",78,78],["2025-06-30",72,72],["2025-09-30",75,75],["2025-12-31",77,77],["2026-03-31",79,79],["2026-06-30",71,71],["2026-07-31",70,70],["2026-08-31",67,67],["2026-09-30",62,62],["2026-10-19",71,71]]};
-
-const MES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-const isoOf = br => br.split('/').reverse().join('-');
-const tsOf = iso => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10));
-const mesAno = ts => { const d = new Date(ts); return MES[d.getUTCMonth()] + '/' + String(d.getUTCFullYear()).slice(2); };
-const dataBR = ts => { const d = new Date(ts); return String(d.getUTCDate()).padStart(2, '0') + '/' + String(d.getUTCMonth() + 1).padStart(2, '0') + '/' + d.getUTCFullYear(); };
-const sbps = x => (x > 0 ? '+' : '') + x + ' bps';
-const rgba = (hex, a) => 'rgba(' + [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)).join(',') + ',' + a + ')';
-const HCH = {};
-
-const HM = {
-  so:  {lv: x => sbps(x),                     dv: (a, b) => a - b},
-  ir:  {lv: x => x + ' bps',                  dv: (a, b) => a - b},
-  ytm: {lv: x => 'IPCA + ' + nbr(x, 2) + '%', dv: (a, b) => Math.round((a - b) * 100)}
-};
-
-function histPts(b) {
-  const raw = SPREAD_HIST[b.codigo];
-  if (!raw || !raw.length) return [];
-  const pts = raw.map(r => ({t: tsOf(r[0]), d: r[0], so: r[1], ir: r[2],
-    ytm: r[3] != null ? r[3] : null, nb: r[4] != null ? r[4] : null}));
-  const last = pts[pts.length - 1], ref = isoOf(dataRef);
-  if (last.d >= HIST_REF && ref > last.d && b.spreadOver != null) {
-    const ipca = b.idx === 'IPCA', snap = dataRef === SNAP_REF;
-    const so = Math.round(b.spreadOver * 100);
-    const ir = !ipca ? so : (snap && b.spreadEqIR != null ? Math.round(b.spreadEqIR * 100) : null);
-    const cur = {t: tsOf(ref), d: ref, so, ir,
-      ytm: ipca && b.ytm != null ? b.ytm : null,
-      nb: ipca && snap && NTNB_RATE[b.codigo] != null ? NTNB_RATE[b.codigo] : null};
-    if (last.d.slice(0, 7) === ref.slice(0, 7)) pts[pts.length - 1] = cur; else pts.push(cur);
-  }
-  return pts;
-}
-
-function nearest(pts, ts) {
-  return pts.reduce((best, p) => Math.abs(p.t - ts) < Math.abs(best.t - ts) ? p : best, pts[0]);
-}
-
-function histHTML(b) {
-  const all = histPts(b);
-  if (!all.length) return '<div class="hist"><p class="hist-note">Sem histórico disponível para esta série.</p></div>';
-  const ipca = b.idx === 'IPCA', m = ipca ? T.hmode : 'so';
-  const pts = all.filter(p => p[m] != null), cur = pts[pts.length - 1];
-  if (!pts.length) return '<div class="hist"><p class="hist-note">Sem histórico disponível para esta métrica.</p></div>';
-  const DAY = 864e5, F = HM[m];
-  const stat = (lab, v, cls) => '<span>' + lab + '<b class="' + (cls || '') + '">' + v + '</b></span>';
-  const delta = back => {
-    const p = nearest(pts, cur.t - back * DAY);
-    if (p === cur || cur.t - p.t < back * DAY * 0.6) return '';
-    const dv = F.dv(cur[m], p[m]);
-    return stat('Δ desde ' + mesAno(p.t), sbps(dv), dv > 0 ? 'pos' : (dv < 0 ? 'neg' : ''));
-  };
-  const lo = pts.reduce((a, p) => p[m] < a[m] ? p : a, pts[0]);
-  const hi = pts.reduce((a, p) => p[m] > a[m] ? p : a, pts[0]);
-  const frozen = all[all.length - 1].d < HIST_REF;
-  const refLab = !ipca ? 'spread sobre o DI (nas séries DI, a YTM é o próprio spread s/ DI)'
-    : m === 'so' ? 'spread sobre a NTN-B de referência'
-    : m === 'ir' ? 'spread equivalente com IR (gross-up, comparável às séries DI)'
-    : 'YTM = taxa indicativa; linha tracejada = taxa da NTN-B de referência — a faixa entre as duas é, aproximadamente, o spread';
-  let qEnd = null;
-  for (let i = 1; i < pts.length; i++) if (pts[i].t - pts[i - 1].t > 45 * DAY) qEnd = pts[i];
-  const amostra = qEnd ? 'Fechamentos trimestrais até ' + mesAno(qEnd.t) + ' e mensais depois' : 'Fechamentos mensais';
-  const note = 'Fonte: Credit Guide (marcação ANBIMA) · ' + refLab + '. ' + amostra + '; o ponto destacado é a marcação de ' + dataBR(cur.t) + '.' +
-    (ipca && m !== 'ir' ? ' Trocas da NTN-B de referência podem gerar saltos pontuais.' : '') +
-    (frozen ? ' Série sem marcação desde ' + dataBR(cur.t) + ' — histórico encerrado nessa data.' : '');
-  const btn = (k, lab) => '<button type="button" data-m="' + k + '" class="' + (m === k ? 'on' : '') + '">' + lab + '</button>';
-  return '<div class="hist">' +
-    '<div class="hist-head"><div><h3>Histórico ' + (m === 'ytm' ? 'da YTM' : 'do spread') + ' · desde ' + mesAno(pts[0].t) + '</h3><div class="hist-stats">' +
-      stat('Atual', F.lv(cur[m])) + delta(91) + delta(365) +
-      stat('Mín.', F.lv(lo[m]) + ' (' + mesAno(lo.t) + ')') + stat('Máx.', F.lv(hi[m]) + ' (' + mesAno(hi.t) + ')') +
-    '</div></div>' +
-    (ipca ? '<div class="seg hseg" role="group" aria-label="Métrica do histórico">' +
-      btn('so', 'Spread s/ NTN-B') + btn('ir', 'Eq. com IR') + btn('ytm', 'YTM') + '</div>' : '') +
-    '</div>' +
-    '<div class="hist-wrap">' + (hasChart
-      ? '<canvas id="hc-' + b.codigo + '" role="img" aria-label="Histórico ' + (m === 'ytm' ? 'da YTM' : 'do spread') + ' da ' + b.codigo + '"></canvas>'
-      : '<div class="nofall">Não foi possível carregar a biblioteca de gráficos.</div>') + '</div>' +
-    '<p class="hist-note">' + note + '</p></div>';
-}
-
-function histTicks(min, max) {
-  const out = [], step = (max - min) > 400 * 864e5 ? 3 : 1;
-  const d0 = new Date(min);
-  let y = d0.getUTCFullYear(), mo = d0.getUTCMonth() + 1;
-  if (mo > 11) { mo = 0; y++; }
-  while (Date.UTC(y, mo, 1) <= max) {
-    if (mo % step === 0) out.push(Date.UTC(y, mo, 1));
-    mo++; if (mo > 11) { mo = 0; y++; }
-  }
-  return out;
-}
-
-function destroyHist() {
-  Object.keys(HCH).forEach(k => { HCH[k].destroy(); delete HCH[k]; });
-}
-
-function buildHist(b) {
-  const cv = document.getElementById('hc-' + b.codigo);
-  if (!cv || !hasChart) return;
-  const ipca = b.idx === 'IPCA', m = ipca ? T.hmode : 'so', isY = m === 'ytm';
-  const pts = histPts(b).filter(p => p[m] != null);
-  if (!pts.length) return;
-  const n = pts.length;
-  const col = isY ? C.navy : ipca ? (m === 'so' ? C.teal : C.tealDeep) : C.orange;
-  const hot = isY ? C.orange : C.navy;
-  const fmt = y => isY ? 'IPCA + ' + nbr(y, 2) + '%' : (m === 'ir' ? y + ' bps' : sbps(y));
-  const suf = isY ? '' : m === 'ir' ? ' eq. com IR' : (ipca ? ' s/ NTN-B' : ' s/ DI');
-  const pad = 12 * 864e5;
-  const main = {
-    label: isY ? 'YTM (taxa indicativa)' : 'Spread',
-    data: pts.map(p => ({x: p.t, y: p[m]})),
-    borderColor: col, borderWidth: 2.2, tension: 0, clip: false,
-    backgroundColor: rgba(col, 0.10),
-    fill: isY ? {target: '+1', above: rgba(C.navy, 0.07), below: rgba(C.orange, 0.16)} : (m === 'so' ? 'origin' : 'start'),
-    pointRadius: pts.map((_, i) => i === n - 1 ? 5.5 : 3.2),
-    pointBackgroundColor: pts.map((_, i) => i === n - 1 ? hot : '#fff'),
-    pointBorderColor: pts.map((_, i) => i === n - 1 ? hot : col),
-    pointBorderWidth: 1.8, pointHoverRadius: 6.5
-  };
-  const sets = [main];
-  if (isY) sets.push({
-    label: 'NTN-B de referência',
-    data: pts.map(p => ({x: p.t, y: p.nb})),
-    borderColor: '#8E9BA5', borderWidth: 1.6, borderDash: [5, 4], tension: 0, clip: false, fill: false,
-    pointRadius: 2.2, pointBackgroundColor: '#8E9BA5', pointBorderWidth: 0, pointHoverRadius: 4.5, spanGaps: true
-  });
-  HCH[b.codigo] = new Chart(cv, {
-    type: 'line',
-    data: {datasets: sets},
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      animation: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? false : {duration: 350},
-      interaction: {mode: 'nearest', intersect: false, axis: 'x'},
-      layout: {padding: {top: 8, right: 10}},
-      plugins: {
-        legend: {display: isY, position: 'top', align: 'end',
-          labels: {boxWidth: 18, boxHeight: 2, color: C.taupe, font: {size: 11.5, weight: '700'}}},
-        tooltip: {
-          backgroundColor: C.ink, titleColor: '#fff', bodyColor: '#D9E4E6', padding: 11, cornerRadius: 10,
-          displayColors: isY, titleFont: {weight: '700', size: 12.5}, bodyFont: {size: 12.5},
-          callbacks: {
-            title: it => dataBR(it[0].parsed.x) + (it[0].dataIndex === n - 1 ? ' · marcação atual' : ''),
-            label: it => it.datasetIndex === 1 ? 'NTN-B ref.: ' + nbr(it.parsed.y, 2) + '%'
-                       : (isY ? 'YTM: ' : '') + fmt(it.parsed.y) + suf,
-            afterBody: it => isY && pts[it[0].dataIndex] ? ['Spread s/ NTN-B: ' + sbps(pts[it[0].dataIndex].so)] : []
-          }
-        }
-      },
-      scales: {
-        x: {
-          type: 'linear', min: pts[0].t - pad, max: pts[n - 1].t + pad,
-          afterBuildTicks: ax => { ax.ticks = histTicks(pts[0].t, pts[n - 1].t).map(v => ({value: v})); },
-          ticks: {callback: v => mesAno(v), maxRotation: 0, autoSkip: true, autoSkipPadding: 14},
-          grid: {color: C.grid}
-        },
-        y: {
-          grace: isY ? '6%' : '12%',
-          title: {display: true, text: isY ? '% a.a. (IPCA +)' : 'bps', color: C.taupe, font: {weight: '700', size: 11}},
-          ticks: isY ? {callback: v => nbr(v, 2)} : {},
-          grid: {
-            color: ctx => !isY && ctx.tick && ctx.tick.value === 0 ? '#9FAAB2' : C.grid,
-            lineWidth: ctx => !isY && ctx.tick && ctx.tick.value === 0 ? 1.4 : 1
-          }
-        }
-      }
-    }
-  });
-}
-
-function renderEq() {
-  const box = document.getElementById('eqBox'); if (!box) return;
-  const ex = document.getElementById('eqEx');
-  const b = BONDS.find(x => x.codigo === 'ENEV26') ||
-            BONDS.filter(x => x.idx === 'IPCA').sort((a, c) => c.volEmissao - a.volEmissao)[0];
-  const nb = b && dataRef === SNAP_REF ? NTNB_RATE[b.codigo] : null;
-  if (!b || b.ytm == null || b.spreadOver == null || nb == null) { box.style.display = 'none'; ex.textContent = ''; return; }
-  box.style.display = '';
-  const so = Math.round(b.spreadOver * 100);
-  document.getElementById('eqY').textContent = 'IPCA + ' + nbr(b.ytm, 2) + '%';
-  document.getElementById('eqN').textContent = nbr(nb, 2) + '%';
-  document.getElementById('eqS').textContent = sbps(so);
-  let txt = '<b>Exemplo — ' + b.codigo + ' em ' + dataRef + ':</b> NTN-B ' + (b.ntnb || 'de referência') + ' a ' + nbr(nb, 2) +
-    '% + spread de ' + so + ' bps (' + nbr(so / 100, 2) + ' p.p.) ≈ YTM de IPCA + ' + nbr(b.ytm, 2) + '%.';
-  if (b.varYtm30 != null && b.var30 != null) {
-    const dy = Math.round(b.varYtm30 * 100), ds = Math.round(b.var30 * 100), dn = dy - ds;
-    const mv = (x, up, dn_) => x === 0 ? 'ficou estável' : (x > 0 ? up : dn_) + ' ' + Math.abs(x) + ' bps';
-    txt += ' Em 30 dias, o spread ' + mv(ds, 'abriu', 'fechou') + ', a NTN-B ' + (dn === 0 ? 'ficou estável' : (dn > 0 ? 'subiu' : 'caiu') + ' cerca de ' + Math.abs(dn) + ' bps') +
-      ' — e a YTM ' + mv(dy, 'subiu', 'caiu') + '.';
-  }
-  ex.innerHTML = txt;
 }
 
 function renderTable() {
@@ -1769,7 +1517,6 @@ function renderTable() {
     }
   });
   const tb = document.getElementById('tbody');
-  destroyHist();
   if (!list.length) {
     tb.innerHTML = '<tr class="empty"><td colspan="' + COLS.length + '">Nenhuma série encontrada para o filtro atual.</td></tr>';
     return;
@@ -1778,11 +1525,9 @@ function renderTable() {
     const open = T.open.has(b.codigo);
     let h = '<tr class="row' + (open ? ' open' : '') + '" data-c="' + b.codigo + '" tabindex="0" aria-expanded="' + open + '">' +
       COLS.map(c => '<td class="' + (c.left ? 'left' : '') + '">' + c.f(b) + '</td>').join('') + '</tr>';
-    if (open) h += '<tr class="detail"><td colspan="' + COLS.length + '">' + detailHTML(b) + histHTML(b) + '</td></tr>';
+    if (open) h += '<tr class="detail"><td colspan="' + COLS.length + '">' + detailHTML(b) + '</td></tr>';
     return h;
   }).join('');
-  list.forEach(b => { if (T.open.has(b.codigo)) buildHist(b); });
-  renderEq();
 }
 
 thr.addEventListener('click', e => {
@@ -1795,8 +1540,6 @@ thr.addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.target.closest('th') && e.target.closest('th').click(); }
 });
 document.getElementById('tbody').addEventListener('click', e => {
-  const hb = e.target.closest('.hseg button');
-  if (hb) { if (hb.dataset.m !== T.hmode) { T.hmode = hb.dataset.m; renderTable(); } return; }
   const tr = e.target.closest('tr.row'); if (!tr) return;
   const c = tr.dataset.c;
   if (T.open.has(c)) T.open.delete(c); else T.open.add(c);
@@ -1930,7 +1673,7 @@ function renderDestaques() {
   const st = (l, code, s) => '<div class="pr-stat"><div class="l">' + l + '</div><div class="v" style="font-size:19px">' + code + '</div><div class="l" style="margin-top:4px">' + s + '</div></div>';
   el.innerHTML =
     st('Maior abertura · 30d', wid.codigo, bpsTxt(wid.var30) + ' de spread') +
-    st(tig.var30 < 0 ? 'Maior fechamento · 30d' : 'Menor abertura · 30d', tig.codigo, bpsTxt(tig.var30) + ' de spread') +
+    st('Maior fechamento · 30d', tig.codigo, bpsTxt(tig.var30) + ' de spread') +
     st('Mais líquida · 20d', liq.codigo, 'R$ ' + int0(liq.volMed20) + ' mil/dia') +
     (tight ? st('Menor spread (IPCA)', tight.codigo, bpsTxt(tight.spreadOver) + ' s/ NTN-B') : '');
 }
