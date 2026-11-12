@@ -407,7 +407,7 @@ footer p{max-width:62ch}
         <div class="sec-num">02</div>
         <div>
           <h2>Cronograma de vencimentos</h2>
-          <p>Volume de emissão a vencer por ano, segmentado por indexador (R$ milhões).</p>
+          <p>Volume de emissão a vencer por ano, por série (R$ milhões) — cada bloco da barra é uma série, identificada pelo código.</p>
         </div>
       </div>
     </div>
@@ -1763,6 +1763,11 @@ const yearRange = () => {
 };
 const sumY = (g, y) => BONDS.filter(b => b.idx === g && b.vencAno === y)
   .reduce((s, b) => s + (b.volEmissao || 0), 0) / 1e6;
+const matSets = ys => BONDS.filter(b => b.volEmissao)
+  .slice().sort((a, b) => (a.idx === b.idx ? 0 : (a.idx === 'IPCA' ? -1 : 1)) || b.volEmissao - a.volEmissao)
+  .map(b => ({label: b.codigo, idx: b.idx, data: ys.map(y => y === b.vencAno ? b.volEmissao / 1e6 : null),
+              backgroundColor: b.idx === 'IPCA' ? C.teal : C.orange, borderColor: '#fff', borderWidth: 1,
+              borderSkipped: false}));
 const varRows = () => BONDS.filter(b => b[period] != null)
   .map(b => ({c: b.codigo, v: Math.round(b[period] * 100)}))
   .sort((a, b) => b.v - a.v);
@@ -1846,36 +1851,66 @@ function buildCharts() {
     plugins: [ptLabels]
   });
 
-  /* --- 02 · vencimentos --- */
+  /* --- 02 · vencimentos (um segmento por série, com o código escrito na barra) --- */
+  const matLabels = {
+    id: 'matLabels',
+    afterDatasetsDraw(ch) {
+      const ctx = ch.ctx;
+      ctx.save();
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff';
+      const top = {};
+      ch.data.datasets.forEach((ds, di) => ds.data.forEach((v, i) => { if (v != null) top[i] = di; }));
+      ch.data.datasets.forEach((ds, di) => {
+        const meta = ch.getDatasetMeta(di);
+        if (meta.hidden) return;
+        meta.data.forEach((el, i) => {
+          if (ds.data[i] == null) return;
+          const w = el.width, hgt = Math.abs(el.base - el.y), cy = (el.y + el.base) / 2, t = ds.label;
+          for (const fs of [11, 9.5, 8]) {
+            ctx.font = "700 " + fs + "px 'Carlito', Calibri, sans-serif";
+            const tw = ctx.measureText(t).width;
+            if (tw + 6 <= w && hgt >= fs + 3) { ctx.fillText(t, el.x, cy); return; }
+            if (tw + 6 <= hgt && fs + 3 <= w) {
+              ctx.save(); ctx.translate(el.x, cy); ctx.rotate(-Math.PI / 2); ctx.fillText(t, 0, 0); ctx.restore(); return;
+            }
+          }
+          if (top[i] === di) {   /* não coube no bloco do topo: escreve acima da barra */
+            ctx.save(); ctx.font = "700 9.5px 'Carlito', Calibri, sans-serif"; ctx.fillStyle = C.ink;
+            ctx.translate(el.x, el.y - 4); ctx.rotate(-Math.PI / 2); ctx.textAlign = 'left'; ctx.fillText(t, 0, 0);
+            ctx.restore();
+          }
+        });
+      });
+      ctx.restore();
+    }
+  };
   const ys = yearRange();
   matChart = new Chart(document.getElementById('matChart'), {
     type: 'bar',
-    data: {
-      labels: ys,
-      datasets: [
-        {label: 'IPCA', data: ys.map(y => sumY('IPCA', y)), backgroundColor: C.teal,   borderRadius: 4},
-        {label: 'DI',   data: ys.map(y => sumY('DI',   y)), backgroundColor: C.orange, borderRadius: 4}
-      ]
-    },
+    data: {labels: ys, datasets: matSets(ys)},
     options: {
       responsive: true, maintainAspectRatio: false,
+      interaction: {mode: 'index', intersect: false},
       scales: {
         x: {stacked: true, grid: {display: false}},
         y: {stacked: true, title: axTitle('Volume da emissão (R$ milhões)'),
             grid: {color: C.grid}, ticks: {callback: v => int0(v)}}
       },
       plugins: {
-        legend: {position: 'top', align: 'end', labels: {usePointStyle: true, boxWidth: 8, boxHeight: 8, color: C.ink, font: {weight: '700'}}},
-        tooltip: tt({callbacks: {
+        legend: {position: 'top', align: 'end', onClick: null, labels: {
+          usePointStyle: true, boxWidth: 8, boxHeight: 8, color: C.ink, font: {weight: '700'},
+          generateLabels: () => [['IPCA', C.teal], ['DI', C.orange]].map(([t, c]) =>
+            ({text: t, fillStyle: c, strokeStyle: c, pointStyle: 'circle', hidden: false, fontColor: C.ink}))
+        }},
+        tooltip: tt({filter: it => it.raw != null, itemSort: (a, b) => b.datasetIndex - a.datasetIndex,
+          callbacks: {
           title: it => 'Vencimentos em ' + it[0].label,
-          label: it => it.dataset.label + ': R$ ' + int0(it.parsed.y) + ' mi',
-          footer: it => {
-            const y = Number(it[0].label);
-            return BONDS.filter(b => b.vencAno === y).map(b => b.codigo).join(' · ');
-          }
+          label: it => it.dataset.label + ' (' + it.dataset.idx + '): R$ ' + int0(it.parsed.y) + ' mi',
+          footer: it => 'Total no ano: R$ ' + int0(it.reduce((s, x) => s + x.parsed.y, 0)) + ' mi'
         }})
       }
-    }
+    },
+    plugins: [matLabels]
   });
 
   /* --- 03 · variação de spread --- */
@@ -1929,8 +1964,7 @@ function refreshCharts() {
 
   const ys = yearRange();
   matChart.data.labels = ys;
-  matChart.data.datasets[0].data = ys.map(y => sumY('IPCA', y));
-  matChart.data.datasets[1].data = ys.map(y => sumY('DI', y));
+  matChart.data.datasets = matSets(ys);
   matChart.update();
 
   const rows = varRows();
