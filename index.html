@@ -407,7 +407,7 @@ footer p{max-width:62ch}
         <div class="sec-num">02</div>
         <div>
           <h2>Cronograma de vencimentos</h2>
-          <p>Volume de emissão a vencer por ano, por série (R$ milhões) — cada bloco da barra é uma série, identificada pelo código.</p>
+          <p>Volume de emissão a vencer por ano, por série (R$ milhões) — cada bloco da barra é uma série, identificada pelo código e pelo volume.</p>
         </div>
       </div>
     </div>
@@ -1851,11 +1851,21 @@ function buildCharts() {
     plugins: [ptLabels]
   });
 
-  /* --- 02 · vencimentos (um segmento por série, com o código escrito na barra) --- */
+  /* --- 02 · vencimentos (um segmento por série, com o código e o volume escritos na barra) --- */
   const matLabels = {
     id: 'matLabels',
     afterDatasetsDraw(ch) {
-      const ctx = ch.ctx;
+      const ctx = ch.ctx, F = (wt, fs) => wt + ' ' + fs + "px 'Carlito', Calibri, sans-serif";
+      const W = (t, f) => { ctx.font = f; return ctx.measureText(t).width; };
+      const rot = (x, y, fn) => { ctx.save(); ctx.translate(x, y); ctx.rotate(-Math.PI / 2); fn(); ctx.restore(); };
+      /* código (negrito) e volume (R$ mi) na mesma linha, a partir de x (left) ou centrada em x */
+      const line = (c, n, x, y, fs, left) => {
+        const a = W(c, F(700, fs)), b = W('  ' + n, F(400, fs)), x0 = left ? x : x - (a + b) / 2;
+        ctx.save(); ctx.textAlign = 'left';
+        ctx.font = F(700, fs); ctx.fillText(c, x0, y);
+        ctx.font = F(400, fs); ctx.fillText('  ' + n, x0 + a, y);
+        ctx.restore();
+      };
       ctx.save();
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff';
       const top = {};
@@ -1864,21 +1874,42 @@ function buildCharts() {
         const meta = ch.getDatasetMeta(di);
         if (meta.hidden) return;
         meta.data.forEach((el, i) => {
-          if (ds.data[i] == null) return;
-          const w = el.width, hgt = Math.abs(el.base - el.y), cy = (el.y + el.base) / 2, t = ds.label;
-          for (const fs of [11, 9.5, 8]) {
-            ctx.font = "700 " + fs + "px 'Carlito', Calibri, sans-serif";
-            const tw = ctx.measureText(t).width;
-            if (tw + 6 <= w && hgt >= fs + 3) { ctx.fillText(t, el.x, cy); return; }
-            if (tw + 6 <= hgt && fs + 3 <= w) {
-              ctx.save(); ctx.translate(el.x, cy); ctx.rotate(-Math.PI / 2); ctx.fillText(t, 0, 0); ctx.restore(); return;
+          const v = ds.data[i];
+          if (v == null) return;
+          const w = el.width, hgt = Math.abs(el.base - el.y), x = el.x, cy = (el.y + el.base) / 2;
+          const c = ds.label, n = int0(v);
+          /* 1) código em cima e volume embaixo, na horizontal */
+          for (const fs of [11, 10, 9]) {
+            if (Math.max(W(c, F(700, fs)), W(n, F(400, fs - 1))) + 6 <= w && 2 * fs + 3 <= hgt) {
+              ctx.font = F(700, fs); ctx.fillText(c, x, cy - fs * 0.55);
+              ctx.font = F(400, fs - 1); ctx.fillText(n, x, cy + fs * 0.55);
+              return;
             }
           }
-          if (top[i] === di) {   /* não coube no bloco do topo: escreve acima da barra */
-            ctx.save(); ctx.font = "700 9.5px 'Carlito', Calibri, sans-serif"; ctx.fillStyle = C.ink;
-            ctx.translate(el.x, el.y - 4); ctx.rotate(-Math.PI / 2); ctx.textAlign = 'left'; ctx.fillText(t, 0, 0);
-            ctx.restore();
+          /* 2) código e volume numa linha só, na vertical */
+          for (const fs of [11, 9.5, 8.5]) {
+            if (W(c, F(700, fs)) + W('  ' + n, F(400, fs)) + 6 <= hgt && fs + 3 <= w) {
+              rot(x, cy, () => line(c, n, 0, 0, fs)); return;
+            }
           }
+          /* 3) só o código no bloco; no bloco do topo, o volume vai acima da barra */
+          let ok = false;
+          for (const fs of [11, 9.5, 8]) {
+            ctx.font = F(700, fs);
+            const tw = ctx.measureText(c).width;
+            if (tw + 6 <= w && hgt >= fs + 3) { ctx.fillText(c, x, cy); ok = true; break; }
+            if (tw + 6 <= hgt && fs + 3 <= w) { rot(x, cy, () => ctx.fillText(c, 0, 0)); ok = true; break; }
+          }
+          if (top[i] !== di) return;
+          ctx.save(); ctx.fillStyle = C.ink;
+          if (ok) {
+            ctx.font = F(400, 10);
+            if (ctx.measureText(n).width <= w + 8) { ctx.textBaseline = 'bottom'; ctx.fillText(n, x, el.y - 3); }
+            else rot(x, el.y - 4, () => { ctx.textAlign = 'left'; ctx.fillText(n, 0, 0); });
+          } else {   /* nada coube no bloco do topo: código e volume acima da barra */
+            rot(x, el.y - 4, () => line(c, n, 0, 0, 9.5, true));
+          }
+          ctx.restore();
         });
       });
       ctx.restore();
