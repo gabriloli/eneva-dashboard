@@ -407,7 +407,7 @@ footer p{max-width:62ch}
         <div class="sec-num">02</div>
         <div>
           <h2>Cronograma de vencimentos</h2>
-          <p>Volume de emissão a vencer por ano, por série (R$ milhões) — cada bloco da barra é uma série, identificada pelo código e pelo volume.</p>
+          <p>Volume de emissão a vencer por ano, por série (R$ milhões) — cada bloco da barra é uma série, identificada pelo código e pelo volume; acima da barra, o total do ano.</p>
         </div>
       </div>
     </div>
@@ -1868,8 +1868,11 @@ function buildCharts() {
       };
       ctx.save();
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff';
-      const top = {};
-      ch.data.datasets.forEach((ds, di) => ds.data.forEach((v, i) => { if (v != null) top[i] = di; }));
+      /* top: série do topo de cada barra · tot/cnt: total do ano e nº de séries · up: onde o total começa acima da barra */
+      const top = {}, tot = {}, cnt = {}, up = {};
+      ch.data.datasets.forEach((ds, di) => ds.data.forEach((v, i) => {
+        if (v != null) { top[i] = di; tot[i] = (tot[i] || 0) + v; cnt[i] = (cnt[i] || 0) + 1; }
+      }));
       ch.data.datasets.forEach((ds, di) => {
         const meta = ch.getDatasetMeta(di);
         if (meta.hidden) return;
@@ -1901,16 +1904,36 @@ function buildCharts() {
             if (tw + 6 <= hgt && fs + 3 <= w) { rot(x, cy, () => ctx.fillText(c, 0, 0)); ok = true; break; }
           }
           if (top[i] !== di) return;
+          /* barra de uma série só: o total do ano é o próprio volume, que não se repete acima da barra */
+          const one = cnt[i] === 1;
           ctx.save(); ctx.fillStyle = C.ink;
           if (ok) {
-            ctx.font = F(400, 10);
-            if (ctx.measureText(n).width <= w + 8) { ctx.textBaseline = 'bottom'; ctx.fillText(n, x, el.y - 3); }
-            else rot(x, el.y - 4, () => { ctx.textAlign = 'left'; ctx.fillText(n, 0, 0); });
+            if (!one) {
+              ctx.font = F(400, 10);
+              const tw = ctx.measureText(n).width;
+              if (tw <= w + 8) { ctx.textBaseline = 'bottom'; ctx.fillText(n, x, el.y - 3); up[i] = el.y - 15; }
+              else { rot(x, el.y - 4, () => { ctx.textAlign = 'left'; ctx.fillText(n, 0, 0); }); up[i] = el.y - 9 - tw; }
+            }
+          } else if (one) {   /* nada coube no bloco: só o código acima da barra (o volume sai no total) */
+            rot(x, el.y - 4, () => { ctx.textAlign = 'left'; ctx.font = F(700, 9.5); ctx.fillText(c, 0, 0); });
+            up[i] = el.y - 10 - W(c, F(700, 9.5));
           } else {   /* nada coube no bloco do topo: código e volume acima da barra */
             rot(x, el.y - 4, () => line(c, n, 0, 0, 9.5, true));
+            up[i] = el.y - 10 - W(c, F(700, 9.5)) - W('  ' + n, F(400, 9.5));
           }
           ctx.restore();
         });
+      });
+      /* total do ano acima de cada barra (na vertical quando não cabe na largura da categoria) */
+      const catW = ch.scales.x.width / Math.max(1, ch.data.labels.length);
+      Object.keys(tot).forEach(k => {
+        const i = +k, el = ch.getDatasetMeta(top[i]).data[i];
+        if (!el) return;
+        const t = int0(tot[i]), y0 = up[i] != null ? up[i] : el.y - 3;
+        ctx.save(); ctx.fillStyle = C.ink; ctx.font = F(700, 11);
+        if (ctx.measureText(t).width + 4 <= catW) { ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(t, el.x, y0); }
+        else rot(el.x, y0 - 1, () => { ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(t, 0, 0); });
+        ctx.restore();
       });
       ctx.restore();
     }
@@ -1924,7 +1947,7 @@ function buildCharts() {
       interaction: {mode: 'index', intersect: false},
       scales: {
         x: {stacked: true, grid: {display: false}},
-        y: {stacked: true, title: axTitle('Volume da emissão (R$ milhões)'),
+        y: {stacked: true, title: axTitle('Volume da emissão (R$ milhões)'), grace: '10%',
             grid: {color: C.grid}, ticks: {callback: v => int0(v)}}
       },
       plugins: {
@@ -1944,6 +1967,23 @@ function buildCharts() {
     plugins: [matLabels]
   });
 
+  /* --- 03 e 04 · valor escrito na ponta de cada barra horizontal --- */
+  const barVal = fmt => ({
+    id: 'barVal',
+    afterDatasetsDraw(ch) {
+      const ctx = ch.ctx, d = ch.data.datasets[0].data;
+      ctx.save();
+      ctx.font = "700 10.5px 'Carlito', Calibri, sans-serif"; ctx.fillStyle = C.ink; ctx.textBaseline = 'middle';
+      ch.getDatasetMeta(0).data.forEach((el, i) => {
+        const v = d[i];
+        if (v == null) return;
+        ctx.textAlign = v < 0 ? 'right' : 'left';
+        ctx.fillText(fmt(v), el.x + (v < 0 ? -4 : 4), el.y);
+      });
+      ctx.restore();
+    }
+  });
+
   /* --- 03 · variação de spread --- */
   const rows = varRows();
   varChart = new Chart(document.getElementById('varChart'), {
@@ -1953,7 +1993,7 @@ function buildCharts() {
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       scales: {
-        x: {title: axTitle('Variação do spread (bps)'),
+        x: {title: axTitle('Variação do spread (bps)'), grace: '20%',
             grid: {color: ctx => ctx.tick && ctx.tick.value === 0 ? '#9AA7AE' : C.grid}},
         y: {grid: {display: false}, ticks: {font: {size: 11, weight: '700'}, color: C.ink}}
       },
@@ -1961,7 +2001,8 @@ function buildCharts() {
         legend: {display: false},
         tooltip: tt({callbacks: {label: it => (it.parsed.x > 0 ? '+' : '') + it.parsed.x + ' bps'}})
       }
-    }
+    },
+    plugins: [barVal(v => (v > 0 ? '+' : '') + v)]
   });
 
   /* --- 04 · liquidez --- */
@@ -1974,14 +2015,15 @@ function buildCharts() {
     options: {
       indexAxis: 'y', responsive: true, maintainAspectRatio: false,
       scales: {
-        x: {title: axTitle('Volume médio · 20 pregões'), grid: {color: C.grid}, ticks: {callback: v => int0(v)}},
+        x: {title: axTitle('Volume médio · 20 pregões'), grace: '25%', grid: {color: C.grid}, ticks: {callback: v => int0(v)}},
         y: {grid: {display: false}, ticks: {font: {size: 11, weight: '700'}, color: C.ink}}
       },
       plugins: {
         legend: {display: false},
         tooltip: tt({callbacks: {label: it => 'Vol. médio 20d: ' + int0(it.parsed.x)}})
       }
-    }
+    },
+    plugins: [barVal(v => int0(v))]
   });
 }
 
